@@ -1,14 +1,13 @@
 /**
  * https://www.luogu.com.cn/problem/P1160
  */
-#include <iostream>
-#include <list>
+#include <bits/stdc++.h>
 
 const int N = 1e5 + 9;
 
 std::list<int> nums;
-std::list<int>::iterator pos[N]; // 同学i的迭代器
-bool vis[N]; // 优化
+std::list<int>::iterator pos[N];  // 同学i的迭代器
+bool vis[N];                      // 优化
 
 int main() {
     int n;
