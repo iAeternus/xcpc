@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-const int N = 1e3 + 5;
+const int N = 5e5 + 7;
 
 /**
  * 树状数组
