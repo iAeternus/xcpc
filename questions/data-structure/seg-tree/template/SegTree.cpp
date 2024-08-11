@@ -49,19 +49,23 @@ private:
 
     void addTag(int p, int pLeft, int pRight, T val) {
         tag[p] += val;
-        tree[p] += (val * (pRight - pLeft + 1));
+        tree[p] += val * (pRight - pLeft + 1);
     }
 
     void pushDown(int p, int pLeft, int pRight) {
+        // 区间有lazy标记
         if (tag[p]) {
             int mid = GET_MID(pLeft, pRight);
+            // 下传lazy标记到子区间
             addTag(LEFT_SON(p), pLeft, mid, tag[p]);
             addTag(RIGHT_SON(p), mid + 1, pRight, tag[p]);
+            // 清除当前区间的lazy标记
             tag[p] = 0;
         }
     }
 
     void build(const std::vector<T>& nums, int p, int pLeft, int pRight) {
+        // 初始化lazy标记为0
         tag[p] = 0;
         if (pLeft == pRight) {
             tree[p] = nums[pLeft];
@@ -74,31 +78,42 @@ private:
     }
 
     void update(int left, int right, int p, int pLeft, int pRight, T val) {
+        // 如果要修改的区间完全覆盖当前区间
         if (left <= pLeft && pRight <= right) {
+            // 更新这个区间，打上lazy标记
             addTag(p, pLeft, pRight, val);
             return;
         }
+        // 如果没有完全覆盖，下传lazy标记
         pushDown(p, pLeft, pRight);
         int mid = GET_MID(pLeft, pRight);
+        // 修改区间与左儿子有交集，搜索左儿子
         if (left <= mid) {
             update(left, right, LEFT_SON(p), pLeft, mid, val);
         }
+        // 搜索区间与右儿子有交集，搜索右儿子
         if (right > mid) {
             update(left, right, RIGHT_SON(p), mid + 1, pRight, val);
         }
+        // 将当前区间的值更新
         pushUp(p);
     }
 
     T query(int left, int right, int p, int pLeft, int pRight) {
+        // 如果要修改的区间完全覆盖当前区间
         if (left <= pLeft && pRight <= right) {
+            // 直接返回当前区间的值
             return tree[p];
         }
+        // 如果没有完全覆盖，下传lazy标记
         pushDown(p, pLeft, pRight);
         T res = 0;
         int mid = GET_MID(pLeft, pRight);
+        // 修改区间与左儿子有交集，搜索左儿子
         if (left <= mid) {
             res = mergeFunc(res, query(left, right, LEFT_SON(p), pLeft, mid));
         }
+        // 搜索区间与右儿子有交集，搜索右儿子
         if (right > mid) {
             res = mergeFunc(res, query(left, right, RIGHT_SON(p), mid + 1, pRight));
         }
