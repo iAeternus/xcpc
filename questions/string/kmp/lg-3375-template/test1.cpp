@@ -8,7 +8,7 @@
  * @par t 模式串
  * @return next数组
  */
-std::vector<int> get_next(std::string t) {
+std::vector<int> get_next(const std::string& t) {
     int m = t.size();
     std::vector<int> next(m, 0);
     int j = 0;  // j为模式串中已匹配的前缀长度
@@ -30,7 +30,7 @@ std::vector<int> get_next(std::string t) {
  * @par t 模式串
  * @return t在s中出现的所有位置（起始索引），若不存在，则返回空列表
  */
-std::vector<int> kmp(std::string s, std::string t) {
+std::vector<int> kmp(const std::string& s, const std::string& t) {
     std::vector<int> res;
     std::vector<int> next = get_next(t);
     int n = s.size(), m = t.size();
