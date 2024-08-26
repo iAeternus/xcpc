@@ -9,7 +9,7 @@ int cnt = 0;
 
 void init() {
     // 点初始化
-    for (POINT& h : head) {
+    for (auto& h : head) {
         h = -1;
     }
     // 边初始化
