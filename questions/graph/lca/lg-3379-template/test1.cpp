@@ -42,6 +42,7 @@ public:
 
     /**
      * 初始化
+     * O(n)
      * @par root 根节点
      */
     void init(int root = 1) {
@@ -51,6 +52,7 @@ public:
 
     /**
      * 求解lca
+     * O(log n)
      * @par x 节点x
      * @par y 节点y
      * @return 返回节点x和节点y的LCA节点
