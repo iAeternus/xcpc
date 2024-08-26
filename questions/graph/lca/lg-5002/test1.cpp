@@ -59,8 +59,8 @@ void dfs(int cur, int parent) {
         if(neighbor == parent) {
             return; // continue
         }
-
         dfs(neighbor, cur);
+        
         size[cur] += size[neighbor];
         sum[cur] += size[neighbor] * size[neighbor];
     });
