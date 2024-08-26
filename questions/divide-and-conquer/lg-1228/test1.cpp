@@ -52,8 +52,8 @@ void show(int x, int y, int idx) {
     }
 
     // test
-    print_mp();
-    puts("=========================================");
+    // print_mp();
+    // puts("=========================================");
 }
 #else
 void show(int x, int y, int idx) {
@@ -122,4 +122,6 @@ int main() {
     std::cin >> k >> x >> y;
     init(x, y);
     dfs_facade(k, x, y);
+    
+    print_mp();
 }
