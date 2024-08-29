@@ -46,7 +46,13 @@ void add_edge(int from, int to, int weight) {
 /**
  * 遍历cur的邻接结点
  * @par cur 当前节点
- * @par func 对邻接结点的操作逻辑
+ * @par func 对邻接结点的操作逻辑，参数为邻接节点的索引
+ * @brief 可以使用以下代码遍历邻接节点
+ *      for_each(cur, [&](int i) {
+ *          int neighbor = edge[i].to;
+ *          int weight = edge[i].weight;
+ *          ...
+ *      })
  */
 void for_each(int cur, const std::function<void(int)>& func) {
     for(int i = head[cur]; ~i; i = edge[i].next) {

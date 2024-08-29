@@ -51,6 +51,11 @@ static void dfs_algorithm(int u, const std::function<void(int)>& func) {
     });
 }
 
+/**
+ * 深度优先搜索
+ * @par u 搜索起点
+ * @par func 对图节点的操作逻辑，参数为
+ */
 void dfs(int u, const std::function<void(int)>& func) {
     init_vis();
     dfs_algorithm(u, func);
@@ -106,6 +111,12 @@ WEIGHT dijkstra(int s, int t) {
     return dist[t];
 }
 
+/**
+ * SPFA算法求最短路径
+ * @par s 起点
+ * @par t 终点
+ * @return 最短路径权重
+ */
 WEIGHT SPFA(int s, int t) {
     WEIGHT dist[N];
     std::queue<int> q;
