@@ -60,7 +60,7 @@ int find(char* s) {
 }
 
 int main() {
-    freopen("P2580_1.in", "r", stdin);
+    // freopen("P2580_1.in", "r", stdin);
 
     int n;
     scanf("%d", &n);
