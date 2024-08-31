@@ -1,5 +1,5 @@
 // g++ test1.cpp matrix.h -o test1
-#include <bits/stdc++.h>
+#include <iostream>
 
 #include "matrix.h"
 

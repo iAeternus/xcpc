@@ -1,15 +1,17 @@
 /**
  * @brief 矩阵及其常见算法
+ * @note cpp20
  * @author ricky
  * @date 2024/8/31
- * @version 1.0
+ * @version 2.0
  */
 #ifndef MATRIX_H
 #define MATRIX_H
 
 #include <cassert>
-#include <iostream>
+#include <vector>
 #include <stdexcept>
+#include <cmath>
 
 /**
  * 泛型参数只允许为可计算的数字类型
@@ -59,17 +61,14 @@ public:
      */
     Matrix(const std::initializer_list<std::initializer_list<T>> &init)
             : rows(init.size()), cols(init.begin()->size()), data(this->rows, std::vector<T>(this->cols)) {
-        size_t i = 0, j;
-        for (const auto &row: init) {
-            j = 0;
-            if (row.size() != this->cols) {
+        auto row_it = init.begin();
+        for(auto& row : data) {
+            if (row_it->size() != cols) {
                 throw std::runtime_error("Each row of the matrix must have an equal number of elements.");
             }
-            for (const auto &val: row) {
-                data[i][j] = val;
-                ++j;
-            }
-            ++i;
+
+            row.assign(row_it->begin(), row_it->end());
+            ++row_it;
         }
     }
 
@@ -398,6 +397,8 @@ public:
         }
         return ans;
     }
+
+    // TODO 求行列式、逆矩阵、转置矩阵、求秩、LU分解、Cholesky分解
 
 private:
     size_t rows;  // 行数
