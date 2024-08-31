@@ -1,17 +1,7 @@
 /**
- * @brief 矩阵及其常见算法
- * @note cpp20
- * @author ricky
- * @date 2024/8/31
- * @version 2.0
+ * @see http://poj.org/problem?id=1681
  */
-#ifndef MATRIX_H
-#define MATRIX_H
-
-#include <cassert>
-#include <vector>
-#include <stdexcept>
-#include <cmath>
+#include <bits/stdc++.h>
 
 /**
  * 泛型参数只允许为可计算的数字类型
@@ -384,15 +374,7 @@ public:
         return true;
     }
 
-    /**
-     * 解异或线性方程组
-     * O(n^3)
-     * 适用于01矩阵
-     * 使用高斯-约当消元法
-     * @par m 线性方程组矩阵，函数将其变换为简化阶梯矩阵
-     * @return true=方程有唯一解 false=方程没有唯一解
-     */
-    static auto solve_xor_linear_systems(Matrix<int> &m) -> bool {
+    static auto solve_xor_linear_systems(Matrix<bool> &m) -> bool {
         const size_t n = m.rows;
         if (m.cols - n != 1) {
             throw std::runtime_error("Incorrect linear equations.");
@@ -419,12 +401,17 @@ public:
             for (size_t j = 0; j < n; ++j) {
                 if (i != j && m[j][i]) {
                     for (size_t k = i; k < m.cols; ++k) {
-                        m[j][k] ^= m[i][k];
+                        m[j][k] = m[j][k] ^ m[i][k];
                     }
                 }
             }
         }
-        return true;
+
+        // 检查解是否合法（例如，检查常数列是否全为0）
+        // 在异或方程组中，如果所有未知数都已被确定，这一步通常是多余的
+        // 但可以添加额外的逻辑来验证解的正确性
+
+        return true;  // 方程有唯一解
     }
 
     /**
@@ -443,21 +430,7 @@ public:
         return ans;
     }
 
-    /**
-     * 求转置矩阵
-     * @return 返回转置矩阵
-     */
-    auto t() const -> Matrix {
-        Matrix ans(cols, rows);
-        for(size_t i = 0; i < rows; ++i) {
-            for(size_t j = 0; j < cols; ++j) {
-                ans[j][i] = data[i][j];
-            }
-        }
-        return ans;
-    }
-
-    // TODO 求行列式、逆矩阵、求秩、LU分解、Cholesky分解
+    // TODO 求行列式、逆矩阵、转置矩阵、求秩、LU分解、Cholesky分解
 
 private:
     size_t rows;  // 行数
@@ -495,4 +468,31 @@ private:
     }
 };
 
-#endif  // MATRIX_H
+int main() {
+    int t;
+    std::cin >> t;
+
+    Matrix<bool> m;
+    while(t--) {
+        int n;
+        std::cin >> n;
+
+        std::string line;
+        for(int i = 0; i < n; ++i) {
+            std::cin >> line;
+            for(int j = 0; j < line.size(); ++j) {
+                if(line[j] == 'Y') {
+                    m[i][j] = true;
+                } else {
+                    m[i][j] = false;
+                }
+            }
+        }
+
+        if (Matrix<bool>::solve_xor_linear_systems(m)) {
+            // TODO
+        } else {
+            std::cout << "inf\n";
+        }
+    }
+}

@@ -159,6 +159,44 @@ auto solve_linear_systems3() -> void {
     }
 }
 
+auto solve_xor_linear_systems1() -> void {
+    // Given
+    Matrix<int> a = {
+        {1, 1, 1, 0},
+        {1, 1, 1, 0},
+        {1, 1, 1, 0},
+    };
+
+    // When
+    bool res = Matrix<int>::solve_xor_linear_systems(a);
+
+    // Then
+    if(res) {
+        std::cout << "Solution is: ";
+        std::vector<int> sol = a.get_solution();
+        for(const auto& v : sol) {
+            std::cout << v << ' ';
+        }
+        std::cout << std::endl;
+    } else {
+        std::cout << "no unique solution\n";
+    }
+}
+
+void t() {
+    // Given
+    Matrix<int> a = {
+        {1, 2, 3},
+        {4, 5, 6},
+    };
+
+    // When
+    Matrix<int> res = a.t();
+
+    // Then
+    std::cout << res << std::endl;
+}
+
 auto main() -> int {
     basic();
     add();
@@ -169,4 +207,6 @@ auto main() -> int {
     solve_linear_systems1();
     solve_linear_systems2();
     solve_linear_systems3();
+    solve_xor_linear_systems1();
+    t();
 }
