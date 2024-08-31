@@ -4,7 +4,8 @@ using ll = long long;
 
 /**
  * 乘法取模
- * 连续执行 a * 2和 b / 2，直到 b为 0
+ * @note O(log b)
+ * @note 连续执行 a * 2和 b / 2，直到 b为 0
  * @note m > a 时 mul会出错
  * @par a 乘数
  * @par b 乘数
