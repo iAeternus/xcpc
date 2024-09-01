@@ -22,10 +22,14 @@ ll lcm(ll a, ll b) {
     return a / gcd(a, b) * b;
 }
 
-int main() {
+void test() {
     ll a = 34;
     ll b = 85;
 
     std::cout << gcd(a, b) << std::endl;
     std::cout << lcm(a, b) << std::endl;
+}
+
+int main() {
+    test();
 }
