@@ -183,7 +183,7 @@ auto solve_xor_linear_systems1() -> void {
     }
 }
 
-void t() {
+auto t() -> void {
     // Given
     Matrix<int> a = {
         {1, 2, 3},
