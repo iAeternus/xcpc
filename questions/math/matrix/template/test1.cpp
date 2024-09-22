@@ -1,5 +1,6 @@
 // g++ test1.cpp matrix.h -o test1
 #include <iostream>
+#include <array>
 
 #include "matrix.h"
 

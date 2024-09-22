@@ -23,8 +23,8 @@ ll lcm(ll a, ll b) {
 }
 
 void test() {
-    ll a = 34;
-    ll b = 85;
+    ll a = 1234;
+    ll b = 5678;
 
     std::cout << gcd(a, b) << std::endl;
     std::cout << lcm(a, b) << std::endl;
