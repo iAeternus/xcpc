@@ -71,7 +71,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "stdio.h": "c"
     },
     "cSpell.words": [
         "codeforces",
