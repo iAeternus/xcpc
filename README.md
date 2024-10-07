@@ -1,2 +1,2 @@
-# ICPC模板、luogu练习、codeforces比赛
+# XCPC模板、luogu练习、codeforces比赛
 
