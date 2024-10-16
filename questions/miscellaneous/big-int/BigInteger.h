@@ -55,6 +55,7 @@ public:
     BigInteger& divide(const long long);
     BigInteger& mod(const long long);
     BigInteger* divide_and_remainder(const long long);
+    BigInteger pow(long long);
 
     BigInteger& operator+=(const BigInteger&);
     BigInteger& operator-=(const BigInteger&);

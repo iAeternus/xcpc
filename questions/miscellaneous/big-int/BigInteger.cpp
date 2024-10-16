@@ -67,7 +67,7 @@ BigInteger& BigInteger::constructor(long long num) {
 
 BigInteger& BigInteger::constructor(const std::string& str) {
     this->__valid_number(str);
-    int start_index = 0, str_length = str.length();
+    size_t start_index = 0, str_length = str.length();
     if (str[0] == '-') {
         this->__flag = false;
         ++start_index;
@@ -83,7 +83,7 @@ BigInteger& BigInteger::constructor(const std::string& str) {
     }
     this->__num_length = 0;
 
-    for (int i = str_length - 1; i >= start_index; --i) {
+    for (size_t i = str_length - 1; i >= start_index; --i) {
         this->__num[this->__num_length++] = str[i] - '0';
     }
 
@@ -125,7 +125,7 @@ BigInteger& BigInteger::operator=(const BigInteger& bi) {
 BigInteger::~BigInteger() {
     delete[] this->__num;
     this->__num = nullptr;
-    for (int i = 0; i < this->__new_bi_location_length; i++) {
+    for (size_t i = 0; i < this->__new_bi_location_length; i++) {
         delete[] this->__new_bi_location[i];
         this->__new_bi_location[i] = nullptr;
     }
@@ -313,6 +313,18 @@ BigInteger* BigInteger::divide_and_remainder(const long long li) {
     return ans;
 }
 
+BigInteger BigInteger::pow(long long power) {
+    BigInteger a(*this), ans(1);
+    while(power) {
+        if(power & 1) {
+            ans *= a;
+        }
+        a *= a;
+        power >>= 1;
+    }
+    return ans;
+}
+
 BigInteger& BigInteger::operator+=(const BigInteger& bi) {
     this->add(bi);
     return *this;
@@ -483,7 +495,7 @@ long long BigInteger::to_integer(bool check_overflow) const {
     }
 
     long long ans = 0, cnt = 1;
-    for(int i = 0; i < this->__num_length; ++i, cnt *= 10) {
+    for(size_t i = 0; i < this->__num_length; ++i, cnt *= 10) {
         ans += cnt * this->__num[i];
     }
     return this->__flag ? ans : -ans;
@@ -660,26 +672,26 @@ size_t BigInteger::__resize(unsigned short*& num, size_t length, size_t pre_len)
 }
 
 void BigInteger::__add(const BigInteger& a, const BigInteger& b, BigInteger& c) {
-    int a_length = a.__num_length, b_length = b.__num_length;
-    int min_length = a_length < b_length ?
+    size_t a_length = a.__num_length, b_length = b.__num_length;
+    size_t min_length = a_length < b_length ?
                         (b_length + 1 > c.__num_size ? (c.__num_size = this->__resize(c.__num, b_length + 1, c.__num_length)) : a_length) :
                         (a_length + 1 > c.__num_size ? (c.__num_size = this->__resize(c.__num, a_length + 1, c.__num_length)) : b_length);
 
     c.__num_length = 0;
     unsigned short res, t = 0;
-    for(int i = 0; i < min_length; ++i) {
+    for(size_t i = 0; i < min_length; ++i) {
         res = a.__num[i] + b.__num[i] + t;
         t = res / 10;
         c.__num[c.__num_length++] = res % 10;
     }
     if(a_length > b_length) {
-        for (int i = min_length; i < a_length; ++i) {
+        for (size_t i = min_length; i < a_length; ++i) {
             res = a.__num[i] + t;
             t = res / 10;
             c.__num[c.__num_length++] = res % 10;
         }
     } else if(a_length < b_length) {
-        for (int i = min_length; i < b_length; ++i) {
+        for (size_t i = min_length; i < b_length; ++i) {
             res = b.__num[i] + t;
             t = res / 10;
             c.__num[c.__num_length++] = res % 10;
@@ -691,19 +703,19 @@ void BigInteger::__add(const BigInteger& a, const BigInteger& b, BigInteger& c) 
 }
 
 void BigInteger::__subtract(const BigInteger& a, const BigInteger& b, BigInteger& c) {
-    int a_length = a.__num_length, b_length = b.__num_length;
+    size_t a_length = a.__num_length, b_length = b.__num_length;
     if(c.__num_size < a_length) {
         c.__num_size = this->__resize(c.__num, a_length, c.__num_size);
     }
     c.__num_length = 0;
     short res, t = 0;
-    for(int i = 0; i < b_length; ++i) {
+    for(size_t i = 0; i < b_length; ++i) {
         res = a.__num[i] - b.__num[i] - t;
         t = 0;
         c.__num[c.__num_length++] = res >= 0 ? res : (t = 1, res + 10);
     }
     if(a_length != b_length) {
-        for (int i = b_length; i < a_length; i++) {
+        for (size_t i = b_length; i < a_length; i++) {
             res = a.__num[i] - t;
             t = 0;
             c.__num[c.__num_length++] = res >= 0 ? res : (t = 1, res + 10);
@@ -713,14 +725,14 @@ void BigInteger::__subtract(const BigInteger& a, const BigInteger& b, BigInteger
 }
 
 void BigInteger::__multiply(const BigInteger& a, const BigInteger& b, BigInteger& c) {
-    int a_length = a.__num_length, b_length = b.__num_length;
+    size_t a_length = a.__num_length, b_length = b.__num_length;
     BigInteger ans;
     ans.__num_size = this->__newsize(ans.__num, a_length + b_length + 1);
     ans.__num_length = a_length + b_length;
     unsigned short t;
-    for(int i = 0; i < a_length; ++i) {
+    for(size_t i = 0; i < a_length; ++i) {
         t = 0;
-        for(int j = 0; j < b_length; ++j) {
+        for(size_t j = 0; j < b_length; ++j) {
             ans.__num[i + j] += a.__num[i] * b.__num[j] + t;
             t = ans.__num[i + j] / 10;
             ans.__num[i + j] %= 10;
@@ -737,7 +749,7 @@ void BigInteger::__divide_mod_bi(const BigInteger& a, const BigInteger& b, BigIn
     remainder.swap(cp_a);
     temp.__flag = remainder.__flag = true;
 
-    int pre_len = divider.__num_length;
+    size_t pre_len = divider.__num_length;
     divider.__num_length = a.__num_length - b.__num_length + 1;
 
     if (divider.__num_length > divider.__num_size) {
@@ -746,7 +758,7 @@ void BigInteger::__divide_mod_bi(const BigInteger& a, const BigInteger& b, BigIn
 
     for (int i = divider.__num_length - 1; i >= 0; i--) {
         memset(temp.__num, 0, sizeof(i + b.__num_length));
-        for (int j = 0; j < b.__num_length; j++) {
+        for (size_t j = 0; j < b.__num_length; j++) {
             temp.__num[j + i] = b.__num[j];
         }
         temp.__num_length = b.__num_length + i;

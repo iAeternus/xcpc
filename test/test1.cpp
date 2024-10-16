@@ -1,18 +1,13 @@
 #include <bits/stdc++.h>
 
 int main() {
-    std::set<std::pair<int, int>> st = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+    // int i, sum;
+    // int a[] = {1, 2, 3, 4, 5};
+    // i = 1;
+    // sum = i + 1;
+    // std::cout << sum;
+    // std::cout << a[3];
 
-    // for(int i = 0; i < st.size(); ++i) {
-    //     std::cout << st[i].first << ' ' << std::endl;
-    // }
-
-    for (const auto& it : st) {
-        std::cout << it.first << ' ' << it.second << std::endl;
-    }
-
-    // C++ 17
-    for (const auto& [x, y] : st) {
-        std::cout << x << ' ' << y << std::endl;
-    }
+    std::map<int, int> mp = {{1, 2}, {1, 3}};
+    std::cout << 1;
 }

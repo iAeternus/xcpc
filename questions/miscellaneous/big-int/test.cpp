@@ -82,8 +82,21 @@ void test_conversion() {
     assert(r4 == false);
 }
 
+void test_pow() {
+    // Given
+    BigInteger a(2);
+    long long n = 1000;
+
+    // When
+    BigInteger r = a.pow(n);
+
+    // Then
+    std::cout << r << std::endl;
+}
+
 int main() {
     // test_basic();
     test_operates();
     test_conversion();
+    // test_pow();
 }
