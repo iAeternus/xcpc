@@ -5,7 +5,9 @@
 
 const int N = 1e2 + 3;
 const int MAX_N = 1e4 + 5;
-int k, m, l, h, f[N], sg[MAX_N], s[MAX_N];
+int k, m, l, h;
+
+int f[N], sg[MAX_N], s[MAX_N];
 
 void getSG(int numF, int n) {
     memset(sg, 0, sizeof(sg));
