@@ -92,7 +92,8 @@
         "stdfloat": "cpp",
         "stop_token": "cpp",
         "syncstream": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "cassert": "cpp"
     },
     "cSpell.words": [
         "codeforces",
