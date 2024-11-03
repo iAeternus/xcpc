@@ -13,9 +13,11 @@ include_directories("${CMAKE_SOURCE_DIR}/include/core"
                     "${CMAKE_SOURCE_DIR}/include/common")
 
 message(STATUS "TEST_SOURCES: ${TEST_SOURCES}")
+message(STATUS "CORE_SOURCES: ${CORE_SOURCES}")
+message(STATUS "COMMON_SOURCES: ${COMMON_SOURCES}")
 
-add_executable(better-ds-tests ${TEST_SOURCES} 
+add_executable(better-utils-tests ${TEST_SOURCES} 
                                 ${CORE_SOURCES}
                                 ${COMMON_SOURCES})
 
-add_test(NAME better-ds-tests COMMAND $<TARGET_FILE:better-ds-tests>)
+add_test(NAME better-utils-tests COMMAND $<TARGET_FILE:better-utils-tests>)

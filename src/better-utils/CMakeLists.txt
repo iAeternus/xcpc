@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(better-ds VERSION 1.0 LANGUAGES CXX DESCRIPTION "Better Data Structure for XCPC")
+project(better-utils VERSION 1.0 LANGUAGES CXX DESCRIPTION "Better Utils for Engineering Projects")
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -11,8 +11,10 @@ include_directories("${CMAKE_SOURCE_DIR}/include/core"
                     "${CMAKE_SOURCE_DIR}/include/common")
 
 message(STATUS "SOURCES: ${SOURCES}")
+message(STATUS "CORE_SOURCES: ${CORE_SOURCES}")
+message(STATUS "COMMON_SOURCES: ${COMMON_SOURCES}")
 
-add_executable(better-ds ${SOURCES}
+add_executable(better-utils ${SOURCES}
                             ${CORE_SOURCES}
                             ${COMMON_SOURCES})
 

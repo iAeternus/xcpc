@@ -1,4 +1,5 @@
 #include "test_binary_search_tree.h"
+#include "test_algorithm.h"
 
 #include <iostream>
 
@@ -12,5 +13,9 @@ static void printTestEnd() {
 
 int main() {
     printTestStart();
+
+    test_binary_search_tree();
+    test_algorithm();
+
     printTestEnd();
 }
