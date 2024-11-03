@@ -10,6 +10,7 @@
 #include "IndexOutOfBoundsException.h"
 
 #include <cstddef>
+#include <functional>
 
 class ArrayUtils {
 public:
@@ -35,10 +36,25 @@ public:
     template<typename T>
     static T* binarySearch(T* arrBegin, T* arrEnd, const T& target);
 
+    /**
+     * @brief 计算长度，区间 [arrBegin, arrEnd]
+     * @param from 起始地址
+     * @param to 终止地址
+     * @return 返回指针间距长度
+     */
     template<typename T>
-    static std::size_t getSize(const T* arrBegin, const T* arrEnd);
+    static std::size_t getSize(const T* from, const T* to);
+
+    /**
+     * @brief 直接插入排序，O(n^2)
+     * @param arrBegin 数组起始地址
+     * @param arrEnd 结尾后继的地址
+     */
+    template<typename T>
+    static void insertionSort(T* arrBegin, T* arrEnd, const std::function<bool(const T&, const T&)>& comparator = std::less<T>{});
 
 private:
+    // Deprecated
     static bool checkRange(std::size_t n, std::size_t l, std::size_t r);
 
     template<typename T>
@@ -51,10 +67,9 @@ T* ArrayUtils::linearSearch(T* arrBegin, T* arrEnd, const T& target) {
         throw IndexOutOfBoundsException();
     }
 
-    T* p = arrBegin;
-    while(p != arrEnd) {
-        if(*p++ == target) {
-            return p - 1;
+    for(T* p = arrBegin; p != arrEnd; ++p) {
+        if(*p == target) {
+            return p;
         }
     }
     return nullptr;
@@ -82,12 +97,28 @@ T* ArrayUtils::binarySearch(T* arrBegin, T* arrEnd, const T& target) {
 }
 
 template<typename T>
-std::size_t ArrayUtils::getSize(const T* arrBegin, const T* arrEnd) {
+std::size_t ArrayUtils::getSize(const T* from, const T* to) {
+    if(!checkRange(from, to)) {
+        throw IndexOutOfBoundsException();
+    }
+
+    return to - from;
+}
+
+template<typename T>
+void ArrayUtils::insertionSort(T* arrBegin, T* arrEnd, const std::function<bool(const T&, const T&)>& comparator) {
     if(!checkRange(arrBegin, arrEnd)) {
         throw IndexOutOfBoundsException();
     }
 
-    return arrEnd - arrBegin;
+    for(T* p = arrBegin + 1; p != arrEnd; ++p) {
+        T* q = p - 1;
+        while(q >= arrBegin && comparator(*p, *q)) {
+            *(q + 1) = *q;
+            --q;
+        }
+        *(q + 1) = *p;
+    }
 }
 
 template<typename T>

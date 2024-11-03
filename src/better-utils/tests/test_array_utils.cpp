@@ -47,11 +47,30 @@ auto should_binary_search = []() {
     TestUtils::Assertions::assertNull(res5);
 };
 
+auto should_insertion_sort = []() {
+    // Given
+    int n = 10;
+    int arr[] = {6, 5, 7, 4, 8, 3, 9, 1, 0, 10};
+
+    // When
+    ArrayUtils::insertionSort<int>(arr, arr + n);
+
+    // Then
+    TestUtils::Assertions::assertAcsOrder(arr, arr + n);
+
+    // When
+    ArrayUtils::insertionSort<int>(arr, arr + n, std::greater<int>{});
+
+    // Then
+    TestUtils::Assertions::assertDescOrder(arr, arr + n);
+};
+
 void test_array_utils() {
     TestUtils::UnitTestGroup group("ArrayUtils Test");
 
     group.addTest(TestUtils::UnitTest("should_linear_search", should_linear_search));
     group.addTest(TestUtils::UnitTest("should_binary_search", should_binary_search));
+    group.addTest(TestUtils::UnitTest("should_insertion_sort", should_insertion_sort));
 
     group.startAll();
 }

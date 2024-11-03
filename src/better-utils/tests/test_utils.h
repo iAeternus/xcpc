@@ -104,6 +104,7 @@ auto generalToStringFunc = [](const T* const val) -> std::string {
 template<typename T>
 class AssertionFailedException : public std::exception {
 public:
+    AssertionFailedException(const std::function<std::string(const T* const)>& toStringFunc = generalToStringFunc<T>);
     AssertionFailedException(const T& expected, const T& actual, const std::function<std::string(const T* const)>& toStringFunc = generalToStringFunc<T>);
     AssertionFailedException(T* expected, T* actual, const std::function<std::string(const T* const)>& toStringFunc = generalToStringFunc<T>);
 
@@ -113,6 +114,10 @@ private:
     std::unique_ptr<T> actual;
     std::function<std::string(const T* const)> toStringFunc;
 };
+
+template<typename T>
+AssertionFailedException<T>::AssertionFailedException(const std::function<std::string(const T* const)>& toStringFunc) :
+        expected(nullptr), actual(nullptr), toStringFunc(toStringFunc) {}
 
 template<typename T>
 AssertionFailedException<T>::AssertionFailedException(const T& expected, const T& actual, const std::function<std::string(const T* const)>& toStringFunc) :
@@ -142,9 +147,18 @@ public:
     template<typename T>
     static void assertNull(T* actual, const std::function<std::string(const T* const)>& toStringFunc = generalToStringFunc<T>);
 
+    template<typename T>
+    static void assertAcsOrder(T* arrBegin, T* arrEnd, const std::function<bool(const T&, const T&)>& comparator = std::less<T>{});
+
+    template<typename T>
+    static void assertDescOrder(T* arrBegin, T* arrEnd, const std::function<bool(const T&, const T&)>& comparator = std::less<T>{});
+
 private:
     template<typename T>    
     static bool objectEquals(const T& expected, const T& actual);
+
+    template<typename T>
+    static void assertionFailed();
 
     template<typename T>
     static void assertionFailed(const T& expected, const T& actual, const std::function<std::string(const T* const)>& toStringFunc = generalToStringFunc<T>);
@@ -168,8 +182,31 @@ void Assertions::assertNull(T* actual, const std::function<std::string(const T* 
 }
 
 template<typename T>
+void Assertions::assertAcsOrder(T* arrBegin, T* arrEnd, const std::function<bool(const T&, const T&)>& comparator) {
+    for(T* p = arrBegin + 1; p != arrEnd; ++p) {
+        if(comparator(*p, *(p - 1))) {
+            assertionFailed<T>();
+        }
+    }
+}
+
+template<typename T>
+void Assertions::assertDescOrder(T* arrBegin, T* arrEnd, const std::function<bool(const T&, const T&)>& comparator) {
+    for(T* p = arrBegin + 1; p != arrEnd; ++p) {
+        if(comparator(*p, *(p - 1))) {
+            assertionFailed<T>();
+        }
+    }
+}
+
+template<typename T>
 bool Assertions::objectEquals(const T& expected, const T& actual) {
     return expected == actual;
+}
+
+template<typename T>
+void Assertions::assertionFailed() {
+    throw AssertionFailedException<T>();
 }
 
 template<typename T>
