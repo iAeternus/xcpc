@@ -1,3 +1,0 @@
-"D:\Application\Develop\Python 3.11.2\Lib\site-packages\cmake\data\bin\cmake.exe" -E rm -f CMakeFiles\better-utils.dir/objects.a
-F:\application\develop\gcc\x86_64-13.2.0-release-win32-seh-msvcrt-rt_v11-rev0\mingw64\bin\ar.exe qc CMakeFiles\better-utils.dir/objects.a @CMakeFiles\better-utils.dir\objects1.rsp
-F:\application\develop\gcc\x86_64-13.2.0-release-win32-seh-msvcrt-rt_v11-rev0\mingw64\bin\c++.exe -Wl,--whole-archive CMakeFiles\better-utils.dir/objects.a -Wl,--no-whole-archive -o better-utils.exe -Wl,--out-implib,libbetter-utils.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\better-utils.dir\linkLibs.rsp

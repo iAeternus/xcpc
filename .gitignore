@@ -37,7 +37,7 @@
 
 # Directories
 build*/*
-src/better-ds/build*/*
+src/better-utils/build*/*
 .vscode/ipch/*
 .clangd/*
 vcpkg/*
