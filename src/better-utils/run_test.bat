@@ -1,7 +1,7 @@
 @echo off
 
 set "DIR_NAME=build/tests"
-set "EXE_NAME=better-ds-tests.exe"
+set "EXE_NAME=better-utils-tests.exe"
 
 if not exist "%DIR_NAME%" (
     echo The directory "%DIR_NAME%" does not exist.
