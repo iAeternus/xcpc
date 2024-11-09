@@ -125,6 +125,14 @@ float Random::nextFloat() {
     return float_distribution(generator);
 }
 
-Random random((long) time(nullptr));
+int* Random::nextIntArray(std::size_t n, int lower, int upper) {
+    int* arr = new int[n];
+    for(std::size_t i = 0; i < n; ++i) {
+        arr[i] = nextInt(lower, upper);
+    }
+    return arr;
+}
+
+Random rnd(static_cast<long>(time(nullptr)));
 
 } // end of namespace TestUtils

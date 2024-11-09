@@ -12,6 +12,7 @@
 #include <functional>
 #include <random>
 #include <memory>
+#include <iostream>
 
 namespace TestUtils {
 
@@ -86,12 +87,14 @@ public:
     bool nextBoolean();
     float nextFloat(); // [0.0, 1.0)
 
+    int* nextIntArray(std::size_t n, int lower, int upper);
+
 private:
     std::mt19937 generator;
     std::uniform_int_distribution<int> distribution;
 };
 
-extern Random random;
+extern Random rnd;
 
 template<typename T>
 auto generalToStringFunc = [](const T* const val) -> std::string {
@@ -217,6 +220,19 @@ void Assertions::assertionFailed(const T& expected, const T& actual, const std::
 template<typename T>
 void Assertions::assertionFailed(T* expected, T* actual, const std::function<std::string(const T* const)>& toStringFunc) {
     throw AssertionFailedException<T>(expected, actual, toStringFunc);
+}
+
+/**
+ * 打印相关函数
+ */
+template<typename T> 
+std::ostream& printArray(T* arrBegin, T* arrEnd, std::ostream& out = std::cout) {
+    out << *arrBegin;
+    for(T* p = arrBegin + 1; p < arrEnd; ++p) {
+        out << ' ' << *p;
+    }
+    out << std::endl;
+    return out;
 }
 
 } // end of namespace TestUtils

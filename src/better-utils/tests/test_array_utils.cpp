@@ -47,13 +47,18 @@ auto should_binary_search = []() {
     TestUtils::Assertions::assertNull(res5);
 };
 
+static constexpr std::size_t MIN_N = 1e3;
+static constexpr std::size_t MAX_N = 1e4;
+static constexpr std::size_t LOWER = 1e3;
+static constexpr std::size_t UPPER = 1e4;
+
 auto should_insertion_sort = []() {
     // Given
-    int n = 10;
-    int arr[] = {6, 5, 7, 4, 8, 3, 9, 1, 0, 10};
+    std::size_t n = TestUtils::rnd.nextInt(MIN_N, MAX_N);
+    int* arr = TestUtils::rnd.nextIntArray(n, LOWER, UPPER);
 
     // When
-    ArrayUtils::insertionSort<int>(arr, arr + n);
+    ArrayUtils::insertionSort(arr, arr + n);
 
     // Then
     TestUtils::Assertions::assertAcsOrder(arr, arr + n);
@@ -63,6 +68,76 @@ auto should_insertion_sort = []() {
 
     // Then
     TestUtils::Assertions::assertDescOrder(arr, arr + n);
+
+    // Final
+    delete[] arr;
+};
+
+auto should_shell_sort = []() {
+    // Given
+    std::size_t n = TestUtils::rnd.nextInt(MIN_N, MAX_N);
+    int* arr = TestUtils::rnd.nextIntArray(n, LOWER, UPPER);
+
+    // When
+    ArrayUtils::shellSort(arr, arr + n);
+
+    // Then
+    TestUtils::Assertions::assertAcsOrder(arr, arr + n);
+
+    // When
+    ArrayUtils::shellSort<int>(arr, arr + n, std::greater<int>{});
+
+    // Then
+    TestUtils::Assertions::assertDescOrder(arr, arr + n);
+
+    // Final
+    delete[] arr;
+};
+
+auto should_selection_sort = []() {
+    // Given
+    std::size_t n = TestUtils::rnd.nextInt(MIN_N, MAX_N);
+    int* arr = TestUtils::rnd.nextIntArray(n, LOWER, UPPER);
+
+    // When
+    ArrayUtils::selectionSort(arr, arr + n);
+
+    // Then
+    // TestUtils::printArray(arr, arr + n);
+    TestUtils::Assertions::assertAcsOrder(arr, arr + n);
+
+    // When
+    // TestUtils::printArray(arr, arr + n);
+    ArrayUtils::selectionSort<int>(arr, arr + n, std::greater<int>{});
+
+    // Then
+    TestUtils::Assertions::assertDescOrder(arr, arr + n);
+
+    // Final
+    delete[] arr;
+};
+
+auto should_heap_sort = []() {
+    // Given
+    std::size_t n = TestUtils::rnd.nextInt(MIN_N, MAX_N);
+    int* arr = TestUtils::rnd.nextIntArray(n, LOWER, UPPER);
+
+    // When
+    ArrayUtils::heapSort(arr, arr + n);
+
+    // Then
+    // TestUtils::printArray(arr, arr + n);
+    TestUtils::Assertions::assertAcsOrder(arr, arr + n);
+
+    // When
+    // TestUtils::printArray(arr, arr + n);
+    ArrayUtils::heapSort<int>(arr, arr + n, std::greater<int>{});
+
+    // Then
+    TestUtils::Assertions::assertDescOrder(arr, arr + n);
+
+    // Final
+    delete[] arr;
 };
 
 void test_array_utils() {
@@ -71,6 +146,9 @@ void test_array_utils() {
     group.addTest(TestUtils::UnitTest("should_linear_search", should_linear_search));
     group.addTest(TestUtils::UnitTest("should_binary_search", should_binary_search));
     group.addTest(TestUtils::UnitTest("should_insertion_sort", should_insertion_sort));
+    group.addTest(TestUtils::UnitTest("should_shell_sort", should_shell_sort));
+    // group.addTest(TestUtils::UnitTest("should_selection_sort", should_selection_sort));
+    group.addTest(TestUtils::UnitTest("should_heap_sort", should_heap_sort));
 
     group.startAll();
 }
