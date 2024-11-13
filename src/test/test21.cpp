@@ -1,13 +1,26 @@
-#include <bits/stdc++.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void func(int** a, int n, int m) {
+    for(int i = 0; i < n; ++i) {
+        for(int j = 0; j < m; ++j) {
+            printf("%d ", a[i][j]);
+        }
+        putchar('\n');
+    }
+}
 
 int main() {
-    std::map<int, int> mp = {{1, 1}, {2, 1}, {3, 1}};
-    
-    for(const auto&[key, val] : mp) {
-        std::cout << key << ' ' << val << std::endl;
+    int n = 5, m = 3;
+    int** a = (int**) malloc(sizeof(int*) * n);
+    for(int i = 0; i < n; ++i) {
+        a[i] = (int*)malloc(sizeof(int) * m);
     }
 
-    for(const auto& it : mp) {
-        std::cout << it.first << ' ' << it.second << std::endl;
+    func(a, n, m);
+
+    for(int i = 0; i < n; ++i) {
+        free(a[i]);
     }
+    free(a);
 }
