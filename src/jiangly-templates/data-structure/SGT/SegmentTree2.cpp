@@ -2,7 +2,35 @@
 
 constexpr int inf = 0x3f3f3f3f;
 
-template <class Info, class Tag>
+struct Tag {
+    int x = 0;
+    void apply(const Tag& t) & {
+        // x = std::max(x, t.x);
+        x += t.x;
+    }
+};
+
+struct Info {
+    int x = 0, l, r;
+    void apply(const Tag& t) & {
+        // x = std::max(x, t.x);
+        x += t.x * (r - l);
+    }
+
+    constexpr Info& operator=(const Info& info) {
+        this->x = info.x;
+        this->l = info.l;
+        this->r = info.r;
+        return *this;
+    }
+};
+
+Info operator+(const Info& a, const Info& b) {
+    // return {std::max(a.x, b.x)};
+    return {a.x + b.x};
+}
+
+// template <class Info, class Tag>
 struct LazySegmentTree {
     int n;
     std::vector<Info> info;
@@ -21,7 +49,7 @@ struct LazySegmentTree {
     }
 
     void init(int n_, Info v_ = Info()) {
-        init(vector(n_, v_));
+        init(std::vector(n_, v_));
     }
 
     template <class T>
@@ -37,12 +65,12 @@ struct LazySegmentTree {
             int m = (l + r) / 2;
             build(2 * p, l, m);
             build(2 * p + 1, m, r);
-            pull(p);
+            pushUp(p);
         };
         build(1, 0, n);
     }
 
-    void pull(int p) {
+    void pushUp(int p) {
         info[p] = info[2 * p] + info[2 * p + 1];
     }
 
@@ -51,7 +79,7 @@ struct LazySegmentTree {
         tag[p].apply(v);
     }
 
-    void push(int p) {
+    void pushDown(int p) {
         apply(2 * p, tag[p]);
         apply(2 * p + 1, tag[p]);
         tag[p] = Tag{};
@@ -63,13 +91,13 @@ struct LazySegmentTree {
             return;
         }
         int m = (l + r) / 2;
-        push(p);
+        pushDown(p);
         if (x < m) {
             modify(2 * p, l, m, x, v);
         } else {
             modify(2 * p + 1, m, r, x, v);
         }
-        pull(p);
+        pushUp(p);
     }
 
     void modify(int p, const Info& v) {
@@ -84,7 +112,7 @@ struct LazySegmentTree {
             return info[p];
         }
         int m = (l + r) / 2;
-        push(p);
+        pushDown(p);
         return rangeQuery(2 * p, l, m, x, y) + rangeQuery(2 * p + 1, m, r, x, y);
     }
 
@@ -100,7 +128,7 @@ struct LazySegmentTree {
             apply(p, v);
             return;
         }
-        push(p);
+        pushDown(p);
         int m = (l + r) / 2;
         if (l <= m) {
             rangeApply(2 * p, l, m, x, y, v);
@@ -108,11 +136,11 @@ struct LazySegmentTree {
         if (m < r) {
             rangeApply(2 * p + 1, m, r, x, y, v);
         }
-        pull(p);
+        pushUp(p);
     }
 
     void rangeApply(int l, int r, const Tag& v) {
-        return rangeApply(1, 0, n, l, r, v);
+        rangeApply(1, 0, n, l, r, v);
     }
 
     // void half(int p, int l, int r) {
@@ -124,10 +152,10 @@ struct LazySegmentTree {
     //         return;
     //     }
     //     int m = (l + r) / 2;
-    //     push(p);
+    //     pushDown(p);
     //     half(2 * p, l, m);
     //     half(2 * p + 1, m, r);
-    //     pull(p);
+    //     pushUp(p);
     // }
 
     // void half() {
@@ -146,7 +174,7 @@ struct LazySegmentTree {
             return l;
         }
         int m = (l + r) / 2;
-        push(p);
+        pushDown(p);
         int res = findFirst(2 * p, l, m, x, y, pred);
         if (res == -1) {
             res = findFirst(2 * p + 1, m, r, x, y, pred);
@@ -171,7 +199,7 @@ struct LazySegmentTree {
             return l;
         }
         int m = (l + r) / 2;
-        push(p);
+        pushDown(p);
         int res = findLast(2 * p + 1, m, r, x, y, pred);
         if (res == -1) {
             res = findLast(2 * p, l, m, x, y, pred);
@@ -184,85 +212,59 @@ struct LazySegmentTree {
         return findLast(1, 0, n, l, r, pred);
     }
 
-    void maintainL(int p, int l, int r, int pre) {
-        if (info[p].difl > 0 && info[p].maxlowl < pre) {
-            return;
-        }
-        if (r - l == 1) {
-            info[p].max = info[p].maxlowl;
-            info[p].maxl = info[p].maxr = l;
-            info[p].maxlowl = info[p].maxlowr = -inf;
-            return;
-        }
-        int m = (l + r) / 2;
-        push(p);
-        maintainL(2 * p, l, m, pre);
-        pre = max(pre, info[2 * p].max);
-        maintainL(2 * p + 1, m, r, pre);
-        pull(p);
-    }
+    // void maintainL(int p, int l, int r, int pre) {
+    //     if (info[p].difl > 0 && info[p].maxlowl < pre) {
+    //         return;
+    //     }
+    //     if (r - l == 1) {
+    //         info[p].max = info[p].maxlowl;
+    //         info[p].maxl = info[p].maxr = l;
+    //         info[p].maxlowl = info[p].maxlowr = -inf;
+    //         return;
+    //     }
+    //     int m = (l + r) / 2;
+    //     pushDown(p);
+    //     maintainL(2 * p, l, m, pre);
+    //     pre = max(pre, info[2 * p].max);
+    //     maintainL(2 * p + 1, m, r, pre);
+    //     pushUp(p);
+    // }
 
-    void maintainL() {
-        maintainL(1, 0, n, -1);
-    }
+    // void maintainL() {
+    //     maintainL(1, 0, n, -1);
+    // }
 
-    void maintainR(int p, int l, int r, int suf) {
-        if (info[p].difr > 0 && info[p].maxlowr < suf) {
-            return;
-        }
-        if (r - l == 1) {
-            info[p].max = info[p].maxlowl;
-            info[p].maxl = info[p].maxr = l;
-            info[p].maxlowl = info[p].maxlowr = -inf;
-            return;
-        }
-        int m = (l + r) / 2;
-        push(p);
-        maintainR(2 * p + 1, m, r, suf);
-        suf = max(suf, info[2 * p + 1].max);
-        maintainR(2 * p, l, m, suf);
-        pull(p);
-    }
+    // void maintainR(int p, int l, int r, int suf) {
+    //     if (info[p].difr > 0 && info[p].maxlowr < suf) {
+    //         return;
+    //     }
+    //     if (r - l == 1) {
+    //         info[p].max = info[p].maxlowl;
+    //         info[p].maxl = info[p].maxr = l;
+    //         info[p].maxlowl = info[p].maxlowr = -inf;
+    //         return;
+    //     }
+    //     int m = (l + r) / 2;
+    //     pushDown(p);
+    //     maintainR(2 * p + 1, m, r, suf);
+    //     suf = max(suf, info[2 * p + 1].max);
+    //     maintainR(2 * p, l, m, suf);
+    //     pushUp(p);
+    // }
 
-    void maintainR() {
-        maintainR(1, 0, n, -1);
-    }
+    // void maintainR() {
+    //     maintainR(1, 0, n, -1);
+    // }
 };
-
-struct Tag {
-    int x = 0;
-    void apply(const Tag& t) & {
-        x = std::max(x, t.x);
-        // x += t.x;
-    }
-};
-
-struct Info {
-    int x = 0;
-    void apply(const Tag& t) & {
-        x = std::max(x, t.x);
-        // x += t.x;
-    }
-
-    constexpr Info& operator=(const Info& info) {
-        this->x = info.x;
-        return *this;
-    }
-};
-
-Info operator+(const Info& a, const Info& b) {
-    return {std::max(a.x, b.x)};
-    // return {a.x + b.x};
-}
 
 void test_1() {
     std::vector<int> init = {1, 3, 5, 7, 9, 11};
-    LazySegmentTree<Info, Tag> tree(init);
+    LazySegmentTree tree(init);
 
     assert(tree.rangeQuery(1, 4).x == 15);
 
     tree.rangeApply(1, 4, {5});             // 1 8 10 12 9 11
-    assert(tree.rangeQuery(1, 4).x == 25);  // TODO 30
+    assert(tree.rangeQuery(1, 4).x == 30);  // TODO 30
 
     tree.modify(2, {0});  // 1 8 0 12 9 11
     std::cout << tree.rangeQuery(2, 4).x << std::endl;
@@ -271,13 +273,12 @@ void test_1() {
 
 void test_2() {
     int l, h, r;
-    LazySegmentTree<Info, Tag> lst(1e4);
+    LazySegmentTree lst(1e4);
     while (std::cin >> l >> h >> r) {
         lst.rangeApply(l, r, {h});
     }
-
-    
 }
 
 int main() {
+    test_1();
 }
