@@ -12,9 +12,9 @@ struct data {
     int val; // 值
     int id; // 位置
 
-    bool operator<(const data& other) {
-        return this->val < other.val;
-    }
+    // bool operator<(const data& other) {
+    //     return this->val < other.val;
+    // }
 };
 
 const int N = 5e5 + 10;
@@ -32,7 +32,12 @@ int main() {
         old_nums[i].id = i;
     }
 
-    std::sort(old_nums + 1, old_nums + n + 1);
+    std::sort(old_nums + 1, old_nums + n + 1, [](const data& o1, const data& o2) {
+        if(o1.val == o2.val) {
+            return o1.id < o2.id;
+        }
+        return o1.val < o2.val;
+    });
 
     for(int i = 1; i <= n; ++i) {
         // 这个元素原来的位置在old_nums[i].id，把他的值赋为i
