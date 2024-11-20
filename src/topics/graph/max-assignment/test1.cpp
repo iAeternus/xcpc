@@ -184,6 +184,22 @@ void should_assign() {
     assert(weights[weights.size() - 1] == 15);
 }
 
+void should_assign_2() {
+    // Given
+    int nx = 1, ny = 1;
+    std::vector<std::vector<int>> a = {
+        {1},
+    };
+
+    // When
+    MaxAssignment<int> ma;
+    int cost = ma.solve(nx, ny, a);
+
+    // Then
+    assert(cost == 1);
+}
+
 int main() {
     should_assign();
+    should_assign_2();
 }
