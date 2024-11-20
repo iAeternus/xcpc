@@ -13,10 +13,10 @@ void init(int n) {
 }
 
 int query(int x) {
-    if(x == fa[x]) {
-        return x;
+    while(x != fa[x]) {
+        x = fa[x] = fa[fa[x]];
     }
-    return fa[x] = query(fa[x]);
+    return x;
 }
 
 void merge(int x, int y) {
