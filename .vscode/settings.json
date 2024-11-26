@@ -102,5 +102,6 @@
         "luogu",
         "SPFA",
         "XCPC"
-    ]
+    ],
+    "cmake.ignoreCMakeListsMissing": true
 }

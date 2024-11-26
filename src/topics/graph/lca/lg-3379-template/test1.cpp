@@ -5,17 +5,17 @@
 #include <bits/stdc++.h>
 
 struct HLD {
-    int n;                                 // 节点个数
-    std::vector<std::vector<int>> matrix;  // 邻接矩阵
-    std::vector<int> siz;                  // siz[u]: 存以u为根的子树的结点数
-    std::vector<int> dep;                  // dep[u]: 存u的深度
-    std::vector<int> top;                  // top[u]: 存u所在重链的顶点
-    std::vector<int> son;                  // son[u]: 存u的重儿子
-    std::vector<int> fa;                   // fa[u]: 存u的父节点
+    int n;                               // 节点个数
+    std::vector<std::vector<int>> edge;  // 邻接矩阵
+    std::vector<int> siz;                // siz[u]: 存以u为根的子树的结点数
+    std::vector<int> dep;                // dep[u]: 存u的深度
+    std::vector<int> top;                // top[u]: 存u所在重链的顶点
+    std::vector<int> son;                // son[u]: 存u的重儿子
+    std::vector<int> fa;                 // fa[u]: 存u的父节点
 
     HLD(int n) {
         this->n = n;
-        matrix.resize(n + 1);
+        edge.resize(n + 1);
         siz.resize(n + 1);
         dep.resize(n + 1);
         top.resize(n + 1);
@@ -24,18 +24,17 @@ struct HLD {
     }
 
     /**
-     * 添加双向边
+     * 添加边
      */
     void addEdge(int u, int v) {
-        matrix[u].push_back(v);
-        matrix[v].push_back(u);
+        edge[u].push_back(v);
     }
 
     /**
      * 遍历u的邻接结点
      */
     void forEach(int u, const std::function<void(int)>& func) {
-        for (auto& n : matrix[u]) {
+        for (auto& n : edge[u]) {
             func(n);
         }
     }
@@ -55,7 +54,7 @@ struct HLD {
      */
     int lca(int u, int v) {
         while (top[u] != top[v]) {
-            if(dep[top[u]] < dep[top[v]]) {
+            if (dep[top[u]] < dep[top[v]]) {
                 std::swap(u, v);
             }
             u = fa[top[u]];
@@ -77,9 +76,9 @@ struct HLD {
         fa[u] = father;
         dep[u] = dep[fa[u]] + 1;
         siz[u] = 1;
-        forEach(u, [&](int neighbor) {
+        for (const auto& neighbor : edge[u]) {
             if (neighbor == fa[u]) {
-                return;  // continue
+                continue;
             }
 
             dfs1(neighbor, u);
@@ -89,7 +88,7 @@ struct HLD {
             if (siz[neighbor] > siz[son[u]]) {
                 son[u] = neighbor;
             }
-        });
+        }
     }
 
     /**
@@ -101,12 +100,12 @@ struct HLD {
             return;
         }
         dfs2(son[u], t);
-        forEach(u, [&](int neighbor) {
+        for(const auto& neighbor : edge[u]) {
             if (neighbor == fa[u] || neighbor == son[u]) {
-                return;  // continue
+                continue;
             }
             dfs2(neighbor, neighbor);
-        });
+        }
     }
 };
 
@@ -119,6 +118,7 @@ int main() {
         int u, v;
         std::cin >> u >> v;
         h.addEdge(u, v);
+        h.addEdge(v, u);
     }
 
     h.init(s);
