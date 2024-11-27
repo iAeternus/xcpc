@@ -1,3 +1,6 @@
+/**
+ * TLE了
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -73,39 +76,16 @@ int main() {
         scanf("%d", &p);
         if (p == 1) {
             scanf("%d%d", &x, &y);
-            // node *xNode = head;
-            // while (xNode && xNode->value != x && xNode->next != NULL) {
-            //     xNode = xNode->next;
-            // }
-            // if (xNode->value == x) {
-            //     insertAfter(xNode, y);
-            // }
             if (cur = find(head, x)) {
                 insertAfter(cur, y);
             }
         } else if (p == 2) {
             scanf("%d", &x);
-            // node *xNode = head;
-            // while (xNode && xNode->value != x && xNode->next != NULL) {
-            //     xNode = xNode->next;
-            // }
-            // if (xNode->value == x) {
-            //     printf("%d\n", query(xNode));
-            // }
             if (cur = find(head, x)) {
                 printf("%d\n", cur->next ? cur->next->value : 0);
             }
         } else if (p == 3) {
             scanf("%d", &x);
-            // node *xNode = head;
-            // node *prev = NULL;
-            // while (xNode != NULL && xNode->value != x) {
-            //     prev = xNode;
-            //     xNode = xNode->next;
-            // }
-            // if (xNode != NULL) {
-            //     delete (prev);
-            // }
             if (cur = find(head, x)) {
                 if (cur->next) {
                     delete (cur);
@@ -113,12 +93,5 @@ int main() {
             }
         }
     }
-    // node *current = head;
-    // while (current) {
-    //     node *next = current->next;
-    //     free(current);
-    //     current = next;
-    // }
-    // return 0;
     clear(&head);
 }
