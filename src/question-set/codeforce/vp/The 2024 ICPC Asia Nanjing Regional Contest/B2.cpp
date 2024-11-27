@@ -1,56 +1,22 @@
-// #include <bits/stdc++.h>
+#include <bits/stdc++.h>
 
-// std::unordered_map<int, std::pair<int, bool>> mp;
+int main() {
+    int t;
+    std::cin >> t;
+    while(t--) {
+        std::string s;
+        std::cin >> s;
+        int a = 0, b = 0, c = 0;
+        for(int i = 0; i < s.size(); ++i) {
+            if(s[i] == '2') {
+                ++c;
+            } else if(((s[i] - '0') ^ (i & 1)) == 1) {
+                ++a; // 奇0偶1
+            } else {
+                ++b; // 奇1偶0
+            }
+        }
 
-// int main() {
-//     int t;
-//     std::cin >> t;
-//     while (t--) {
-//         mp.clear();
-//         std::string a;
-//         std::cin >> a;
-//         for (int i = 0; i < a.size();) {
-//             if (a[i] == '2') {
-//                 mp.insert({i, {-1, true}});
-//                 ++i;
-//                 continue;
-//             }
-
-//             int cnt = 1, j = i + 1;
-//             while (a[i] == a[j++]) {
-//                 ++cnt;
-//             }
-//             mp.insert({i, {cnt, true}});
-//             i += cnt;
-//         }
-
-//         for (auto& [idx, cnt] : mp) {
-//             // std::cout << idx << ' ' << cnt << std::endl;
-//             if (cnt.first != -1) {
-//                 if (cnt.first & 1) {
-//                     mp[idx] = {1, true};
-//                 } else {
-//                     mp[idx] = {INT_MIN, false};
-//                 }
-//             }
-//         }
-
-//         for (const auto& [idx, cnt] : mp) {
-//             if (cnt.second) {
-//                 // std::cout << idx << ' ' << cnt.first << std::endl;
-//                 if(cnt.first == -1) {
-
-//                 }
-//             }
-//         }
-//     }
-// }
-
-
-// //na
-
-// for(int i =0;i < n;i++)
-// {
-                                                                                                                                                                                                                
-// }njing
-// jingewqnan
+        std::cout << std::max((int(s.size()) & 1), abs(a - b) - c) << std::endl;
+    }
+}
