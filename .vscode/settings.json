@@ -93,7 +93,8 @@
         "stop_token": "cpp",
         "syncstream": "cpp",
         "variant": "cpp",
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "climits": "cpp"
     },
     "cSpell.words": [
         "codeforces",
