@@ -29,7 +29,7 @@ void solve() {
     }
 
     auto dijkstra = [&](int s) {
-       std::vector<i64> dis(2 * n, INF); // dis[2i]-骑马最短距离，dis[2i + 1]-不骑马最短距离
+       std::vector<i64> dis(2 * n, INF); // dis[2i]-不骑马最短距离，dis[2i + 1]-骑马最短距离
        std::priority_queue<std::pair<i64, int>, std::vector<std::pair<i64, int>>, std::greater<>> pq;
        pq.emplace(0LL, 2 * s);
 
@@ -53,7 +53,7 @@ void solve() {
                 pq.emplace(d + (has_horse ? w / 2 : w), 2 * v + has_horse);
             }
        }
-       std::vector<i64> d(n, INF); // 骑马和不骑马的较小值
+       std::vector<i64> d(n, INF); // 不骑马和骑马的较小值
        for (int i = 0; i < n; ++i) {
            d[i] = std::min(dis[2 * i], dis[2 * i + 1]);
        }
