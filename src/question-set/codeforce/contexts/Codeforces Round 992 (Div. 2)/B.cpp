@@ -1,5 +1,5 @@
 /**
- * @see https://codeforces.com/contest/2044/problem/A
+ * @see https://codeforces.com/contest/2040/problem/B
  */
 #include <bits/stdc++.h>
 
@@ -8,7 +8,12 @@ using i64 = long long;
 void solve() {
     int n;
     std::cin >> n;
-    std::cout << n - 1 << std::endl;
+    int k = 1, ans = 1;
+    while(k < n) {
+        k = (k + 1) * 2;
+        ans++;
+    }
+    std::cout << ans << std::endl;
 }
 
 int main() {

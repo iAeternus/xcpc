@@ -1,20 +1,17 @@
-/**
- * @see https://codeforces.com/contest/2044/problem/B
- */
 #include <bits/stdc++.h>
 
 using i64 = long long;
 
 void solve() {
-    std::string s;
-    std::cin >> s;
-    for(int i = s.size() - 1; i >= 0; --i) {
-        if(s[i] == 'p') {
+    std::string a;
+    std::cin >> a;
+    for(int i = a.size() - 1; i >= 0; --i) {
+        if(a[i] == 'p') {
             std::cout << 'q';
-        } else if(s[i] == 'q') {
+        } else if(a[i] == 'q') {
             std::cout << 'p';
         } else {
-            std::cout << s[i];
+            std::cout << a[i];
         }
     }
     std::cout << std::endl;
