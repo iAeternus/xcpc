@@ -69,16 +69,75 @@
 
 ## 3.1 双指针
 
-1. 快慢指针 [27. 移除元素 - 力扣（LeetCode）](https://leetcode.cn/problems/remove-element/)
-2. 左右指针 [977. 有序数组的平方 - 力扣（LeetCode）](https://leetcode.cn/problems/squares-of-a-sorted-array/)
+1. 快慢指针 
+   * [27. 移除元素 - 力扣（LeetCode）](https://leetcode.cn/problems/remove-element/)
+   * [283. 移动零 - 力扣（LeetCode）](https://leetcode.cn/problems/move-zeroes/description/)
+2. 左右指针 
+   * [977. 有序数组的平方 - 力扣（LeetCode）](https://leetcode.cn/problems/squares-of-a-sorted-array/)
+   * [11. 盛最多水的容器 - 力扣（LeetCode）](https://leetcode.cn/problems/container-with-most-water/description/)
 
 ## 3.2 滑动窗口
 
 1. [209. 长度最小的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-sum/description/)
+1. [3. 无重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/)
 
 # **Chapter 4 高精度**
 
-见板子
+```cpp
+constexpr int N = 1000;
+struct BigInt {
+    int a[N]; // 逆序存储
+    BigInt(int x = 0) :
+            a{} {
+        for (int i = 0; x; i++) {
+            a[i] = x % 10;
+            x /= 10;
+        }
+    }
+    BigInt& operator*=(int x) {
+        for (int i = 0; i < N; i++) {
+            a[i] *= x;
+        }
+        for (int i = 0; i < N - 1; i++) {
+            a[i + 1] += a[i] / 10;
+            a[i] %= 10;
+        }
+        return *this;
+    }
+    BigInt& operator/=(int x) {
+        for (int i = N - 1; i >= 0; i--) {
+            if (i) {
+                a[i - 1] += a[i] % x * 10;
+            }
+            a[i] /= x;
+        }
+        return *this;
+    }
+    BigInt& operator+=(const BigInt& x) {
+        for (int i = 0; i < N; i++) {
+            a[i] += x.a[i];
+            if (a[i] >= 10) {
+                a[i + 1] += 1;
+                a[i] -= 10;
+            }
+        }
+        return *this;
+    }
+};
+
+std::ostream& operator<<(std::ostream& o, const BigInt& a) {
+    int t = N - 1;
+    while (a.a[t] == 0) {
+        t--;
+    }
+    for (int i = t; i >= 0; i--) {
+        o << a.a[i];
+    }
+    return o;
+}
+```
+
+
 
 # **Chapter 5 二分、前缀和与差分**
 

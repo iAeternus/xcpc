@@ -1,33 +1,24 @@
-/**
- * @see https://leetcode.cn/problems/remove-element/description/
- */
 #include <bits/stdc++.h>
 
 class Solution {
 public:
     int removeElement(std::vector<int>& nums, int val) {
-        int i = 0;
-        for (int j = 0; j < nums.size(); ++j) {
-            if (nums[j] != val) {
-                nums[i++] = nums[j];
+        int s = 0;
+        for(int f = 0; f < nums.size(); ++f) {
+            if(nums[f] != val) {
+                nums[s++] = nums[f];
             }
         }
-        return i;
+        return s;
     }
 };
 
 int main() {
-    // Given
-    Solution s{};
-    std::vector<int> nums = {0, 1, 2, 2, 3, 0, 4, 2};
+    std::vector<int> nums = {0,1,2,2,3,0,4,2};
     int val = 2;
-
-    // When
-    int newSize = s.removeElement(nums, val);
-
-    // Then
-    std::cout << newSize << std::endl;
-    for (int i = 0; i < newSize; ++i) {
+    Solution s;
+    int n = s.removeElement(nums, val);
+    for(int i = 0; i < n; ++i) {
         std::cout << nums[i] << ' ';
     }
     std::cout << std::endl;
