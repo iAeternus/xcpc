@@ -147,14 +147,409 @@ std::ostream& operator<<(std::ostream& o, const BigInt& a) {
 
 ## 6.1 分治
 
+* 快速排序
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  template<typename T, typename C>
+  int partition(std::vector<T>& vec, int left, int right, C compare) {
+      T pivot = vec[right];
+      int i = left;
+      for(int j = left; j < right; ++j) {
+          if(compare(vec[j], pivot)) { // <
+              std::swap(vec[i++], vec[j]);
+          }
+      }
+      std::swap(vec[i], vec[right]);
+      return i; // 主元的索引
+  }
+  
+  template<typename T, typename C>
+  void sort(std::vector<T>& vec, int left, int right, C compare) {
+      if(left >= right) return;
+      int pivotIdx = partition(vec, left, right, compare);
+      sort(vec, left, pivotIdx - 1, compare); // 左
+      sort(vec, pivotIdx + 1, right, compare); // 右
+  }
+  
+  /**
+   * @brief 最终的接口
+   */
+  template<typename T, typename C>
+  void sort(std::vector<T>& vec, C compare) {
+      sort(vec, 0, vec.size() - 1, compare);
+  }
+  
+  int main() {
+      std::vector<int> nums = {6, 5, 7, 4, 8, 3, 9, 2, 0, 1};
+      sort(nums, std::less<int>{});
+      for(const auto& num : nums) {
+          std::cout << num << ' ';
+      }
+      std::cout << std::endl;
+  
+      sort(nums, [](int a, int b) {
+          return a > b;
+      });
+      for(const auto& num : nums) {
+          std::cout << num << ' ';
+      }
+      std::cout << std::endl;
+  }
+  ```
+
+  
+
 * 归并排序
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  template <typename T, typename C>
+  void merge(std::vector<T>& vec, int left, int mid, int right, C compare) {
+      int n1 = mid - left + 1;
+      int n2 = right - mid;
+      std::vector<T> leftVec(n1), rightVec(n2);
+      int i, j;
+      for (i = 0; i < n1; ++i) {
+          leftVec[i] = vec[left + i];
+      }
+      for (j = 0; j < n2; ++j) {
+          rightVec[j] = vec[mid + j + 1];
+      }
+  
+      i = j = 0;
+      int pos = left;
+      while (i < n1 && j < n2) {
+          if (compare(leftVec[i], rightVec[j])) {
+              vec[pos++] = leftVec[i++];
+          } else {
+              vec[pos++] = rightVec[j++];
+          }
+      }
+      while (i < n1) {
+          vec[pos++] = leftVec[i++];
+      }
+      while (j < n2) {
+          vec[pos++] = rightVec[j++];
+      }
+  }
+  
+  template <typename T, typename C>
+  void sort(std::vector<T>& vec, int left, int right, C compare) {
+      if (left >= right) return;
+      int mid = left + ((right - left) >> 1); // (left + right) / 2
+      sort(vec, left, mid, compare);
+      sort(vec, mid + 1, right, compare);
+      merge(vec, left, mid, right, compare);
+  }
+  
+  template <typename T, typename C>
+  void sort(std::vector<T>& vec, C compare) {
+      sort(vec, 0, vec.size() - 1, compare);
+  }
+  
+  int main() {
+      std::vector<int> nums = {6, 5, 7, 4, 8, 3, 9, 2, 0, 1};
+      sort(nums, std::less<int>{});
+      for(const auto& num : nums) {
+          std::cout << num << ' ';
+      }
+      std::cout << std::endl;
+  
+      sort(nums, [](int a, int b) {
+          return a > b;
+      });
+      for(const auto& num : nums) {
+          std::cout << num << ' ';
+      }
+      std::cout << std::endl;
+  }
+  ```
+
+  
+
+* 最大子数组和 [53. 最大子数组和 - 力扣（LeetCode）](https://leetcode.cn/problems/maximum-subarray/description/)
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  bool xis_max(int x, int y, int z) {
+      return x >= y && x >= z;
+  }
+  
+  auto find_crossing_subarray(const std::vector<int>& vec, int left, int mid, int right) -> std::tuple<int, int, int> {
+      int sum = 0;
+      int left_idx = left, right_idx = right;
+      int left_sum = INT_MIN, right_sum = INT_MIN;
+      for (int i = mid; i >= left; --i) {
+          sum += vec[i];
+          if (sum >= left_sum) {
+              left_sum = sum;
+              left_idx = i;
+          }
+      }
+      sum = 0;
+      for (int j = mid + 1; j <= right; ++j) {
+          sum += vec[j];
+          if (sum >= right_sum) {
+              right_sum = sum;
+              right_idx = j;
+          }
+      }
+      return {left_idx, right_idx, left_sum + right_sum};
+  }
+  
+  auto find_maximum_subarray(const std::vector<int>& vec, int left, int right) -> std::tuple<int, int, int> {
+      if (left == right) {
+          return {left, right, vec[left]};
+      }
+      int mid = left + ((right - left) >> 1);
+      auto [left_low, left_high, left_sum] = find_maximum_subarray(vec, left, mid);
+      auto [right_low, right_high, right_sum] = find_maximum_subarray(vec, mid + 1, right);
+      auto [cross_low, cross_high, cross_sum] = find_crossing_subarray(vec, left, mid, right);
+      if (xis_max(left_sum, right_sum, cross_sum)) {
+          return {left_low, left_high, left_sum};
+      } else if (xis_max(right_sum, left_sum, cross_sum)) {
+          return {right_low, right_high, right_sum};
+      } else {
+          return {cross_low, cross_high, cross_sum};
+      }
+  }
+  
+  /**
+   * @brief first=左边界 second=右边界 third=最大和
+   */
+  auto find_maximum_subarray(const std::vector<int>& vec) -> std::tuple<int, int, int> {
+      return find_maximum_subarray(vec, 0, vec.size() - 1);
+  }
+  
+  int main() {
+      std::vector<int> arr = {1, -2, 4, 5, -2, 8, 3, -2, 6, 3, 7, -1};
+      auto [max_low, max_high, max_sum] = find_maximum_subarray(arr);
+      for(int i = max_low; i < max_high; ++i) {
+          std::cout << arr[i] << ' ';
+      }
+      std::cout << std::endl;
+      std::cout << max_sum << std::endl;
+  }
+  ```
+
+  
 
 ## 6.2 搜索
 
 * dfs本质上是n叉树前序遍历，bfs本质上是n叉树层序遍历
+
 * 回溯时，相关量的改变在递归返回是需要撤销
+
 * dfs可以用stack实现（或者说递归本来就是在运行栈运行），bfs可以用queue实现
+
 * 特别的，lambda表达式可用于实现递归，相对来说较方便
+
+* bfs
+
+  ```cpp
+  //bfs模板
+  struct ed
+  {
+  	.....
+  }
+  deque<ed>q;
+  void bfs()
+  {
+  	标记起点 
+  	起点入队列 
+  	while(!q.empty())//队列不为空 
+  	{
+  		ed nw=q.front();//返回队首
+  		for(拓展出接下来可能的状态)
+  		{
+  			ed nxt;
+  			记录这一状态
+  			判断状态是否合法 
+  			标记状态 
+  			q.push_back(nxt);//状态入队列 
+  		}
+  		q.pop_front();//弹出队首 
+  	}
+  }
+  ```
+
+  
+
+* [P1157 组合的输出 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P1157)
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  int n, r;
+  
+  void solve() {
+      std::vector<int> path;
+      std::function<void(int)> dfs = [&](int depth) {
+          if(path.size() == r) {
+              for(const auto& it : path) {
+                  std::cout << std::setw(3) << it;
+              }
+              std::cout << std::endl;
+              return;
+          }
+          for(int i = depth; i <= n; ++i) {
+              path.push_back(i);
+              dfs(i + 1);
+              path.pop_back();
+          }
+      };
+      dfs(1);
+  }
+  
+  int main() {
+      std::cin >> n >> r;
+      solve();
+  }
+  ```
+
+  
+
+* [P1706 全排列问题 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P1706)
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  int n;
+  
+  void solve() {
+      std::vector<bool> vis(n, false);
+      std::vector<int> path;
+      std::function<void(int)> dfs = [&](int depth) {
+          if(depth == n) {
+              for(const auto& num : path) {
+                  std::cout << std::setw(5) << num;
+              }
+              std::cout << std::endl;
+              return;
+          }
+          for(int i = 1; i <= n; ++i) {
+              if(!vis[i]) {
+                  path.push_back(i);
+                  vis[i] = true;
+                  dfs(depth + 1);
+                  path.pop_back();
+                  vis[i] = false;
+              }
+          }
+      };
+      dfs(0);
+  }
+  
+  int main() {
+      std::cin >> n;
+      solve();
+  }
+  ```
+
+  
+
+* [P1605 迷宫 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P1605)
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  const int N = 10;
+  int n, m, t, sx, sy, fx, fy;
+  int mp[N][N];
+  bool vis[N][N];
+  
+  const int dx[] = {0, 0, 1, -1};
+  const int dy[] = {1, -1, 0, 0};
+  
+  int ans = 0;
+  
+  void dfs(int x, int y) {
+      if(x == fx && y == fy) {
+          ++ans;
+          return;
+      }
+      for(int i = 0; i < 4; ++i) {
+          int nx = x + dx[i];
+          int ny = y + dy[i];
+          if(nx >= 1 && nx <= n && ny >= 1 && ny <= m && !vis[nx][ny] && mp[nx][ny] != 1) {
+              vis[x][y] = true;
+              dfs(nx, ny);
+              vis[x][y] = false;
+          }
+      }
+  }
+  
+  int main() {
+      std::cin >> n >> m >> t >> sx >> sy >> fx >> fy;
+      while(t--) {
+          int x, y;
+          std::cin >> x >> y;
+          mp[x][y] = 1;
+      }
+      dfs(sx, sy);
+      std::cout << ans << std::endl;
+  }
+  ```
+
+  
+
+* bfs [P1451 求细胞数量 - 洛谷 | 计算机科学教育新生态](https://www.luogu.com.cn/problem/P1451)
+
+  ```cpp
+  #include <bits/stdc++.h>
+  
+  const int dx[] = {0, 0, 1, -1};
+  const int dy[] = {1, -1, 0, 0};
+  
+  int main() {
+      int n, m;
+      std::cin >> n >> m;
+      std::vector<std::vector<int>> mp(n, std::vector<int>(m));
+      for (int i = 0; i < n; ++i) {
+          std::string str;
+          std::cin >> str;
+          for (int j = 0; j < m; ++j) {
+              mp[i][j] = str[j] - '0';
+          }
+      }
+  
+      std::vector<std::vector<bool>> vis(n, std::vector<bool>(m, false));
+      int ans = 0;
+      auto bfs = [&](int x, int y) {
+          std::queue<std::pair<int, int>> q;
+          q.push({x, y});
+          vis[x][y] = true;
+          while(!q.empty()) {
+              auto [rx, ry] = q.front();
+              q.pop();
+              for(int i = 0; i < 4; ++i) {
+                  int nx = rx + dx[i];
+                  int ny = ry + dy[i];
+                  if(nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny] && mp[nx][ny] != 0) {
+                      vis[nx][ny] = true;
+                      q.push({nx, ny});
+                  }
+              }
+          }
+      };
+  
+      for (int i = 0; i < n; ++i) {
+          for (int j = 0; j < m; ++j) {
+              if (mp[i][j] != 0 && !vis[i][j]) {
+                  bfs(i, j);
+                  ++ans;
+              }
+          }
+      }
+      std::cout << ans << std::endl;
+  }
+  ```
+
+  
 
 # **Chapter 7 数论**
 
@@ -901,6 +1296,7 @@ int  factor(int n)
 ### 8.3.1 01背包
 
 * 模板题，网上随便找一道
+* 当dp数组变为一维时，x格前面同一行的其他格都已经把原本y那一行的覆盖掉了，而x格从前面取的数值就可能会是更新过的，造成答案错误
 * [416. 分割等和子集 - 力扣（LeetCode）](https://leetcode.cn/problems/partition-equal-subset-sum/)
 
 ### 8.3.2 完全背包
