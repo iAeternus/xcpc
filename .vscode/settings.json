@@ -94,7 +94,8 @@
         "syncstream": "cpp",
         "variant": "cpp",
         "cassert": "cpp",
-        "climits": "cpp"
+        "climits": "cpp",
+        "stack": "cpp"
     },
     "cSpell.words": [
         "codeforces",

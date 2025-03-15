@@ -4,9 +4,10 @@
 #include <bits/stdc++.h>
 
 /**
- * 获取next数组
+ * 获取next数组 
  * @par t 模式串
  * @return next数组
+ * @note 时间复杂度 O(m)
  */
 std::vector<int> get_next(const std::string& t) {
     int m = t.size();
@@ -26,9 +27,10 @@ std::vector<int> get_next(const std::string& t) {
 
 /**
  * tmp算法匹配模式串
- * @par s 文本串
- * @par t 模式串
+ * @par s 文本串，长度为n
+ * @par t 模式串，长度为m
  * @return t在s中出现的所有位置（起始索引），若不存在，则返回空列表
+ * @note 时间复杂度 O(n + m)
  */
 std::vector<int> kmp(const std::string& s, const std::string& t) {
     std::vector<int> res;
