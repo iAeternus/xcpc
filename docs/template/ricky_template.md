@@ -1,3 +1,31 @@
+# 基本算法
+
+### 二分
+
+最小值最大 -> 答案在左边 -> 满足check时压缩右边界 -> 二分出来的答案一定在**l**上
+
+```cpp
+while(l <= r) {
+    int mid = l + r >> 1;
+    if(check(mid)) r = mid - 1;
+    else l = mid + 1;
+}
+l
+```
+
+最大值最小 -> 答案在右边 -> 满足check时压缩左边界 -> 二分出来的答案一定在**r**上
+
+```cpp
+while(l <= r) {
+    int mid = l + r >> 1;
+    if(check(mid)) l = mid + 1;
+    else r = mid - 1;
+}
+r
+```
+
+
+
 # 数据结构
 
 ## 树状数组
