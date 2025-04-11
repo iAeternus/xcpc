@@ -1,30 +1,34 @@
 # 基本算法
 
-### 二分
+## 二分
 
-最小值最大 -> 答案在左边 -> 满足check时压缩右边界 -> 二分出来的答案一定在**l**上
+求最小值，将区间划分为 [l, mid - 1] 和 [mid, r]，此时求mid相当于向下取整 (l + r) >> 1
+
+求最大值，将区间划分为 [l, mid] 和 [mid + 1, r]，此时求mid相当于向上取整 (l + r + 1) >> 1
+
+check返回true表示：mid满足题意，若当前求最大值，需要考虑提升下界`l = mid`（得寸进尺），若当前求最小值，需要考虑降低上界`r = mid`（方便找更小）
+
+### 求最小值
 
 ```cpp
-while(l <= r) {
+while(l < r) {
     int mid = l + r >> 1;
-    if(check(mid)) r = mid - 1;
+    if(check(mid)) r = mid;
     else l = mid + 1;
 }
 l
 ```
 
-最大值最小 -> 答案在右边 -> 满足check时压缩左边界 -> 二分出来的答案一定在**r**上
+### 求最大值
 
 ```cpp
-while(l <= r) {
-    int mid = l + r >> 1;
-    if(check(mid)) l = mid + 1;
+while(l < r) {
+    int mid = (l + r + 1) >> 1;
+    if(check(mid)) l = mid;
     else r = mid - 1;
 }
 r
 ```
-
-
 
 # 数据结构
 
@@ -332,7 +336,72 @@ while(!st.empty() && st.top() <= x) {
 
 # **图论**
 
-// TODO
+## 领接表建图
+
+```cpp
+const int N = 1e6 + 5;
+std::vector<std::pair<int, int>> adj[N]; // adj[u]: (目标节点v, 边权w)
+
+void addEdge(int u, int v, int w) {
+    adj[u].push_back({v, w});
+}
+```
+
+
+
+## dijkstra
+
+### C++ 17 版
+
+```cpp
+int dijkstra(int s, int t) {
+    std::vector<int> dis(n, INF); // dis[i]: s到i的最短路径
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq; // (距离, 节点)
+    pq.emplace(0, s);
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top(); // 取出当前距离起点最近的节点
+        pq.pop();
+
+        if (dis[u] != INF) continue;
+        dis[u] = d; // 记录该节点的最终最短距离
+        if (u == t) break;
+
+        for (const auto& [v, w] : adj[u]) {
+            pq.emplace(d + w, v); // 这里允许队列中存在多个v的不同距离值
+        }
+    }
+    return dis[t];
+}
+```
+
+### C++ 11 版
+
+```cpp
+int dijkstra(int s, int t) {
+    std::vector<int> dis(n, INF); // dis[i]: s到i的最短路径
+    std::priority_queue<pii, std::vector<pii>, std::greater<pii>> pq;
+    pq.emplace(0, s);
+
+    while (!pq.empty()) {
+        auto x = pq.top();
+        auto d = x.first;
+        auto u = x.second;
+        pq.pop();
+
+        if (dis[u] != INF) continue;
+        dis[u] = d;
+        if (u == t) break;
+
+        for (const auto& it : adj[u]) {
+            auto v = it.first;
+            auto w = it.second;
+            pq.emplace(d + w, v);
+        }
+    }
+    return dis[t];
+}
+```
 
 # **字符串**
 
