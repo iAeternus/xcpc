@@ -12,14 +12,11 @@
 std::vector<int> get_next(const std::string& t) {
     int m = t.size();
     std::vector<int> next(m, 0);
-    int j = 0;  // j为模式串中已匹配的前缀长度
-    for (int i = 1; i < m; ++i) {
+    for (int i = 1, j = 0; i < m; ++i) { // j为模式串中已匹配的前缀长度
         while (j > 0 && t[i] != t[j]) {
             j = next[j - 1];
         }
-        if (t[i] == t[j]) {
-            ++j;
-        }
+        j += (t[i] == t[j]);
         next[i] = j;
     }
     return next;
@@ -34,16 +31,14 @@ std::vector<int> get_next(const std::string& t) {
  */
 std::vector<int> kmp(const std::string& s, const std::string& t) {
     std::vector<int> res;
+    if (t.empty()) return res;
     std::vector<int> next = get_next(t);
     int n = s.size(), m = t.size();
-    int j = 0;  // j为模式串中已匹配的前缀长度
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0, j = 0; i < n; ++i) { // j为模式串中已匹配的前缀长度
         while (j > 0 && s[i] != t[j]) {
             j = next[j - 1];
         }
-        if (s[i] == t[j]) {
-            ++j;
-        }
+        j += (s[i] == t[j]);
         // 模式串匹配完
         if (j == m) {
             res.push_back(i - m + 1);

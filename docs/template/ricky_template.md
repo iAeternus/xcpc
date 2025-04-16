@@ -336,7 +336,9 @@ while(!st.empty() && st.top() <= x) {
 
 # **图论**
 
-## 领接表建图
+## 建图
+
+### 领接表
 
 ```cpp
 const int N = 1e6 + 5;
@@ -347,7 +349,27 @@ void addEdge(int u, int v, int w) {
 }
 ```
 
+### 链式前向星
 
+```cpp
+const int N = 1e5 + 3;
+
+int head[N], tot;
+struct node {
+    int to, next, w;
+} edge[N << 1];
+
+void add_edge(int u, int v, int w) {
+    edge[++tot] = {v, head[u], w};
+    head[u] = tot;
+}
+
+for(int i = head[u]; i; i = edge[u].next) {
+    int v = edge[i].to;
+    int w = edge[i].w;
+    // ...
+}
+```
 
 ## dijkstra
 
@@ -407,9 +429,144 @@ int dijkstra(int s, int t) {
 
 ## 字典树（`Trie`）
 
+### 查询前缀个数
+
+```cpp
+const int N = 3e6 + 10;
+const int ALPHABET = 62; // 数字 + 大小写字母，只有小写字母就设为26
+
+int trie[N][ALPHABET];
+int cnt[N]; // 前缀计数器
+int tot;    // 当前节点总数
+
+int get_idx(char c) {
+    if (isdigit(c)) return c - '0';
+    if (isupper(c)) return 10 + (c - 'A');
+    return 36 + (c - 'a');
+}
+
+void init_trie() {
+    memset(trie[0], 0, sizeof(trie[0]));
+    tot = 0;
+}
+
+int create_node() {
+    ++tot;
+    memset(trie[tot], 0, sizeof(trie[tot]));
+    cnt[tot] = 0;
+    return tot;
+}
+
+void insert(const std::string& s) {
+    int p = 0;
+    for (char c : s) {
+        int idx = get_idx(c);
+        if (!trie[p][idx]) {
+            trie[p][idx] = create_node();
+        }
+        p = trie[p][idx];
+        ++cnt[p];
+    }
+}
+
+int query(const std::string& s) {
+    int p = 0;
+    for (char c : s) {
+        int idx = get_idx(c);
+        if (!trie[p][idx]) return 0;
+        p = trie[p][idx];
+    }
+    return cnt[p];
+}
+```
+
+### 01字典树
+
+
+
 ## KMP 算法
 
+```cpp
+/**
+ * 获取next数组 
+ * @par t 模式串
+ * @return next数组
+ * @note 时间复杂度 O(m)
+ */
+std::vector<int> get_next(const std::string& t) {
+    int m = t.size();
+    std::vector<int> next(m, 0);
+    int j = 0;  // j为模式串中已匹配的前缀长度
+    for (int i = 1; i < m; ++i) {
+        while (j > 0 && t[i] != t[j]) {
+            j = next[j - 1];
+        }
+        if (t[i] == t[j]) {
+            ++j;
+        }
+        next[i] = j;
+    }
+    return next;
+}
+
+/**
+ * tmp算法匹配模式串
+ * @par s 文本串，长度为n
+ * @par t 模式串，长度为m
+ * @return t在s中出现的所有位置（起始索引），若不存在，则返回空列表
+ * @note 时间复杂度 O(n + m)
+ */
+std::vector<int> kmp(const std::string& s, const std::string& t) {
+    std::vector<int> res;
+    std::vector<int> next = get_next(t);
+    int n = s.size(), m = t.size();
+    int j = 0;  // j为模式串中已匹配的前缀长度
+    for (int i = 0; i < n; ++i) {
+        while (j > 0 && s[i] != t[j]) {
+            j = next[j - 1];
+        }
+        if (s[i] == t[j]) {
+            ++j;
+        }
+        // 模式串匹配完
+        if (j == m) {
+            res.push_back(i - m + 1);
+            j = next[j - 1];
+        }
+    }
+    return res;
+}
+```
+
 ## `Manacher` 算法
+
+```cpp
+/**
+ * r[i]表示以t中第i个字符为中心的最长回文半径（包括自身）
+ * 求出来的max(r[i] - 1)即为最长回文子串的长度
+ */
+std::vector<int> manacher(const std::string& s) {
+    std::string t = "#";
+    for (auto c : s) {
+        t += c;
+        t += '#';
+    }
+    int n = t.size();
+    std::vector<int> r(n);
+    for (int i = 0, j = 0; i < n; ++i) {
+        if (2 * j - i >= 0 && j + r[j] > i) {
+            r[i] = std::min(r[2 * j - i], j + r[j] - i);
+        }
+        while (i - r[i] >= 0 && i + r[i] < n && t[i - r[i]] == t[i + r[i]]) {
+            r[i] += 1;
+        }
+        if (i + r[i] > j + r[j]) {
+            j = i;
+        }
+    }
+    return r;
+}
+```
 
 ## 后缀数组
 
