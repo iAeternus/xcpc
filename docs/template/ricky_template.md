@@ -158,6 +158,10 @@ i64 query(int root, int L, int R) {
 }
 ```
 
+## 珂朵莉树（Chtholly Tree）
+
+珂朵莉树的适用范围是有**区间赋值**操作且**数据随机**的题目，时间复杂度比线段树低
+
 
 
 ## ST 表
@@ -312,6 +316,73 @@ int main() {
 ```
 
 ## 并查集
+
+```cpp
+/**
+ * @see https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/B
+ * 下标从 1 开始
+ * 查询集合最小值、最大值、元素个数
+ */
+#include <bits/stdc++.h>
+
+const int N = 3e5 + 7;
+
+struct Info {
+    int max, min, cnt;
+} info[N];
+
+int fa[N];
+
+void init(int n) {
+    for (int i = 1; i <= n; ++i) {
+        fa[i] = i;
+        info[i] = {i, i, 1};
+    }
+}
+
+int query(int x) {
+    while (x != fa[x]) {
+        x = fa[x] = fa[fa[x]];
+    }
+    return x;
+}
+
+bool merge(int x, int y) {
+    int fx = query(x);
+    int fy = query(y);
+    if (fx == fy) {
+        return false;
+    }
+    fa[fy] = fx;
+    info[fx].max = std::max(info[fx].max, info[fy].max);
+    info[fx].min = std::min(info[fx].min, info[fy].min);
+    info[fx].cnt += info[fy].cnt;
+    return true;
+}
+
+bool same(int x, int y) {
+    return query(x) == query(y);
+}
+
+int main() {
+    int n, m;
+    std::cin >> n >> m;
+    init(n);
+    while (m--) {
+        std::string op;
+        int u, v;
+        std::cin >> op;
+        if (op == "get") {
+            std::cin >> v;
+            int fv = query(v);
+            std::cout << info[fv].min << ' ' << info[fv].max << ' ' << info[fv].cnt << std::endl;
+        } else {
+            std::cin >> u >> v;
+            merge(u, v);
+        }
+    }
+}
+```
 
 ## 单调栈
 
@@ -496,14 +567,11 @@ int query(const std::string& s) {
 std::vector<int> get_next(const std::string& t) {
     int m = t.size();
     std::vector<int> next(m, 0);
-    int j = 0;  // j为模式串中已匹配的前缀长度
-    for (int i = 1; i < m; ++i) {
+    for (int i = 1, j = 0; i < m; ++i) { // j为模式串中已匹配的前缀长度
         while (j > 0 && t[i] != t[j]) {
             j = next[j - 1];
         }
-        if (t[i] == t[j]) {
-            ++j;
-        }
+        j += (t[i] == t[j]);
         next[i] = j;
     }
     return next;
@@ -518,16 +586,14 @@ std::vector<int> get_next(const std::string& t) {
  */
 std::vector<int> kmp(const std::string& s, const std::string& t) {
     std::vector<int> res;
+    if (t.empty()) return res;
     std::vector<int> next = get_next(t);
     int n = s.size(), m = t.size();
-    int j = 0;  // j为模式串中已匹配的前缀长度
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0, j = 0; i < n; ++i) { // j为模式串中已匹配的前缀长度
         while (j > 0 && s[i] != t[j]) {
             j = next[j - 1];
         }
-        if (s[i] == t[j]) {
-            ++j;
-        }
+        j += (s[i] == t[j]);
         // 模式串匹配完
         if (j == m) {
             res.push_back(i - m + 1);
