@@ -105,6 +105,7 @@
         "LSGT",
         "luogu",
         "SPFA",
+        "Warshall",
         "XCPC"
     ],
     "cmake.ignoreCMakeListsMissing": true

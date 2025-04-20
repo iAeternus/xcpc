@@ -2,11 +2,11 @@
 
 ## 二分
 
-求最小值，将区间划分为 [l, mid - 1] 和 [mid, r]，此时求mid相当于向下取整 (l + r) >> 1
+求最小值，将区间划分为 [l, mid - 1] 和 [mid, r]，此时求 mid 相当于向下取整 (l + r) >> 1
 
-求最大值，将区间划分为 [l, mid] 和 [mid + 1, r]，此时求mid相当于向上取整 (l + r + 1) >> 1
+求最大值，将区间划分为 [l, mid] 和 [mid + 1, r]，此时求 mid 相当于向上取整 (l + r + 1) >> 1
 
-check返回true表示：mid满足题意，若当前求最大值，需要考虑提升下界`l = mid`（得寸进尺），若当前求最小值，需要考虑降低上界`r = mid`（方便找更小）
+check 返回 true 表示：mid 满足题意，若当前求最大值，需要考虑提升下界 `l = mid`（得寸进尺），若当前求最小值，需要考虑降低上界 `r = mid`（方便找更小）
 
 ### 求最小值
 
@@ -160,7 +160,7 @@ i64 query(int root, int L, int R) {
 
 ## 珂朵莉树（Chtholly Tree）
 
-珂朵莉树的适用范围是有**区间赋值**操作且**数据随机**的题目，时间复杂度比线段树低
+珂朵莉树的适用范围是有 **区间赋值** 操作且 **数据随机** 的题目，时间复杂度比线段树低
 
 
 
@@ -409,7 +409,7 @@ while(!st.empty() && st.top() <= x) {
 
 ## 建图
 
-### 领接表
+### 邻接表
 
 ```cpp
 const int N = 1e6 + 5;
@@ -442,54 +442,98 @@ for(int i = head[u]; i; i = edge[u].next) {
 }
 ```
 
-## dijkstra
+## 最短路径
 
-### C++ 17 版
+| 结点 N、边 M | 边权值   | 选用算法     | 数据结构       |
+| ---------- | -------- | ------------ | -------------- |
+| n < 200      | 允许有负 | Floyd        | 邻接矩阵       |
+| n×m < 107    | 允许有负 | Bellman-Ford | 邻接表         |
+| 更大       | 有负     | SPFA         | 邻接表、前向星 |
+| 更大       | 无负数   | Dijkstra     | 邻接表、前向星 |
+
+### Floyd
+
+所有点对最短路径
+
+O(n^3)
+
+利用 Floyd 算法很容易判断负圈，因为 `graph[i][i]` 是 i 到外面绕一圈回来的最小路径，若小于 0，说明存在负圈。可以置 `graph[i][i]=0`，并在 `floyd()` 中判断是否存在某个 `graph[i][i]<0`，若存在则说明该图中有负圈。
+
+```cpp
+constexpr int INF = 0x3f3f3f3f;
+
+std::vector dis(n, std::vector<Node>(n, {INF, 0})); // 一般存int即权重，根据题意换成结构体
+for (int i = 0; i < n; ++i) {
+    dis[i][i] = {0, 0};
+}
+
+for (int k = 0; k < n; ++k) {
+    for (int u = 0; u < n; ++u) {
+        if(dis[u][k].w == INF) continue;
+        for (int v = 0; v < n; ++v) {
+            dis[u][v] = min(dis[u][v], dis[u][k] + dis[k][v]);
+        }
+    }
+}
+```
+
+### Dijkstra
+
+单源最短路径
+
+#### C++ 17 版
+
+```cpp
+constexpr int INF = 0x3f3f3f3f;
+
+std::vector<std::vector<std::pair<int, i64>>> adj(n);
+adj[u].push_back({v, w});
+adj[v].push_back({u, w});
+
+auto dijkstra = [&](int s, int t) {
+    std::vector<int> dis(n, INF);
+    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
+    pq.emplace(0, s);
+
+    while(!pq.empty()) {
+        auto[d, u] = pq.top();
+        pq.pop();
+
+        if(dis[u] != INF) {
+            continue;
+        }
+        dis[u] = d;
+
+        for(const auto&[v, w] : adj[u]) {
+            pq.emplace(d + w, v);
+        }
+    }
+    return dis[t];
+};
+```
+
+#### C++ 11 版
 
 ```cpp
 int dijkstra(int s, int t) {
     std::vector<int> dis(n, INF); // dis[i]: s到i的最短路径
-    std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq; // (距离, 节点)
+    std::priority_queue<pii, std::vector<pii>, std::greater<pii>> pq; // (距离, 节点)
     pq.emplace(0, s);
 
     while (!pq.empty()) {
-        auto [d, u] = pq.top(); // 取出当前距离起点最近的节点
+        auto x = pq.top(); // 取出当前距离起点最近的节点
+        auto d = x.first;
+        auto u = x.second;
         pq.pop();
 
         if (dis[u] != INF) continue;
         dis[u] = d; // 记录该节点的最终最短距离
         if (u == t) break;
 
-        for (const auto& [v, w] : adj[u]) {
-            pq.emplace(d + w, v); // 这里允许队列中存在多个v的不同距离值
-        }
-    }
-    return dis[t];
-}
-```
-
-### C++ 11 版
-
-```cpp
-int dijkstra(int s, int t) {
-    std::vector<int> dis(n, INF); // dis[i]: s到i的最短路径
-    std::priority_queue<pii, std::vector<pii>, std::greater<pii>> pq;
-    pq.emplace(0, s);
-
-    while (!pq.empty()) {
-        auto x = pq.top();
-        auto d = x.first;
-        auto u = x.second;
-        pq.pop();
-
-        if (dis[u] != INF) continue;
-        dis[u] = d;
-        if (u == t) break;
-
         for (const auto& it : adj[u]) {
             auto v = it.first;
             auto w = it.second;
-            pq.emplace(d + w, v);
+            pq.emplace(d + w, v); // 这里允许队列中存在多个v的不同距离值
         }
     }
     return dis[t];
@@ -551,7 +595,7 @@ int query(const std::string& s) {
 }
 ```
 
-### 01字典树
+### 01 字典树
 
 
 
@@ -671,17 +715,17 @@ int main() {
 
 ```cpp
 inline int read() {
-    int x = 0, f = 1;
+    int res = 0, fu = 1;
     char c = getchar();
     while (c < '0' || c > '9') {
-        if (c == '-') f = -1;
+        if (c == '-') fu = -1;
         c = getchar();
     }
     while (c >= '0' && c <= '9') {
-        x = x * 10 + c - '0';
+        res = (res << 1) + (res << 3) + c - '0';
         c = getchar();
     }
-    return x * f;
+    return res;
 }
 ```
 

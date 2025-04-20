@@ -9,7 +9,7 @@ struct Node {
     Node(i64 l, i64 r, i64 v) :
             l(l), r(r), v(v) {}
 
-    bool operator<(const Node& o) {
+    bool operator<(const Node& o) const {
         return l < o.l;
     }
 };
