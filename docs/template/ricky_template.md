@@ -315,6 +315,97 @@ int main() {
 }
 ```
 
+## 对顶堆
+
+1. **动态求中位数**：
+   - **大根堆** 保存较小的一半元素，**小根堆** 保存较大的一半。
+   - 插入元素时调整堆的平衡，中位数由堆顶决定。
+2. **实时 Top-K 查询**：
+   - **小根堆** 保存当前最大的 `K` 个元素，堆顶是第 `K` 大的元素。
+   - 新元素若大于堆顶则替换，并调整堆。
+3. **流式数据的分位数统计**：
+   - 通过调整两个堆的比例，快速查询任意分位数（如 90% 分位）。
+
+```cpp
+class SORTracker {
+public:
+    struct Node {
+        std::string name;
+        int score;
+
+        bool operator<(const Node& other) const {
+            if (score != other.score) return score < other.score;
+            return name > other.name;
+        }
+
+        bool operator>(const Node& other) const {
+            if (score != other.score) return score > other.score;
+            return name < other.name;
+        }
+    };
+
+    int cur;
+    std::priority_queue<Node> ge;                                    // 大根堆
+    std::priority_queue<Node, std::vector<Node>, std::greater<>> le; // 小根堆
+
+    SORTracker() :
+            cur{1} {}
+
+    void add(std::string name, int score) {
+        Node n{name, score};
+        if (le.empty() || le.top() < n) {
+            le.push(n);
+        } else {
+            ge.push(n);
+        }
+
+        while (le.size() > cur) {
+            ge.push(le.top());
+            le.pop();
+        }
+        while (le.size() < cur && !ge.empty()) {
+            le.push(ge.top());
+            ge.pop();
+        }
+    }
+
+    std::string get() {
+        auto res = le.top().name;
+        ++cur;
+        while (le.size() < cur && !ge.empty()) {
+            le.push(ge.top());
+            ge.pop();
+        }
+        return res;
+    }
+};
+```
+
+```cpp
+std::priority_queue<int> a;
+std::priority_queue<int, std::vector<int>, std::greater<>> b;
+
+for(int i = 1; i <= n; ++i) {
+    int x;
+    std::cin >> x;
+    if(b.empty() || b.top() < x) {
+        b.push(x);
+    } else {
+        a.push(x);
+    }
+    int k = std::max(1, i * w / 100);
+    while(b.size() > k) {
+        a.push(b.top());
+        b.pop();
+    }
+    while(b.size() < k) {
+        b.push(a.top());
+        a.pop();
+    }
+    std::cout << b.top() << ' ';
+}
+```
+
 ## 并查集
 
 ```cpp
