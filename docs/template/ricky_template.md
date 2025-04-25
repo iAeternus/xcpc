@@ -210,12 +210,12 @@ void init(int n) {
  * 将区间分为两部分 [l, l + 2^s - 1] 与 [r - 2^s + 1, r]
  * op两部分结果
  */
-int query(int l, int r) {
+int query_max(int l, int r) {
     int s = std::__lg(r - l + 1);
     return std::max(Max[s][l], Max[s][r - (1 << s) + 1]);
 }
 
-int query2(int l, int r) {
+int query_min(int l, int r) {
     int s = std::__lg(r - l + 1);
     return std::min(Min[s][l], Min[s][r - (1 << s) + 1]);
 }
