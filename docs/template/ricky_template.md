@@ -8,7 +8,7 @@
 
 check 返回 true 表示：mid 满足题意，若当前求最大值，需要考虑提升下界 `l = mid`（得寸进尺），若当前求最小值，需要考虑降低上界 `r = mid`（方便找更小）
 
-以下下标均从1开始
+以下下标均从 1 开始
 
 l + r >> 1 可优化为 l + ((r - l) >> 1);
 
@@ -329,6 +329,118 @@ int main() {
    - 新元素若大于堆顶则替换，并调整堆。
 3. **流式数据的分位数统计**：
    - 通过调整两个堆的比例，快速查询任意分位数（如 90% 分位）。
+
+###  实时获取第K大的元素
+
+允许`b`中存在与当前第K大元素相等的值
+
+```cpp
+#include <bits/stdc++.h>
+
+int main() {
+    int n, w;
+    std::cin >> n >> w;
+    std::priority_queue<int> a; // 大根堆
+    std::priority_queue<int, std::vector<int>, std::greater<>> b; // 小根堆
+
+    for(int i = 1; i <= n; ++i) {
+        int x;
+        std::cin >> x;
+        if(b.empty() || b.top() < x) {
+            b.push(x);
+        } else {
+            a.push(x);
+        }
+        int k = std::max(1, i * w / 100);
+        while(b.size() > k) {
+            a.push(b.top());
+            b.pop();
+        }
+        while(b.size() < k) {
+            b.push(a.top());
+            a.pop();
+        }
+        std::cout << b.top() << ' ';
+    }
+}
+```
+
+###  实时获取前K大的元素之和
+
+`le`中的元素严格大于`ge`的所有元素
+
+使用multiset实现可以随机修改的对顶堆
+
+```cpp
+#include <bits/stdc++.h>
+
+using i64 = long long;
+const int N = 5e5 + 10;
+int n, k, q;
+i64 sum, a[N];
+std::multiset<i64> le;                 // 小根堆
+std::multiset<i64, std::greater<>> ge; // 大根堆
+
+template<typename T, typename C>
+inline void push(std::multiset<T, C>& h, const T& x) {
+    h.insert(x);
+}
+
+template <typename T, typename C>
+inline T top(const std::multiset<T, C>& h) {
+    return *h.begin();
+}
+
+template <typename T, typename C>
+inline void pop(std::multiset<T, C>& h) {
+    h.erase(h.begin());
+}
+
+void add(i64 x) {
+    if (!ge.empty() && top(ge) < x) {
+        push(le, x);
+        sum += x;
+    } else {
+        push(ge, x);
+    }
+    while (le.size() > k) {
+        push(ge, top(le));
+        sum -= top(le);
+        pop(le);
+    }
+    while (le.size() < k && !ge.empty()) {
+        push(le, top(ge));
+        sum += top(ge);
+        pop(ge);
+    }
+}
+
+int main() {
+    std::cin >> n >> k >> q;
+    for (int i = 0; i < k; ++i) {
+        push(le, 0LL);
+    }
+    for (int i = 0; i < n - k; ++i) {
+        push(ge, 0LL);
+    }
+
+    while (q--) {
+        i64 x, y;
+        std::cin >> x >> y;
+        if (le.find(a[x]) != le.end()) {
+            le.erase(le.find(a[x]));
+            sum -= a[x];
+        } else {
+            ge.erase(ge.find(a[x]));
+        }
+        a[x] = y;
+        add(a[x]);
+        std::cout << sum << std::endl;
+    }
+}
+```
+
+
 
 ```cpp
 class SORTracker {
@@ -748,7 +860,7 @@ std::vector<int> kmp(const std::string& s, const std::string& t) {
 ```cpp
 /**
  * r[i]表示以t中第i个字符为中心的最长回文半径（包括自身）
- * 求出来的max(r[i] - 1)即为最长回文子串的长度
+ * 求出来的 max(r[i] - 1) for i in r 即为最长回文子串的长度
  */
 std::vector<int> manacher(const std::string& s) {
     std::string t = "#";
