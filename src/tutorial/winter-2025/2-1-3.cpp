@@ -5,10 +5,10 @@ using i64 = long long;
 void solve() {
     std::string a;
     std::cin >> a;
-    for(int i = a.size() - 1; i >= 0; --i) {
-        if(a[i] == 'p') {
+    for (int i = a.size() - 1; i >= 0; --i) {
+        if (a[i] == 'p') {
             std::cout << 'q';
-        } else if(a[i] == 'q') {
+        } else if (a[i] == 'q') {
             std::cout << 'p';
         } else {
             std::cout << a[i];
@@ -25,7 +25,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

@@ -26,16 +26,16 @@ int ans[2]; // 用于记录树的重心（存的是节点编号）
 void dfs(int cur, int fa) {
     siz[cur] = 1;
     wei[cur] = 0;
-    for(int i = head[cur]; i; i = edge[i].next) {
+    for (int i = head[cur]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if(to != fa) { // 只准往下走
+        if (to != fa) { // 只准往下走
             dfs(to, cur);
             siz[cur] += siz[to];
             wei[cur] = std::max(wei[cur], siz[to]);
         }
     }
     wei[cur] = std::max(wei[cur], n - siz[cur]);
-    if(wei[cur] <= n / 2) { // 依照树的重心的定义统计
+    if (wei[cur] <= n / 2) { // 依照树的重心的定义统计
         ans[ans[0] != 0] = cur;
     }
 }
@@ -52,11 +52,11 @@ void clear() {
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         clear();
         std::cin >> n;
         int n2 = n << 1;
-        for(int i = 1; i <= n2; ++i) {
+        for (int i = 1; i <= n2; ++i) {
             int u, v;
             std::cin >> u >> v;
             addEdge(u, v);

@@ -28,7 +28,7 @@ using i64 = long long;
 void solve() {
     i64 n, m;
     std::cin >> n >> m;
-    if(n == 0 && m != 0 || n != 0 && m == 0) {
+    if (n == 0 && m != 0 || n != 0 && m == 0) {
         std::cout << "NO" << std::endl;
     } else {
         std::cout << "YES" << std::endl;

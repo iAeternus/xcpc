@@ -6,8 +6,8 @@ void solve() {
     int m, a, b, c;
     std::cin >> m >> a >> b >> c;
     int ans = std::min(m, a) + std::min(m, b);
-    if(m > a) {
-        if(c < m - a) {
+    if (m > a) {
+        if (c < m - a) {
             ans += c;
             c = 0;
         } else {
@@ -15,7 +15,7 @@ void solve() {
             c -= (m - a);
         }
     }
-    if(m > b) {
+    if (m > b) {
         ans += std::min(c, m - b);
     }
     std::cout << ans << std::endl;
@@ -29,7 +29,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

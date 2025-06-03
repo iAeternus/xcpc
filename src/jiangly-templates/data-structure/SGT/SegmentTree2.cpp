@@ -36,8 +36,8 @@ struct LazySegmentTree {
     std::vector<Info> info;
     std::vector<Tag> tag;
 
-    LazySegmentTree()
-        : n(0) {}
+    LazySegmentTree() :
+            n(0) {}
 
     LazySegmentTree(int n_, Info v_ = Info()) {
         init(n_, v_);
@@ -263,10 +263,10 @@ void test_1() {
 
     assert(tree.rangeQuery(1, 4).x == 15);
 
-    tree.rangeApply(1, 4, {5});             // 1 8 10 12 9 11
-    assert(tree.rangeQuery(1, 4).x == 30);  // TODO 30
+    tree.rangeApply(1, 4, {5});            // 1 8 10 12 9 11
+    assert(tree.rangeQuery(1, 4).x == 30); // TODO 30
 
-    tree.modify(2, {0});  // 1 8 0 12 9 11
+    tree.modify(2, {0}); // 1 8 0 12 9 11
     std::cout << tree.rangeQuery(2, 4).x << std::endl;
     assert(tree.rangeQuery(2, 4).x == 12);
 }

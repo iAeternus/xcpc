@@ -7,7 +7,7 @@
 #ifndef BIG_INTEGER_H
 #define BIG_INTEGER_H
 
-#include <iostream>
+#include <bits/stdc++.h>
 
 #define END_OF_NUM 0
 
@@ -139,4 +139,4 @@ private:
     void __divide_mod_li(const BigInteger&, const long long, BigInteger&, BigInteger&);
 };
 
-#endif  // BIG_INTEGER_H
+#endif // BIG_INTEGER_H

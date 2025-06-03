@@ -16,8 +16,8 @@ void solve(int n, int k) {
         }
     };
     dfs(1, 0, 0);
-    for (const auto &parts : allParts) {
-        for (const auto &part : parts) {
+    for (const auto& parts : allParts) {
+        for (const auto& part : parts) {
             std::cout << part << ' ';
         }
         std::cout << std::endl;

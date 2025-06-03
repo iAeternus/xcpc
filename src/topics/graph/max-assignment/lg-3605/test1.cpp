@@ -20,11 +20,11 @@ bool vis[N];
 int match[N];
 
 bool dfs(int x) {
-    for(int i = head[x]; i; i = edge[i].next) {
+    for (int i = head[x]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if(!vis[to]) {
+        if (!vis[to]) {
             vis[to] = true;
-            if(!match[to] || dfs(match[to])) {
+            if (!match[to] || dfs(match[to])) {
                 match[to] = x;
                 return true;
             }
@@ -36,14 +36,14 @@ bool dfs(int x) {
 int main() {
     int nl, nr, m;
     std::cin >> nl >> nr >> m;
-    while(m--) {
+    while (m--) {
         int u, v;
         std::cin >> u >> v;
         addEdge(u, v);
     }
 
     int ans = 0;
-    for(int i = 1; i <= nl; ++i) {
+    for (int i = 1; i <= nl; ++i) {
         ans += dfs(i);
         memset(vis, 0, sizeof(vis));
     }

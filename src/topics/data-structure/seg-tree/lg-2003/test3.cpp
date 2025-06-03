@@ -46,27 +46,32 @@ inline void build(int p, int s, int t) {
 
 inline int query(int p, int l, int r) {
     int s = tr[p].l, t = tr[p].r;
-    if (l == s && r == t)  return tr[p].v;
+    if (l == s && r == t) return tr[p].v;
 
     if (tr[p].max) push_down(p);
     int mid = (s + t) >> 1;
-    if (r <= mid) return query(left_child(p), l, r);
-    else if (l > mid) return query(right_child(p), l, r);
-    else return std::max(query(left_child(p), l, mid), query(right_child(p), mid + 1, r));
+    if (r <= mid)
+        return query(left_child(p), l, r);
+    else if (l > mid)
+        return query(right_child(p), l, r);
+    else
+        return std::max(query(left_child(p), l, mid), query(right_child(p), mid + 1, r));
 }
 
 inline void update(int p, int l, int r, int k) {
     int s = tr[p].l, t = tr[p].r;
-    if(l == s && r == t) {
+    if (l == s && r == t) {
         tr[p].v = std::max(tr[p].v, k);
         tr[p].max = k;
         return;
     }
 
-    if(tr[p].max) push_down(p);
+    if (tr[p].max) push_down(p);
     int mid = (s + t) >> 1;
-    if(r <= mid) update(left_child(p), l, r, k);
-    else if(l > mid) update(right_child(p), l, r, k);
+    if (r <= mid)
+        update(left_child(p), l, r, k);
+    else if (l > mid)
+        update(right_child(p), l, r, k);
     else {
         update(left_child(p), l, mid, k);
         update(right_child(p), mid + 1, r, k);
@@ -77,7 +82,7 @@ inline void update(int p, int l, int r, int k) {
 int main() {
     int n;
     std::cin >> n;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cin >> a[i].y >> a[i].x1 >> a[i].x2;
     }
 
@@ -87,7 +92,7 @@ int main() {
     build(1, 1, N);
 
     int ans = 0;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int l = a[i].x1, r = a[i].x2;
         ans += (a[i].y - query(1, l, l + 1)); // 左侧边界
         ans += (a[i].y - query(1, r - 1, r)); // 右侧边界

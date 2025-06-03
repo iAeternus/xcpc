@@ -10,7 +10,7 @@ void solve() {
     int n, m;
     std::cin >> n >> m;
     std::vector<C> v(1);
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int t, l, h;
         std::cin >> t >> l >> h;
         v.push_back({t, l, h});
@@ -20,10 +20,10 @@ void solve() {
     });
 
     int l = m, h = m;
-    for(int i = 1; i < v.size(); ++i) {
+    for (int i = 1; i < v.size(); ++i) {
         int d = v[i].t - v[i - 1].t;
         l -= d, h += d;
-        if(l > v[i].h || h < v[i].l) {
+        if (l > v[i].h || h < v[i].l) {
             std::cout << "NO" << std::endl;
             return;
         }
@@ -41,7 +41,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

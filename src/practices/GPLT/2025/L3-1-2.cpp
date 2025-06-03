@@ -46,7 +46,7 @@ int main() {
     // floyd
     for (int k = 0; k < n; ++k) {
         for (int u = 0; u < n; ++u) {
-            if(dis[u][k].w == INF) continue;
+            if (dis[u][k].w == INF) continue;
             for (int v = 0; v < n; ++v) {
                 dis[u][v] = min(dis[u][v], dis[u][k] + dis[k][v]);
             }
@@ -71,8 +71,10 @@ int main() {
         int max_x = 0;
         bool fst = true;
         for (auto t : ans) {
-            if (fst) fst = false;
-            else std::cout << ' ';
+            if (fst)
+                fst = false;
+            else
+                std::cout << ' ';
             std::cout << t + 1;
             max_x = std::max(max_x, dis[s][t].x);
         }
@@ -81,8 +83,10 @@ int main() {
         fst = true;
         for (auto t : ans) {
             if (dis[s][t].x == max_x) {
-                if(fst) fst = false;
-                else std::cout << ' ';
+                if (fst)
+                    fst = false;
+                else
+                    std::cout << ' ';
                 std::cout << t + 1;
             }
         }

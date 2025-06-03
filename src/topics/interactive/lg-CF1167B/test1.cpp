@@ -15,15 +15,15 @@ void ask(int x) {
 
 void ret() {
     std::cout << "! ";
-    for(int i = 1; i <= 6; ++i) {
+    for (int i = 1; i <= 6; ++i) {
         std::cout << a[i] << ' ';
     }
     std::cout << "\n";
 }
 
 bool check() {
-    for(int i = 1; i <= 4; ++i) {
-        if(a[i] * a[i + 1] != mul[i]) {
+    for (int i = 1; i <= 4; ++i) {
+        if (a[i] * a[i + 1] != mul[i]) {
             return false;
         }
     }
@@ -31,13 +31,13 @@ bool check() {
 }
 
 int main() {
-    for(int i = 1; i <= 4; ++i) {
+    for (int i = 1; i <= 4; ++i) {
         ask(i);
     }
     do {
-        if(check()) {
+        if (check()) {
             ret();
             break;
         }
-    } while(std::next_permutation(a + 1, a + 7));
+    } while (std::next_permutation(a + 1, a + 7));
 }

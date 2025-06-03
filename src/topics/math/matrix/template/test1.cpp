@@ -1,5 +1,5 @@
 // g++ test1.cpp matrix.h -o test1
-#include <iostream>
+#include <bits/stdc++.h>
 #include <array>
 
 #include "matrix.h"
@@ -102,10 +102,10 @@ auto solve_linear_systems1() -> void {
     // Then
     std::cout << (res ? "unique solution" : "no unique solution") << std::endl;
     std::cout << a << std::endl;
-    if(res) {
+    if (res) {
         std::cout << "Solution is: ";
         std::vector<double> sol = a.get_solution();
-        for(const auto& v : sol) {
+        for (const auto& v : sol) {
             std::cout << v << ' ';
         }
         std::cout << std::endl;
@@ -126,10 +126,10 @@ auto solve_linear_systems2() -> void {
     // Then
     std::cout << (res ? "unique solution" : "no unique solution") << std::endl;
     std::cout << a << std::endl;
-    if(res) {
+    if (res) {
         std::cout << "Solution is: ";
         std::vector<double> sol = a.get_solution();
-        for(const auto& v : sol) {
+        for (const auto& v : sol) {
             std::cout << v << ' ';
         }
         std::cout << std::endl;
@@ -150,10 +150,10 @@ auto solve_linear_systems3() -> void {
     // Then
     std::cout << (res ? "unique solution" : "no unique solution") << std::endl;
     std::cout << a << std::endl;
-    if(res) {
+    if (res) {
         std::cout << "Solution is: ";
         std::vector<double> sol = a.get_solution();
-        for(const auto& v : sol) {
+        for (const auto& v : sol) {
             std::cout << v << ' ';
         }
         std::cout << std::endl;
@@ -172,10 +172,10 @@ auto solve_xor_linear_systems1() -> void {
     bool res = Matrix<int>::solve_xor_linear_systems(a);
 
     // Then
-    if(res) {
+    if (res) {
         std::cout << "Solution is: ";
         std::vector<int> sol = a.get_solution();
-        for(const auto& v : sol) {
+        for (const auto& v : sol) {
             std::cout << v << ' ';
         }
         std::cout << std::endl;

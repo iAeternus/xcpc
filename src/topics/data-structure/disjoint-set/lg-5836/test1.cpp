@@ -11,13 +11,13 @@ const int N = 1e5 + 9;
 int s[N]; // 集
 
 void init() {
-    for(int i = 1; i < N; ++i) {
+    for (int i = 1; i < N; ++i) {
         s[i] = i;
     }
 }
 
 int find(int x) {
-    if(x == s[x]) {
+    if (x == s[x]) {
         return x;
     }
     return s[x] = find(s[x]);
@@ -39,20 +39,20 @@ int main() {
     char species[N];
     scanf("%s", species + 1);
 
-    for(int i = 1; i <= n - 1; ++i) {
+    for (int i = 1; i <= n - 1; ++i) {
         int x, y;
         scanf("%d %d", &x, &y);
-        if(species[x] == species[y]) {
+        if (species[x] == species[y]) {
             merge(x, y);
         }
     }
 
-    while(m--) {
+    while (m--) {
         int a, b;
         char c;
         scanf("%d %d %c", &a, &b, &c);
 
-        if(find(a) == find(b) && species[a] != c) {
+        if (find(a) == find(b) && species[a] != c) {
             putchar('0');
         } else {
             putchar('1');

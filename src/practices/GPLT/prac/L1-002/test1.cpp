@@ -1,23 +1,23 @@
 #include <bits/stdc++.h>
 
 void print(int n, char ch) {
-    for(int i = n; i >= 1; --i) {
+    for (int i = n; i >= 1; --i) {
         int cnt = 2 * i - 1;
-        for(int j = 0; j < n - i; ++j) {
+        for (int j = 0; j < n - i; ++j) {
             std::cout << ' ';
         }
-        for(int j = 0; j < cnt; ++j) {
+        for (int j = 0; j < cnt; ++j) {
             std::cout << ch;
         }
         std::cout << std::endl;
     }
 
-    for(int i = 2; i <= n; ++i) {
+    for (int i = 2; i <= n; ++i) {
         int cnt = 2 * i - 1;
-        for(int j = 0; j < n - i; ++j) {
+        for (int j = 0; j < n - i; ++j) {
             std::cout << ' ';
         }
-        for(int j = 0; j < cnt; ++j) {
+        for (int j = 0; j < cnt; ++j) {
             std::cout << ch;
         }
         std::cout << std::endl;
@@ -30,7 +30,7 @@ int main() {
     std::cin >> n >> ch;
 
     int l = 0;
-    while(2 * l * l - 1 <= n) {
+    while (2 * l * l - 1 <= n) {
         ++l;
     }
     l--;

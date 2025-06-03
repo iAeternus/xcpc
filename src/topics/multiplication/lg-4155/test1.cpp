@@ -41,9 +41,9 @@ int res[N];
 
 void get_ans(int x) {
     int len = w[x].l + m, cur = x, ans = 1;
-    for(int i = log2(N); i >= 0; --i) {
+    for (int i = log2(N); i >= 0; --i) {
         int pos = go[cur][i];
-        if(pos && w[pos].r < len) {
+        if (pos && w[pos].r < len) {
             ans += 1 << i;
             cur = pos;
         }

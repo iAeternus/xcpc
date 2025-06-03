@@ -17,8 +17,8 @@ void solve() {
     std::string s;
     std::cin >> s;
     int cnt = 0;
-    for(int i = 1; i <= n * 2; ++i) {
-        if(i & 1 && s[i - 1] == 'A') {
+    for (int i = 1; i <= n * 2; ++i) {
+        if (i & 1 && s[i - 1] == 'A') {
             ++cnt;
         }
     }
@@ -33,7 +33,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

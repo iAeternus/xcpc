@@ -40,18 +40,18 @@ bool solve() {
 
     int cnt1 = 0;
     bool tag = true;
-    for(int i = 0; i < s.length() - 1; ++i) {
-        if(s[i + 1] == '0') {
+    for (int i = 0; i < s.length() - 1; ++i) {
+        if (s[i + 1] == '0') {
             break;
         }
-        if(tag && s[i] == '1' && s[i + 1] != '0') {
+        if (tag && s[i] == '1' && s[i + 1] != '0') {
             cnt1++;
         }
     }
 
     int cnt2 = 0;
-    for(int i = 0; i < s.length() - 1; ++i) {
-        if(s[i] == '1' && s[i + 1] == '0') {
+    for (int i = 0; i < s.length() - 1; ++i) {
+        if (s[i] == '1' && s[i + 1] == '0') {
             cnt2++;
         }
     }

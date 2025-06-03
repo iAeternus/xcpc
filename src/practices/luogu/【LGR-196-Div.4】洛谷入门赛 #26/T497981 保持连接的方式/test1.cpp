@@ -9,7 +9,6 @@ struct Diary {
 
 struct Cell {
     std::stack<Diary> diaries;
-
 };
 
 int main() {
@@ -29,8 +28,27 @@ int main() {
         if (box[x1][y1].size() < k) {
             std::cout << -1 << std::endl;
         } else {
-            indexes[x1][y1];
+            auto st = box[x1][y1];
+            int min_id = INT_MAX;
+            while(!st.empty()) {
+                min_id = std::min(min_id, st.top().id);
+                st.pop();
+            }
+
+            std::stack<Diary> tmp;
+            while(!box[x1][y1].empty() && box[x1][y1].top().id != min_id) {
+                tmp.push(box[x1][y1].top());
+                box[x1][y1].pop();
+            }
+            box[x1][y1].pop();
+
+            std::cout << min_id << ' ' << tmp.size() << std::endl;
+
+            while(!tmp.empty()) {
+                box[x1][y1].push(tmp.top());
+                tmp.pop();
+            }
         }
-        // box[x1][y1].push({a, box[x1][y1].size()});
+        box[x1][y1].push({a, int(box[x1][y1].size())});
     }
 }

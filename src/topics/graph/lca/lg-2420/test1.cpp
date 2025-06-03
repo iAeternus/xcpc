@@ -21,10 +21,10 @@ int xor_path[N]; // xor_path[i] = j：表示节点i到根节点的路径异或�
  * 初始化图
  */
 void init() {
-    for(auto& h : head) {
+    for (auto& h : head) {
         h = -1;
     }
-    for(auto& e : edge) {
+    for (auto& e : edge) {
         e.next = -1;
     }
     cnt = 0;
@@ -55,7 +55,7 @@ void add_edge(int from, int to, int weight) {
  *      })
  */
 void for_each(int cur, const std::function<void(int)>& func) {
-    for(int i = head[cur]; ~i; i = edge[i].next) {
+    for (int i = head[cur]; ~i; i = edge[i].next) {
         func(i);
     }
 }
@@ -69,7 +69,7 @@ void dfs(int cur, int parent) {
     for_each(cur, [&](int i) {
         int neighbor = edge[i].to;
         int weight = edge[i].weight;
-        if(neighbor == parent) {
+        if (neighbor == parent) {
             return; // continue
         }
         xor_path[neighbor] = xor_path[cur] ^ weight;
@@ -81,7 +81,7 @@ int main() {
     int n;
     std::cin >> n;
     init();
-    for(int i = 1; i <= n - 1; ++i) {
+    for (int i = 1; i <= n - 1; ++i) {
         int u, v, w;
         std::cin >> u >> v >> w;
         add_edge(u, v, w);
@@ -92,7 +92,7 @@ int main() {
 
     int m;
     std::cin >> m;
-    while(m--) {
+    while (m--) {
         int u, v;
         std::cin >> u >> v;
         std::cout << (xor_path[u] ^ xor_path[v]) << std::endl;

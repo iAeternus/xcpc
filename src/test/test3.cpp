@@ -7,13 +7,13 @@ struct AhoCorasick {
         int link;
         std::array<int, ALPHABET> next;
         int count;
-        Node()
-            : len{0}, link{0}, next{}, count{0} {}
+        Node() :
+                len{0}, link{0}, next{}, count{0} {}
     };
     std::vector<Node> t;
-    std::unordered_map<int, int> wordId;  // 节点到敏感词 ID 的映射
-    std::vector<std::string> words;       // 存储敏感词
-    std::vector<int> wordCount;           // 记录每个敏感词的匹配次数
+    std::unordered_map<int, int> wordId; // 节点到敏感词 ID 的映射
+    std::vector<std::string> words;      // 存储敏感词
+    std::vector<int> wordCount;          // 记录每个敏感词的匹配次数
     AhoCorasick() { init(); }
     void init() {
         t.assign(2, Node());
@@ -35,9 +35,9 @@ struct AhoCorasick {
             p = t[p].next[x];
         }
         t[p].count++;
-        wordId[p] = words.size();  // 映射终止节点到敏感词的 ID
-        words.push_back(a);        // 存储敏感词
-        wordCount.push_back(0);    // 初始化匹配次数
+        wordId[p] = words.size(); // 映射终止节点到敏感词的 ID
+        words.push_back(a);       // 存储敏感词
+        wordCount.push_back(0);   // 初始化匹配次数
         return p;
     }
     void work() {
@@ -57,10 +57,10 @@ struct AhoCorasick {
         }
     }
     void search(const std::string& text) {
-        int p = 1;  // 初始状态为根节点
+        int p = 1; // 初始状态为根节点
         for (auto c : text) {
-            int x = c - 'a';  // 将字符转为对应的数字
-            p = next(p, x);   // 移动到下一个状态
+            int x = c - 'a'; // 将字符转为对应的数字
+            p = next(p, x);  // 移动到下一个状态
             // 统计匹配到的敏感词
             for (int temp = p; temp != 1; temp = t[temp].link) {
                 if (t[temp].count > 0 && wordId.find(temp) != wordId.end()) {
@@ -69,7 +69,7 @@ struct AhoCorasick {
                 }
             }
         }
-    }  // 打印每个敏感词及其匹配次数
+    } // 打印每个敏感词及其匹配次数
     void printResults() {
         for (size_t i = 0; i < words.size(); ++i) {
             std::cout << wordCount[i] << "\n";

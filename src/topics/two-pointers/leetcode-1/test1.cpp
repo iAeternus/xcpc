@@ -43,7 +43,7 @@ int main() {
     std::vector<int> ans = s.twoSum(nums, target);
 
     // Then
-    for(auto it : ans) {
+    for (auto it : ans) {
         std::cout << it << ' ';
     }
 }

@@ -11,9 +11,9 @@ int main() {
     freopen("in.txt", "r", stdin);
 
     int step, mod;
-    while(~scanf("%d %d", &step, &mod)) {
+    while (~scanf("%d %d", &step, &mod)) {
         int d = gcd(step, mod);
-        if(d == 1) {
+        if (d == 1) {
             puts("Good Choice");
         } else {
             puts("Bad Choice");

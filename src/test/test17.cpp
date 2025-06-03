@@ -6,9 +6,9 @@ int nextInt(int lower, int upper) {
 }
 
 int main() {
-    srand((unsigned) time(nullptr));
+    srand((unsigned)time(nullptr));
 
-    for(int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 100; ++i) {
         std::cout << nextInt(-10, 10) << ' ';
     }
     std::cout << std::endl;

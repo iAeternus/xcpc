@@ -5,16 +5,15 @@
 
 // true=够 false=不够
 bool check(int mid) {
-    
 }
 
 int main() {
     int n;
     std::cin >> n;
     int l = 1, r = 100000;
-    while(l < r) {
+    while (l < r) {
         int mid = l + r >> 1;
-        if(check(mid)) {
+        if (check(mid)) {
             r = mid;
         } else {
             l = mid + 1;

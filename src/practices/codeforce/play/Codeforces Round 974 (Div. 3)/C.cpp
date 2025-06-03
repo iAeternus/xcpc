@@ -10,11 +10,11 @@ void solve() {
     std::cin >> n;
     std::vector<int> a(n);
     i64 sum = 0LL;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
         sum += a[i];
     }
-    if(n <= 2) {
+    if (n <= 2) {
         std::cout << -1 << std::endl;
         return;
     }
@@ -30,7 +30,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

@@ -6,12 +6,12 @@
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         int n;
         std::cin >> n;
-        
+
         int xorSum = 0;
-        for(int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             int num;
             std::cin >> num;
             xorSum ^= num;

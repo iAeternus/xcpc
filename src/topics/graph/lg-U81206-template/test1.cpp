@@ -15,7 +15,7 @@ void addEdge(int u, int v, int w) {
 int main() {
     int n, m, flag;
     scanf("%d %d %d", &n, &m, &flag);
-    while(m--) {
+    while (m--) {
         int u, v, w;
         scanf("%d %d %d", &u, &v, &w);
         addEdge(u, v, w);
@@ -25,7 +25,7 @@ int main() {
     }
 
     for (int i = 1; i <= n; ++i) {
-        for(int j = head[i]; j; j = edge[j].next) {
+        for (int j = head[i]; j; j = edge[j].next) {
             printf("%d %d %d\n", i, edge[j].to, edge[j].w);
         }
     }

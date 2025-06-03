@@ -6,8 +6,8 @@ const LL M = 1e9 + 7;
 
 LL qpow(LL a, LL n, LL m) {
     LL ans = 1;
-    while(n) {
-        if(n & 1) {
+    while (n) {
+        if (n & 1) {
             ans = (ans * a) % m;
         }
         a = (a * a) % m;
@@ -35,7 +35,7 @@ void test() {
 扩展欧几里得算法求乘法逆元
 */
 LL exgcd(LL a, LL b, LL& x, LL& y) {
-    if(b == 0) {
+    if (b == 0) {
         x = 1, y = 0;
         return a;
     }

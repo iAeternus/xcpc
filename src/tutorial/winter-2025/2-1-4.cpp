@@ -60,18 +60,18 @@ int main() {
     //     std::cout << std::endl;
     // }
 
-    for(int i = 0; i < n; ++i) {
-        for(int j = 0; j < m; ++j) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
             int prev = i - 1;
             int next = i + 1;
-            if(mp[i][j] == 'A' || mp[i][j] == 'B') {
-                if(prev >= 0 && prev < n) {
-                    if(mp[i][j] == mp[prev][j]) {
+            if (mp[i][j] == 'A' || mp[i][j] == 'B') {
+                if (prev >= 0 && prev < n) {
+                    if (mp[i][j] == mp[prev][j]) {
                         d[i][j] = true;
                     }
                 }
-                if(next >= 0 && next < n) {
-                    if(mp[i][j] == mp[next][j]) {
+                if (next >= 0 && next < n) {
+                    if (mp[i][j] == mp[next][j]) {
                         d[i][j] = true;
                     }
                 }
@@ -79,9 +79,9 @@ int main() {
         }
     }
 
-    for(int i = 0; i < n; ++i) {
-        for(int j = 0; j < m; ++j) {
-            if(d[i][j]) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (d[i][j]) {
                 mp[i][j] = '#';
             }
         }

@@ -14,12 +14,12 @@ i64 dp[N];
 int main() {
     int n;
     std::cin >> n;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> x[i] >> v[i] >> d[i];
     }
 
     dp[n - 1] = v[n - 1];
-    for(int i = n - 1; i >= 0; --i) {
+    for (int i = n - 1; i >= 0; --i) {
         auto k = std::lower_bound(x + i + 1, x + n, x[i] + d[i]) - x;
         dp[i] = std::max(dp[i + 1], dp[k] + v[i]);
     }

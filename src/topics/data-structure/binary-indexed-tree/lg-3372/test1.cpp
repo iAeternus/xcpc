@@ -6,18 +6,20 @@
 class SuperBinaryIndexedTree {
 private:
     using ELEM = long long;
+
 public:
-    SuperBinaryIndexedTree(int size) : m_size(size) {
+    SuperBinaryIndexedTree(int size) :
+            m_size(size) {
         m_old = 0;
         p_d1 = new ELEM[m_size + 1];
         p_d2 = new ELEM[m_size + 1];
-        for(int i = 1; i <= m_size; ++i) {
+        for (int i = 1; i <= m_size; ++i) {
             p_d1[i] = p_d2[i] = 0;
         }
     }
 
-    SuperBinaryIndexedTree(ELEM nums[], int size)
-        : SuperBinaryIndexedTree(size) {
+    SuperBinaryIndexedTree(ELEM nums[], int size) :
+            SuperBinaryIndexedTree(size) {
         for (int i = 1; i <= m_size; ++i) {
             add(p_d1, i, nums[i] - nums[i - 1]);
             add(p_d2, i, (i - 1) * (nums[i] - nums[i - 1]));
@@ -116,19 +118,19 @@ int main() {
 
     scanf("%d %d", &n, &m);
     SuperBinaryIndexedTree bit(n);
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         ll a;
         scanf("%lld", &a);
         bit.set(i, a);
     }
 
-    while(m--) {
+    while (m--) {
         int op;
         scanf("%d", &op);
 
         int x, y;
         ll k;
-        if(op == 1) {
+        if (op == 1) {
             scanf("%d %d %lld", &x, &y, &k);
             bit.add(x, y, k);
         } else if (op == 2) {

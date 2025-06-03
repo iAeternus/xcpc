@@ -7,10 +7,10 @@
 struct Info {
     int min, max, cnt;
 
-    Info() {} 
+    Info() {}
 
-    Info(int id)
-        : min(id + 1), max(id + 1), cnt(1) {}
+    Info(int id) :
+            min(id + 1), max(id + 1), cnt(1) {}
 
     void apply(const Info& fy) {
         min = std::min(min, fy.min);
@@ -33,7 +33,7 @@ struct DSU {
     void init(int n) {
         fa.resize(n);
         info.resize(n);
-        for(int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             fa[i] = i;
             info[i] = Info{i};
         }

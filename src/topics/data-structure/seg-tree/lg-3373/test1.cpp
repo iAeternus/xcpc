@@ -38,7 +38,7 @@ void push_down(int p, int l, int r) {
 
 void build(int p, int l, int r) {
     t[p] = {0, 1, 0};
-    if(l == r) {
+    if (l == r) {
         t[p].val = a[l] % m;
         return;
     }
@@ -50,10 +50,10 @@ void build(int p, int l, int r) {
 }
 
 void update1(int p, int std_l, int std_r, int l, int r, ll k) {
-    if(r < std_l || std_r < l) {
+    if (r < std_l || std_r < l) {
         return;
     }
-    if(l <= std_l && std_r <= r) {
+    if (l <= std_l && std_r <= r) {
         t[p].val = (t[p].val * k) % m;
         t[p].add = (t[p].add * k) % m;
         t[p].mul = (t[p].mul * k) % m;
@@ -75,10 +75,10 @@ void update1(int l, int r, ll k) {
 }
 
 void update2(int p, int std_l, int std_r, int l, int r, ll k) {
-    if(r < std_l || std_r < l) {
+    if (r < std_l || std_r < l) {
         return;
     }
-    if(l <= std_l && std_r <= r) {
+    if (l <= std_l && std_r <= r) {
         t[p].val = (t[p].val + k * (std_r - std_l + 1)) % m;
         t[p].add = (t[p].add + k) % m;
         return;
@@ -99,10 +99,10 @@ void update2(int l, int r, ll k) {
 }
 
 ll rangeSum(int p, int std_l, int std_r, int l, int r) {
-    if(r < std_l || std_r < l) {
+    if (r < std_l || std_r < l) {
         return 0;
     }
-    if(l <= std_l && std_r <= r) {
+    if (l <= std_l && std_r <= r) {
         return t[p].val;
     }
 
@@ -121,14 +121,14 @@ int main() {
         std::cin >> a[i];
     }
     build(1, 1, n);
-    while(q--) {
+    while (q--) {
         int op, x, y;
         ll k;
         std::cin >> op;
-        if(op == 1) {
+        if (op == 1) {
             std::cin >> x >> y >> k;
             update1(x, y, k);
-        } else if(op == 2) {
+        } else if (op == 2) {
             std::cin >> x >> y >> k;
             update2(x, y, k);
         } else {

@@ -3,8 +3,8 @@
 using i64 = long long;
 
 bool has_eq(const std::string& s) {
-    for(int i = 1; i < s.length(); ++i) {
-        if(s[i] == s[i - 1]) {
+    for (int i = 1; i < s.length(); ++i) {
+        if (s[i] == s[i - 1]) {
             return true;
         }
     }
@@ -25,7 +25,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

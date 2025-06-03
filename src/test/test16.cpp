@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 
 std::size_t nextSize(std::size_t size) {
-    if(size < 16) {
+    if (size < 16) {
         return 16;
-    } else if((size & (size - 1)) == 0) {
+    } else if ((size & (size - 1)) == 0) {
         return size;
     }
 

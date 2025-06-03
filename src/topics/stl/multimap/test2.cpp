@@ -14,7 +14,7 @@ struct Cmp {
 int main() {
     std::multimap<X, int, Cmp> mp = {{{1, 1}, 1}, {{1, 2}, 1}, {{1, 3}, 1}};
     // 1-3:1 1-2:1 1-1:1
-    for(const auto&[k, v] : mp) {
+    for (const auto& [k, v] : mp) {
         std::cout << k.a << '-' << k.b << ':' << v << ' ';
     }
     std::cout << std::endl;

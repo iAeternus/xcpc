@@ -15,27 +15,28 @@ Sample Output
 class Solution {
     int dx[4] = {0, 0, 1, -1};
     int dy[4] = {1, -1, 0, 0};
+
 public:
     std::vector<int> pathPuzzle(int col[], int row[], int n) {
         std::vector<std::vector<bool>> vis(n, std::vector<bool>(n, false));
         std::vector<int> path;
 
         std::function<bool(int, int)> dfs = [&](int x, int y) {
-            if(x < 0 || x >= n || y < 0 || y >= n) return false;
-            if(vis[x][y]) return false;
-            if(row[x] == 0 || col[y] == 0) return false;
+            if (x < 0 || x >= n || y < 0 || y >= n) return false;
+            if (vis[x][y]) return false;
+            if (row[x] == 0 || col[y] == 0) return false;
             // 某个坐标即将变成0，但是左边还存在非0值，因为不可能在回到左边，故剪枝
-            if(row[x] == 1 && std::accumulate(row, row + x, 0)) return false;
-            if(col[y] == 1 && std::accumulate(col, col + y, 0)) return false;
+            if (row[x] == 1 && std::accumulate(row, row + x, 0)) return false;
+            if (col[y] == 1 && std::accumulate(col, col + y, 0)) return false;
             row[x]--;
             col[y]--;
             vis[x][y] = true;
             path.push_back(x * n + y);
-            if(x == n - 1 && y == n - 1 && std::accumulate(row, row + n, 0) == 0 && std::accumulate(col, col + n, 0) == 0) {
+            if (x == n - 1 && y == n - 1 && std::accumulate(row, row + n, 0) == 0 && std::accumulate(col, col + n, 0) == 0) {
                 return true;
             }
-            for(int i = 0; i < 4; ++i) {
-                if(dfs(x + dx[i], y + dy[i])) {
+            for (int i = 0; i < 4; ++i) {
+                if (dfs(x + dx[i], y + dy[i])) {
                     return true;
                 }
             }

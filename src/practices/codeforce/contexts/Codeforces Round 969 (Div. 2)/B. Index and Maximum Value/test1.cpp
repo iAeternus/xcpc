@@ -27,7 +27,7 @@ int main() {
             int l, r;
             scanf(" %c %d %d", &op, &l, &r);
 
-            if(v_max >= l && v_max <= r) {
+            if (v_max >= l && v_max <= r) {
                 v_max += (op == '+' ? 1 : -1);
             }
 

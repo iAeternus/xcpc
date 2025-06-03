@@ -11,14 +11,14 @@ void solve() {
     int n, m, h;
     std::cin >> n >> m >> h;
     std::vector<bool> horse(n, false);
-    for(int i = 0; i < h; ++i) {
+    for (int i = 0; i < h; ++i) {
         int a;
         std::cin >> a;
         a--;
         horse[a] = true;
     }
     std::vector<std::vector<std::pair<int, i64>>> adj(n);
-    while(m--) {
+    while (m--) {
         int u, v;
         i64 w;
         std::cin >> u >> v >> w;
@@ -29,15 +29,15 @@ void solve() {
     }
 
     auto dijkstra = [&](int s) {
-       std::vector<i64> dis(2 * n, INF); // dis[2i]-不骑马最短距离，dis[2i + 1]-骑马最短距离
-       std::priority_queue<std::pair<i64, int>, std::vector<std::pair<i64, int>>, std::greater<>> pq;
-       pq.emplace(0LL, 2 * s);
+        std::vector<i64> dis(2 * n, INF); // dis[2i]-不骑马最短距离，dis[2i + 1]-骑马最短距离
+        std::priority_queue<std::pair<i64, int>, std::vector<std::pair<i64, int>>, std::greater<>> pq;
+        pq.emplace(0LL, 2 * s);
 
-       while(!pq.empty()) {
-            auto[d, u] = pq.top(); // d-最短路径 u-虚拟的节点
+        while (!pq.empty()) {
+            auto [d, u] = pq.top(); // d-最短路径 u-虚拟的节点
             pq.pop();
 
-            if(dis[u] != INF) {
+            if (dis[u] != INF) {
                 continue;
             }
             dis[u] = d;
@@ -45,26 +45,26 @@ void solve() {
             int x = u / 2; // 当前节点
             bool has_horse = u & 1;
 
-            if(!has_horse && horse[x]) {
+            if (!has_horse && horse[x]) {
                 pq.emplace(d, 2 * x + 1);
             }
 
-            for(const auto&[v, w] : adj[x]) {
+            for (const auto& [v, w] : adj[x]) {
                 pq.emplace(d + (has_horse ? w / 2 : w), 2 * v + has_horse);
             }
-       }
-       std::vector<i64> d(n, INF); // 不骑马和骑马的较小值
-       for (int i = 0; i < n; ++i) {
-           d[i] = std::min(dis[2 * i], dis[2 * i + 1]);
-       }
-       return d;
+        }
+        std::vector<i64> d(n, INF); // 不骑马和骑马的较小值
+        for (int i = 0; i < n; ++i) {
+            d[i] = std::min(dis[2 * i], dis[2 * i + 1]);
+        }
+        return d;
     };
 
     auto d1 = dijkstra(0);
     auto dn = dijkstra(n - 1);
 
     i64 ans = INF;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         ans = std::min(ans, std::max(d1[i], dn[i]));
     }
     std::cout << (ans == INF ? -1 : ans) << std::endl;
@@ -78,7 +78,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

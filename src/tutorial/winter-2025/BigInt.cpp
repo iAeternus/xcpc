@@ -25,10 +25,10 @@ struct BigInt {
     }
 
     BigInt& operator*=(int x) {
-        for(int i = 0; i < N; ++i) {
+        for (int i = 0; i < N; ++i) {
             a[i] *= x;
         }
-        for(int i = 0; i < N - 1; ++i) {
+        for (int i = 0; i < N - 1; ++i) {
             a[i + 1] += a[i] / 10;
             a[i] %= 10;
         }
@@ -36,8 +36,8 @@ struct BigInt {
     }
 
     BigInt& operator/=(int x) {
-        for(int i = N - 1; i >= 0; --i) {
-            if(i) {
+        for (int i = N - 1; i >= 0; --i) {
+            if (i) {
                 a[i - 1] += a[i] % x * 10;
             }
             a[i] /= x;

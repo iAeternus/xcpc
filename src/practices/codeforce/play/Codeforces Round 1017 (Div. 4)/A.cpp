@@ -6,8 +6,8 @@ void solve() {
     std::string s;
     std::getline(std::cin, s);
     s = " " + s;
-    for(int i = 1; i < s.length(); ++i) {
-        if(s[i - 1] == ' ') {
+    for (int i = 1; i < s.length(); ++i) {
+        if (s[i - 1] == ' ') {
             std::cout << s[i];
         }
     }
@@ -23,7 +23,7 @@ int main() {
     std::cin >> t;
     std::cin.get();
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

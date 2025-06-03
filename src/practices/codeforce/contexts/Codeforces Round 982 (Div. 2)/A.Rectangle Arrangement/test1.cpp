@@ -6,11 +6,11 @@
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         int n;
         std::cin >> n;
         int w_max = 0, h_max = 0;
-        for(int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             int w, h;
             std::cin >> w >> h;
             w_max = std::max(w_max, w);

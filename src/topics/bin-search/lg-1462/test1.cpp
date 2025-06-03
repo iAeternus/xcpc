@@ -4,26 +4,26 @@
 #include <bits/stdc++.h>
 
 using ll = long long;
-using WEIGHT = int;  // 边权类型
-using POINT = int;   // 点权类型
+using WEIGHT = int; // 边权类型
+using POINT = int;  // 点权类型
 
-#define INF 0x7fffffff  // 最大权值
+#define INF 0x7fffffff // 最大权值
 
-const int N = 1e5 + 5;  // 最大点数
-const int M = N << 1;   // 最大边数
+const int N = 1e5 + 5; // 最大点数
+const int M = N << 1;  // 最大边数
 
-POINT head[N];  // 点集
-int cnt;        // cnt记录当前存储位置
+POINT head[N]; // 点集
+int cnt;       // cnt记录当前存储位置
 bool vis[N];
 
 ll n, m, s, hp, f[N], u[N];
 
 struct Edge {
-    int from;  // 边的起点
-    int to;    // 边的终点
-    int next;  // 起点的下一个邻居
-    WEIGHT w;  // 边权
-} edge[M];     // 边集
+    int from; // 边的起点
+    int to;   // 边的终点
+    int next; // 起点的下一个邻居
+    WEIGHT w; // 边权
+} edge[M];    // 边集
 
 void init() {
     // 点初始化
@@ -84,15 +84,15 @@ bool SPFA(int s, int top) {
             }
         });
     }
-   
+
     return dist[n] < hp;
 }
 
 int bin_search(int left, int right) {
     int ans = 0;
-    while(left <= right) {
+    while (left <= right) {
         int mid = left + (right - left) / 2;
-        if(SPFA(1, u[mid])) {
+        if (SPFA(1, u[mid])) {
             ans = u[mid];
             right = mid - 1;
         } else {
@@ -108,19 +108,19 @@ int main() {
     init();
     scanf("%d %d %d", &n, &m, &hp);
 
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         scanf("%d", &f[i]);
         u[i] = f[i];
     }
 
-    for(int i = 1; i <= m; ++i) {
+    for (int i = 1; i <= m; ++i) {
         int u, v, w;
         scanf("%d %d %d", &u, &v, &w);
         add_edge(u, v, w);
         add_edge(v, u, w);
     }
 
-    if(!SPFA(1, INF)) {
+    if (!SPFA(1, INF)) {
         puts("AFK");
         return 0;
     }

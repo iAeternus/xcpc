@@ -28,10 +28,10 @@ constexpr i64 mul(i64 a, i64 b, i64 p) {
 template <i64 P>
 struct MLong {
     i64 x;
-    constexpr MLong()
-        : x() {}
-    constexpr MLong(i64 x)
-        : x(norm(x % getMod())) {}
+    constexpr MLong() :
+            x() {}
+    constexpr MLong(i64 x) :
+            x(norm(x % getMod())) {}
 
     static i64 mod;
 
@@ -142,11 +142,11 @@ template <int P>
 struct MInt {
     int x;
 
-    constexpr MInt()
-        : x{} {}
+    constexpr MInt() :
+            x{} {}
 
-    constexpr MInt(i64 x)
-        : x{norm(x % getMod())} {}
+    constexpr MInt(i64 x) :
+            x{norm(x % getMod())} {}
 
     static int mod;
 
@@ -179,7 +179,7 @@ struct MInt {
     explicit constexpr operator int() const {
         return x;
     }
-    
+
     constexpr MInt operator-() const {
         MInt res;
         res.x = norm(getMod() - x);

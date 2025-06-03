@@ -5,10 +5,10 @@ using i64 = long long;
 using namespace std;
 
 vector<bool> compute_prefix_medians(const vector<int>& a, int k) {
-    int n = a.size() - 1;  // a[1..n]
+    int n = a.size() - 1; // a[1..n]
     vector<bool> res(n + 1, false);
-    priority_queue<int> left;  // 大顶堆，存储较小的前半部分
-    priority_queue<int, vector<int>, greater<int>> right;  // 小顶堆，存储较大的后半部分
+    priority_queue<int> left;                             // 大顶堆，存储较小的前半部分
+    priority_queue<int, vector<int>, greater<int>> right; // 小顶堆，存储较大的后半部分
 
     for (int i = 1; i <= n; ++i) {
         // 插入元素
@@ -35,7 +35,7 @@ vector<bool> compute_prefix_medians(const vector<int>& a, int k) {
 
 vector<bool> compute_suffix_medians(const vector<int>& a, int k) {
     int n = a.size() - 1;
-    vector<bool> res(n + 2, false);  // res[i] 表示从i到n的中位数是否<=k
+    vector<bool> res(n + 2, false); // res[i] 表示从i到n的中位数是否<=k
     priority_queue<int> left;
     priority_queue<int, vector<int>, greater<int>> right;
 
@@ -45,7 +45,7 @@ vector<bool> compute_suffix_medians(const vector<int>& a, int k) {
         } else {
             right.push(a[i]);
         }
-        int expected_size = (n - i + 2) / 2;  // ceil(m/2), m = n -i +1
+        int expected_size = (n - i + 2) / 2; // ceil(m/2), m = n -i +1
         while (left.size() > expected_size) {
             right.push(left.top());
             left.pop();
@@ -114,24 +114,24 @@ void solve() {
 
         // 左边子数组的中位数是前i-1的prefix_med_val
         bool left_ok = false;
-        if (i -1 >=1) {
+        if (i - 1 >= 1) {
             // 计算前i-1的中位数
             vector<int> temp(a.begin() + 1, a.begin() + i);
             sort(temp.begin(), temp.end());
             int m = temp.size();
-            int med = temp[(m -1)/2];
+            int med = temp[(m - 1) / 2];
             if (med >= a[i]) {
                 left_ok = true;
             }
         }
 
         bool right_ok = false;
-        if (i +1 <=n) {
+        if (i + 1 <= n) {
             // 计算i+1..n的中位数
-            vector<int> temp(a.begin() + i +1, a.end());
+            vector<int> temp(a.begin() + i + 1, a.end());
             sort(temp.begin(), temp.end());
             int m = temp.size();
-            int med = temp[(m -1)/2];
+            int med = temp[(m - 1) / 2];
             if (med <= a[i]) {
                 right_ok = true;
             }

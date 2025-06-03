@@ -16,8 +16,8 @@ int main() {
 
     int t;
     scanf("%d", &t);
-    
-    for(int i = 1; i <= t; ++i) {
+
+    for (int i = 1; i <= t; ++i) {
         int n, a, b;
         scanf("%d %d %d", &n, &a, &b);
         printf("Case #%d: %s\n", i, is_odd(n / gcd(a, b)) ? "Yuwgna" : "Iaka");

@@ -1,5 +1,5 @@
 #include <cctype>
-#include <iostream>
+#include <bits/stdc++.h>
 #include <stdexcept>
 #include <cstring>
 
@@ -151,14 +151,14 @@ BigInteger& BigInteger::add(const BigInteger& bi) {
 BigInteger& BigInteger::subtract(const BigInteger& bi) {
     if (bi.__flag == this->__flag) {
         int cmp = this->compare(bi);
-        if(cmp > 0) {
-            if(this->is_positive()) {
+        if (cmp > 0) {
+            if (this->is_positive()) {
                 this->__subtract(*this, bi, *this);
             } else {
                 this->__subtract(bi, *this, *this);
             }
-        } else if(cmp < 0) {
-            if(this->is_positive()) {
+        } else if (cmp < 0) {
+            if (this->is_positive()) {
                 this->__subtract(bi, *this, *this);
             } else {
                 this->__subtract(*this, bi, *this);
@@ -174,14 +174,14 @@ BigInteger& BigInteger::subtract(const BigInteger& bi) {
 }
 
 BigInteger& BigInteger::multiply(const BigInteger& bi) {
-    if(this->is_zero() || bi.is_zero()) {
+    if (this->is_zero() || bi.is_zero()) {
         this->clear();
-    } else if(this->is_one()) {
+    } else if (this->is_one()) {
         bool this_flag = this->__flag;
         BigInteger ans(bi);
         this->swap(ans);
         this->__flag = bi.is_positive() ? this_flag : !this_flag;
-    } else if(bi.is_one()) {
+    } else if (bi.is_one()) {
         this->__flag = bi.is_positive() ? this->__flag : !this->__flag;
         return *this;
     } else {
@@ -193,11 +193,11 @@ BigInteger& BigInteger::multiply(const BigInteger& bi) {
 }
 
 BigInteger& BigInteger::divide(const BigInteger& bi) {
-    if(bi.is_zero()) {
+    if (bi.is_zero()) {
         throw std::runtime_error("Divided by zero.");
     }
 
-    if(bi.is_one()) {
+    if (bi.is_one()) {
         this->__flag = bi.__flag == this->__flag;
     } else {
         this->swap(this->divide_and_remainder(bi)[0]);
@@ -206,11 +206,11 @@ BigInteger& BigInteger::divide(const BigInteger& bi) {
 }
 
 BigInteger& BigInteger::mod(const BigInteger& bi) {
-    if(bi.is_zero()) {
+    if (bi.is_zero()) {
         throw std::runtime_error("Divided by zero.");
     }
 
-    if(bi.is_one()) {
+    if (bi.is_one()) {
         this->clear();
     } else {
         this->swap(this->divide_and_remainder(bi)[1]);
@@ -222,7 +222,7 @@ BigInteger* BigInteger::divide_and_remainder(const BigInteger& bi) {
     BigInteger* ans = new BigInteger[2];
     this->__location_push(ans);
 
-    if(bi.is_zero()) {
+    if (bi.is_zero()) {
         throw std::runtime_error("Divided by zero.");
     }
 
@@ -262,7 +262,7 @@ BigInteger* BigInteger::divide_and_remainder(const BigInteger& bi) {
 }
 
 BigInteger& BigInteger::divide(const long long li) {
-    if(li == 0) {
+    if (li == 0) {
         throw std::runtime_error("Divided by zero.");
     }
 
@@ -275,7 +275,7 @@ BigInteger& BigInteger::divide(const long long li) {
 }
 
 BigInteger& BigInteger::mod(const long long li) {
-    if(li == 0) {
+    if (li == 0) {
         throw std::runtime_error("Divided by zero.");
     }
 
@@ -291,18 +291,18 @@ BigInteger* BigInteger::divide_and_remainder(const long long li) {
     BigInteger* ans = new BigInteger[2];
     this->__location_push(ans);
 
-    if(li == 0) {
+    if (li == 0) {
         throw std::runtime_error("Divided by zero.");
     }
 
     bool li_flag = li > 0;
-    if(li == 1 || li == -1) {
+    if (li == 1 || li == -1) {
         BigInteger tmp(*this);
         ans[0].swap(tmp);
         ans[0].__flag = li_flag == this->__flag;
     } else {
         BigInteger bi(li);
-        if(bi.length() > 18) {
+        if (bi.length() > 18) {
             this->__divide_mod_bi(*this, bi, ans[0], ans[1]);
         } else {
             this->__divide_mod_li(*this, (li > 0 ? li : -li), ans[0], ans[1]);
@@ -315,8 +315,8 @@ BigInteger* BigInteger::divide_and_remainder(const long long li) {
 
 BigInteger BigInteger::pow(long long power) {
     BigInteger a(*this), ans(1);
-    while(power) {
-        if(power & 1) {
+    while (power) {
+        if (power & 1) {
             ans *= a;
         }
         a *= a;
@@ -477,7 +477,7 @@ std::istream& operator>>(std::istream& in, BigInteger& bi) {
 }
 
 std::ostream& operator<<(std::ostream& out, const BigInteger& bi) {
-    if(bi.is_negative()) {
+    if (bi.is_negative()) {
         out << '-';
     }
     for (int i = bi.__num_length - 1; i >= 0; i--)
@@ -490,12 +490,12 @@ unsigned short& BigInteger::operator[](size_t index) {
 }
 
 long long BigInteger::to_integer(bool check_overflow) const {
-    if(check_overflow && (this->__num_length >= 19 || (this->__num_length == 19 && !this->is_within_long_long_range()))) {
+    if (check_overflow && (this->__num_length >= 19 || (this->__num_length == 19 && !this->is_within_long_long_range()))) {
         throw std::runtime_error("The number is out of the long long range.");
     }
 
     long long ans = 0, cnt = 1;
-    for(size_t i = 0; i < this->__num_length; ++i, cnt *= 10) {
+    for (size_t i = 0; i < this->__num_length; ++i, cnt *= 10) {
         ans += cnt * this->__num[i];
     }
     return this->__flag ? ans : -ans;
@@ -503,10 +503,10 @@ long long BigInteger::to_integer(bool check_overflow) const {
 
 std::string BigInteger::to_string() const {
     std::string ans;
-    if(this->is_negative()) {
+    if (this->is_negative()) {
         ans.push_back('-');
     }
-    for(int i = this->__num_length - 1; i >= 0; --i) {
+    for (int i = this->__num_length - 1; i >= 0; --i) {
         ans.push_back(this->__num[i] + '0');
     }
     return ans;
@@ -545,20 +545,20 @@ size_t BigInteger::size() const {
 }
 
 int BigInteger::compare(const BigInteger& bi) const {
-    if(this->__flag != bi.__flag) {
+    if (this->__flag != bi.__flag) {
         return this->is_positive() ? 1 : -1;
     }
 
     int ans = this->is_positive() ? 1 : -1;
-    if(this->__num_length > bi.__num_length) {
+    if (this->__num_length > bi.__num_length) {
         return ans;
-    } else if(this->__num_length < bi.__num_length) {
+    } else if (this->__num_length < bi.__num_length) {
         return -ans;
     } else {
-        for(int i = this->__num_length - 1; i >= 0; --i) {
-            if(this->__num[i] < bi.__num[i]) {
+        for (int i = this->__num_length - 1; i >= 0; --i) {
+            if (this->__num[i] < bi.__num[i]) {
                 return -ans;
-            } else if(this->__num[i] > bi.__num[i]) {
+            } else if (this->__num[i] > bi.__num[i]) {
                 return ans;
             }
         }
@@ -588,14 +588,14 @@ void BigInteger::resize(size_t size) {
 }
 
 void BigInteger::set_positive(bool flag) {
-    if(this->is_zero()) {
+    if (this->is_zero()) {
         return;
     }
     this->__flag = flag;
 }
 
 void BigInteger::pop() {
-    if(this->__num_length > 1) {
+    if (this->__num_length > 1) {
         --this->__num_length;
     } else {
         this->clear();
@@ -603,11 +603,11 @@ void BigInteger::pop() {
 }
 
 void BigInteger::push(const unsigned short num) {
-    if(this->is_zero()) {
+    if (this->is_zero()) {
         --this->__num_length;
     }
-    if(this->__num_length >= this->__num_size) {
-        this->__num_size = (size_t) (this->__num_size * 1.5);
+    if (this->__num_length >= this->__num_size) {
+        this->__num_size = (size_t)(this->__num_size * 1.5);
         this->__num_size = this->__resize(this->__num, (this->__num_size == 1 ? 2 : this->__num_size), this->__num_length);
     }
     this->__num[this->__num_length++] = num;
@@ -652,7 +652,7 @@ void BigInteger::__location_push(BigInteger* new_bi_location) {
 }
 
 void BigInteger::__trim() {
-    while(this->__num_length > 1 && this->__num[this->__num_length - 1] == 0) {
+    while (this->__num_length > 1 && this->__num[this->__num_length - 1] == 0) {
         --this->__num_length;
     }
 }
@@ -674,47 +674,47 @@ size_t BigInteger::__resize(unsigned short*& num, size_t length, size_t pre_len)
 void BigInteger::__add(const BigInteger& a, const BigInteger& b, BigInteger& c) {
     size_t a_length = a.__num_length, b_length = b.__num_length;
     size_t min_length = a_length < b_length ?
-                        (b_length + 1 > c.__num_size ? (c.__num_size = this->__resize(c.__num, b_length + 1, c.__num_length)) : a_length) :
-                        (a_length + 1 > c.__num_size ? (c.__num_size = this->__resize(c.__num, a_length + 1, c.__num_length)) : b_length);
+                            (b_length + 1 > c.__num_size ? (c.__num_size = this->__resize(c.__num, b_length + 1, c.__num_length)) : a_length) :
+                            (a_length + 1 > c.__num_size ? (c.__num_size = this->__resize(c.__num, a_length + 1, c.__num_length)) : b_length);
 
     c.__num_length = 0;
     unsigned short res, t = 0;
-    for(size_t i = 0; i < min_length; ++i) {
+    for (size_t i = 0; i < min_length; ++i) {
         res = a.__num[i] + b.__num[i] + t;
         t = res / 10;
         c.__num[c.__num_length++] = res % 10;
     }
-    if(a_length > b_length) {
+    if (a_length > b_length) {
         for (size_t i = min_length; i < a_length; ++i) {
             res = a.__num[i] + t;
             t = res / 10;
             c.__num[c.__num_length++] = res % 10;
         }
-    } else if(a_length < b_length) {
+    } else if (a_length < b_length) {
         for (size_t i = min_length; i < b_length; ++i) {
             res = b.__num[i] + t;
             t = res / 10;
             c.__num[c.__num_length++] = res % 10;
         }
     }
-    if(t) {
+    if (t) {
         c.__num[c.__num_length++] = t;
     }
 }
 
 void BigInteger::__subtract(const BigInteger& a, const BigInteger& b, BigInteger& c) {
     size_t a_length = a.__num_length, b_length = b.__num_length;
-    if(c.__num_size < a_length) {
+    if (c.__num_size < a_length) {
         c.__num_size = this->__resize(c.__num, a_length, c.__num_size);
     }
     c.__num_length = 0;
     short res, t = 0;
-    for(size_t i = 0; i < b_length; ++i) {
+    for (size_t i = 0; i < b_length; ++i) {
         res = a.__num[i] - b.__num[i] - t;
         t = 0;
         c.__num[c.__num_length++] = res >= 0 ? res : (t = 1, res + 10);
     }
-    if(a_length != b_length) {
+    if (a_length != b_length) {
         for (size_t i = b_length; i < a_length; i++) {
             res = a.__num[i] - t;
             t = 0;
@@ -730,9 +730,9 @@ void BigInteger::__multiply(const BigInteger& a, const BigInteger& b, BigInteger
     ans.__num_size = this->__newsize(ans.__num, a_length + b_length + 1);
     ans.__num_length = a_length + b_length;
     unsigned short t;
-    for(size_t i = 0; i < a_length; ++i) {
+    for (size_t i = 0; i < a_length; ++i) {
         t = 0;
-        for(size_t j = 0; j < b_length; ++j) {
+        for (size_t j = 0; j < b_length; ++j) {
             ans.__num[i + j] += a.__num[i] * b.__num[j] + t;
             t = ans.__num[i + j] / 10;
             ans.__num[i + j] %= 10;

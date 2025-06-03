@@ -94,6 +94,8 @@ int query(int l, int r) {
 
 ## 线段树
 
+[线段树详解、常见应用与拓展_线段树的实际应用-CSDN博客](https://blog.csdn.net/qq_41765114/article/details/90179818)
+
 ```cpp
 const int N = 2e5 + 5;
 i64 a[N];
@@ -160,6 +162,114 @@ i64 query(int root, int L, int R) {
     if (R > mid) max_val = std::max(max_val, query(right_son(root), L, R));
     return max_val;
 }
+```
+
+### 线段树+离散化
+
+[2528 -- Mayor's posters](http://poj.org/problem?id=2528)
+
+```cpp
+// 离散化
+#include<cmath>
+#include<cstring>
+#include<cstdio>
+#include<algorithm>
+#include<iostream>
+using namespace std;
+
+const int maxn = 10000+5;
+int n, ans, cnt;
+
+struct Node {
+	int left, right;
+	int color;
+	int f;
+} tree[8*maxn]; // 最多会有2e4个叶子节点
+
+int vis[8*maxn];
+int li[2*maxn],ri[2*maxn],points[2*maxn];
+
+void build(int k, int l, int r){
+	tree[k].left = l;
+	tree[k].right = r;
+	tree[k].color = -1;
+	tree[k].f = -1;
+	if(l == r){
+		return;
+	}
+	int mid = (l+r)/2;
+	build(2*k, l, mid);
+	build(2*k+1, mid+1, r);
+}
+
+void down(int k) {
+	if(tree[k].left == tree[k].right) return;
+	tree[2*k].color = tree[k].color;
+	tree[2*k+1].color = tree[k].color;
+	tree[k].f = -1;
+}
+
+void pushUp(int k){
+	if(tree[k].left == tree[k].right) return;
+	if(tree[2*k].color == tree[2*k+1].color){
+		tree[k].color = tree[2*k].color;
+	}
+	else{
+		tree[k].color = -1;
+	}
+}
+
+void change_interval(int k, int C, int l, int r) {
+	if(tree[k].left >= l && tree[k].right <= r) {
+		tree[k].color = tree[k].f = C;
+		return ;
+	}
+	if(tree[k].color != -1) down(k);
+	int mid = (tree[k].left+tree[k].right)/2;
+	if(mid >= l) change_interval(2*k, C, l, r);
+	if(mid < r) change_interval(2*k+1, C, l, r);
+	pushUp(k);
+}
+
+void ask_interval(int k, int l, int r) {
+	if(!vis[tree[k].color] && tree[k].color != -1) {
+		ans++;
+		vis[tree[k].color] = 1;
+		return;
+	}
+	if(tree[k].left == tree[k].right) return;
+	if(tree[k].color!=-1) down(k);
+	ask_interval(2*k, l, r);
+	ask_interval(2*k+1, l,r);
+}
+
+int main() {
+	int T;
+	scanf("%d", &T);
+	while(T--) {
+		scanf("%d", &n);
+		memset(vis, 0, sizeof(vis));
+		int total = 0;
+		for(int i = 0; i < n; i++) {
+			scanf("%d%d", &li[i], &ri[i]);
+			points[total++] = li[i];
+			points[total++] = ri[i];
+		}
+		sort(points, points+total);
+		int newn = unique(points, points+total) - points;
+		cnt = 0;
+		build(1, 0, newn-1);
+		for(int i = 0; i < n; i++) {
+			int x = lower_bound(points, points+newn, li[i]) - points;
+			int y = lower_bound(points, points+newn, ri[i]) - points;
+			change_interval(1, i, x, y);
+		}
+		ans = 0;
+		ask_interval(1, 0, newn-1);
+		printf("%d\n", ans);
+	}
+}
+
 ```
 
 ## 珂朵莉树（Chtholly Tree）

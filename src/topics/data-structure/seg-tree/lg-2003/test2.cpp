@@ -11,8 +11,8 @@ struct LazySegmentTree {
     std::vector<Info> info;
     std::vector<Tag> tag;
 
-    LazySegmentTree()
-        : n(0) {}
+    LazySegmentTree() :
+            n(0) {}
 
     LazySegmentTree(int n_, Info v_ = Info()) {
         init(n_, v_);
@@ -263,7 +263,7 @@ int main() {
     int n;
     std::cin >> n;
     std::vector<leb> a;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int y, x1, x2;
         std::cin >> y >> x1 >> x2;
         a.push_back({y, x1, x2});
@@ -275,9 +275,9 @@ int main() {
     LazySegmentTree<Info, Tag> st(n << 2);
 
     int ans = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int l = a[i].x1, r = a[i].x2;
-        ans += (a[i].y - st.rangeQuery(l, l + 2).x); // 左侧边界
+        ans += (a[i].y - st.rangeQuery(l, l + 2).x);     // 左侧边界
         ans += (a[i].y - st.rangeQuery(r - 1, r + 1).x); // 右侧边界
         st.rangeApply(l + 1, r, {a[i].y});
     }

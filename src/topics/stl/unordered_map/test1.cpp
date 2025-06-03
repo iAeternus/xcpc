@@ -3,7 +3,7 @@
 int main() {
     std::unordered_map<int, int> mp = {{1, 1}, {2, 1}, {3, 1}};
     assert(mp.size() == 3);
-    for(const auto&[k, v] : mp) {
+    for (const auto& [k, v] : mp) {
         std::cout << k << ':' << v << ' ';
     }
     std::cout << std::endl;
@@ -25,7 +25,7 @@ int main() {
     mp.erase(4);
     assert(mp.size() == 3);
     // mp: 3:2 2:1 1:1
-    for(const auto&[k, v] : mp) {
+    for (const auto& [k, v] : mp) {
         std::cout << k << ':' << v << ' ';
     }
     std::cout << std::endl;
@@ -48,7 +48,7 @@ int main() {
 
     // iterator
     // 3:2 2:1 1:1
-    for(auto it = mp.begin(); it != mp.end(); ++it) {
+    for (auto it = mp.begin(); it != mp.end(); ++it) {
         std::cout << it->first << ':' << it->second << ' ';
     }
     std::cout << std::endl;

@@ -22,7 +22,7 @@ struct DSU {
      * @brief 查找 x 所在集合的队长
      */
     int find(int x) {
-        while(x != f[x]) {
+        while (x != f[x]) {
             x = f[x] = f[f[x]];
         }
         return x;
@@ -42,7 +42,7 @@ struct DSU {
     bool merge(int x, int y) {
         x = find(x);
         y = find(y);
-        if(x == y) {
+        if (x == y) {
             return false;
         }
         siz[x] += siz[y];
@@ -62,8 +62,8 @@ struct DSU {
      */
     int count() {
         int cnt = 0;
-        for(int i = 0; i < f.size(); ++i) {
-            if(i == f[i]) {
+        for (int i = 0; i < f.size(); ++i) {
+            if (i == f[i]) {
                 ++cnt;
             }
         }
@@ -78,21 +78,21 @@ int main() {
     int n, m;
     std::cin >> n >> m;
     DSU d(n + 1);
-    while(m--) {
+    while (m--) {
         char opt;
         int p, q;
         std::cin >> opt >> p >> q;
         p--, q--;
-        if(opt == 'F') {
+        if (opt == 'F') {
             d.merge(p, q);
         } else {
-            if(!e[p]) {
+            if (!e[p]) {
                 e[p] = d.find(q);
             } else {
                 d.merge(q, e[p]);
             }
 
-            if(!e[q]) {
+            if (!e[q]) {
                 e[q] = d.find(p);
             } else {
                 d.merge(p, e[q]);

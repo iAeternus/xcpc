@@ -10,19 +10,19 @@
  */
 int find(const std::string& s, const std::string& t, int* sa) {
     int i = 0, j = s.length();
-    while(j - i > 1) {
+    while (j - i > 1) {
         int k = i + ((j - i) >> 1);
-        if(s.compare(sa[k], t.length(), t) < 0) {
+        if (s.compare(sa[k], t.length(), t) < 0) {
             i = k;
         } else {
             j = k;
         }
     }
 
-    if(s.compare(sa[j], t.length(), t) == 0) {
+    if (s.compare(sa[j], t.length(), t) == 0) {
         return sa[j];
     }
-    if(s.compare(sa[i], t.length(), t) == 0) {
+    if (s.compare(sa[i], t.length(), t) == 0) {
         return sa[i];
     }
     return -1; // 没找到

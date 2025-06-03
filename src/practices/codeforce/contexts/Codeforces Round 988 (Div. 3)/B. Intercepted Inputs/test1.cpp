@@ -58,7 +58,7 @@ int main() {
             }
         }
 
-        if(!tag) {
+        if (!tag) {
             std::cout << a[0] << ' ' << a[1] << std::endl;
         }
     }

@@ -10,7 +10,7 @@ void solve() {
     int n, m, s, t;
     std::cin >> n >> m >> s >> t;
     std::vector<std::vector<std::pair<int, i64>>> adj(n);
-    while(m--) {
+    while (m--) {
         int u, v, w;
         std::cin >> u >> v >> w;
         u--;
@@ -24,16 +24,16 @@ void solve() {
         std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<>> pq;
         pq.emplace(0, s);
 
-        while(!pq.empty()) {
-            auto[d, u] = pq.top();
+        while (!pq.empty()) {
+            auto [d, u] = pq.top();
             pq.pop();
 
-            if(dis[u] != INF) {
+            if (dis[u] != INF) {
                 continue;
             }
             dis[u] = d;
 
-            for(const auto&[v, w] : adj[u]) {
+            for (const auto& [v, w] : adj[u]) {
                 pq.emplace(d + w, v);
             }
         }

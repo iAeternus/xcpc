@@ -39,7 +39,7 @@ void push_down(int p) {
 
 void build(int p, int s, int t) {
     tr[p] = {s, t, a[s].y, 0};
-    if(s == t) {
+    if (s == t) {
         return;
     }
 
@@ -50,10 +50,10 @@ void build(int p, int s, int t) {
 }
 
 int query(int p, int s, int t, int l, int r) {
-    if(r < s || t < l) {
+    if (r < s || t < l) {
         return 0;
     }
-    if(l <= s && t <= r) {
+    if (l <= s && t <= r) {
         return tr[p].val;
     }
 
@@ -67,10 +67,10 @@ int query(int l, int r) {
 }
 
 void update(int p, int s, int t, int l, int r, int k) {
-    if(r < s || t < l) {
+    if (r < s || t < l) {
         return;
     }
-    if(l <= s && t <= r) {
+    if (l <= s && t <= r) {
         tr[p].val = std::max(tr[p].val, k);
         tr[p].max = std::max(tr[p].max, k);
         return;
@@ -89,7 +89,7 @@ void update(int l, int r, int k) {
 
 int main() {
     std::cin >> n;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cin >> a[i].y >> a[i].x1 >> a[i].x2;
     }
 
@@ -99,7 +99,7 @@ int main() {
     build(1, 1, N);
 
     int ans = 0;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int l = a[i].x1, r = a[i].x2;
         ans += (a[i].y - query(l, l + 1)); // 左侧边界
         ans += (a[i].y - query(r - 1, r)); // 右侧边界

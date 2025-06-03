@@ -27,7 +27,7 @@ int main() {
             // 最大子数组和
             int cur_max = tmp[0];
             int max_ = cur_max;
-            for(int k = 1; k < n; ++k) {
+            for (int k = 1; k < n; ++k) {
                 cur_max = std::max(tmp[k], cur_max + tmp[k]);
                 max_ = std::max(max_, cur_max);
             }

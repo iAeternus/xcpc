@@ -40,35 +40,28 @@ int main() {
             f.push_back(tmp);
             mp[tmp]++;
         }
-        auto it= mp.begin();
-        long long ans =0;
+        auto it = mp.begin();
+        long long ans = 0;
         for (int k = 0; k < n; ++k) {
-            if(it == mp.end())
+            if (it == mp.end()) {
+                std::cout << n << " ";
+            } else if (k <= it->first) {
+                std::cout << ans << " ";
+            } else
+
             {
-                std::cout<<n<<" ";
-            }
-            else if(k <= it->first)
-            {
-                std::cout<<ans<<" ";
-            }
-            else
-            
-            {
-                while( k > it->first)
-                {
-                    if(it == mp.end())
-                    {
-                        
-                        ans = n;break;
+                while (k > it->first) {
+                    if (it == mp.end()) {
+                        ans = n;
+                        break;
                     }
-                    ans+=it->second;
+                    ans += it->second;
                     it++;
                 }
-                std::cout<<ans<<" ";
+                std::cout << ans << " ";
             }
-           
         }
-        std::cout<<"\n";
+        std::cout << "\n";
         // for(const auto&[k, v] : mp) {
         //     if()
         // }

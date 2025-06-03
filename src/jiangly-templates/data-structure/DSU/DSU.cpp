@@ -25,7 +25,7 @@ struct DSU {
      * @brief 查找 x 所在集合的队长
      */
     int find(int x) {
-        while(x != f[x]) {
+        while (x != f[x]) {
             x = f[x] = f[f[x]];
         }
         return x;
@@ -45,7 +45,7 @@ struct DSU {
     bool merge(int x, int y) {
         x = find(x);
         y = find(y);
-        if(x == y) {
+        if (x == y) {
             return false;
         }
         siz[x] += siz[y];
@@ -65,8 +65,8 @@ struct DSU {
      */
     int count() {
         int cnt = 0;
-        for(int i = 0; i < f.size(); ++i) {
-            if(i == f[i]) {
+        for (int i = 0; i < f.size(); ++i) {
+            if (i == f[i]) {
                 ++cnt;
             }
         }

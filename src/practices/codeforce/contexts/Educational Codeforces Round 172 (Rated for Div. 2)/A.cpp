@@ -14,22 +14,22 @@ void solve() {
         pq.push(a);
         sum += a;
     }
-    if(sum >= k) {
-        if(pq.top() >= k) {
+    if (sum >= k) {
+        if (pq.top() >= k) {
             std::cout << "0\n";
             return;
         } else {
             int tmp = 0, gap, min_gap = INT_MAX;
-            while(!pq.empty()) {
+            while (!pq.empty()) {
                 tmp += pq.top();
-                if(tmp >= k) break;
+                if (tmp >= k) break;
                 pq.pop();
                 gap = k - tmp;
                 min_gap = std::min(min_gap, gap);
             }
             std::cout << min_gap << std::endl;
         }
-    } else {    
+    } else {
         std::cout << k - sum << std::endl;
     }
 }

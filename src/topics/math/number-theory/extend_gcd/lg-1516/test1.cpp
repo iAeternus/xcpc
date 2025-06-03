@@ -14,7 +14,7 @@ using ll = long long;
  * @par y 整数特解 y
  */
 ll extend_gcd(ll a, ll b, ll& x, ll& y) {
-    if(b == 0) {
+    if (b == 0) {
         x = 1;
         y = 0;
         return a;
@@ -32,14 +32,14 @@ int main() {
     ll b = L;
     ll c = x - y;
 
-    if(a < 0) {
+    if (a < 0) {
         a = -a;
         c = -c;
     }
 
     ll d = extend_gcd(a, b, x, y);
 
-    if(c % d) {
+    if (c % d) {
         std::cout << "Impossible\n";
     } else {
         ll mod = b / d;

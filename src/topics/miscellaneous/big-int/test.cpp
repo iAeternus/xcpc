@@ -1,5 +1,5 @@
 #include <cassert>
-#include <iostream>
+#include <bits/stdc++.h>
 
 #include "BigInteger.h"
 

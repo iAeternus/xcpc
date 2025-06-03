@@ -8,10 +8,10 @@ int main() {
     std::cin >> n >> t;
 
     std::vector<int> nums;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
-        nums.push_back(a % ((int) pow(10, t)));
+        nums.push_back(a % ((int)pow(10, t)));
     }
 
     std::set<int> s(nums.begin(), nums.end());

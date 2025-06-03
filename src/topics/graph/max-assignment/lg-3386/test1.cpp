@@ -9,10 +9,10 @@ bool a[N][N], vis[N];
 int match[N];
 
 bool dfs(int x) {
-    for(int i = 1; i <= m; ++i) {
-        if(!vis[i] && a[x][i]) {
+    for (int i = 1; i <= m; ++i) {
+        if (!vis[i] && a[x][i]) {
             vis[i] = true;
-            if(!match[i] || dfs(match[i])) {
+            if (!match[i] || dfs(match[i])) {
                 match[i] = x;
                 return true;
             }
@@ -29,7 +29,7 @@ int main() {
         a[u][v] = 1;
     }
 
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         ans += dfs(i);
         std::fill(vis + 1, vis + n + 1, false);
     }

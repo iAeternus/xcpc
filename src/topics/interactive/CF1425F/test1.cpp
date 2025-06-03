@@ -29,7 +29,7 @@ int main() {
         pre[i] = ask(1, i);
     }
 
-    for(int i = n; i >= 3; --i) {
+    for (int i = n; i >= 3; --i) {
         a[i] = pre[i] - pre[i - 1];
     }
 

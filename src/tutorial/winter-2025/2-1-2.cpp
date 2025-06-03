@@ -8,11 +8,11 @@ void solve() {
     int n;
     std::cin >> n;
     int score = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
         mp[a]++;
-        if(mp[a] == 2) {
+        if (mp[a] == 2) {
             ++score;
             mp.erase(a);
         }
@@ -28,7 +28,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

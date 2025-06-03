@@ -6,11 +6,11 @@ void solve() {
     int n, m, l, r;
     std::cin >> n >> m >> l >> r;
     int cnt = n - m;
-    while(l + 1 <= 0 && cnt > 0) {
+    while (l + 1 <= 0 && cnt > 0) {
         ++l;
         cnt--;
     }
-    while(r - 1 >= 0 && cnt > 0) {
+    while (r - 1 >= 0 && cnt > 0) {
         --r;
         --cnt;
     }
@@ -25,7 +25,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

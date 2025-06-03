@@ -9,10 +9,10 @@ int a[N];
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         int n;
         std::cin >> n;
-        for(int i = 1; i <= n; ++i) {
+        for (int i = 1; i <= n; ++i) {
             std::cin >> a[i];
         }
 

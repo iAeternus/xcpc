@@ -61,7 +61,7 @@ int main() {
         }
 
         bool tag = true;
-        for(int i = 0; i < m; ++i) {
+        for (int i = 0; i < m; ++i) {
             int a, b;
             std::cin >> a >> b;
             vec.push_back({a, b});

@@ -17,7 +17,7 @@ int main() {
     st.insert({2, 3});
     st.insert({0, 3});
 
-    for(const auto& it : st) {
+    for (const auto& it : st) {
         std::cout << it.x << std::endl;
     }
 }

@@ -10,16 +10,16 @@ ll a[N];
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         int n;
         std::cin >> n;
-        for(int i = 1; i <= n; ++i) {
+        for (int i = 1; i <= n; ++i) {
             std::cin >> a[i];
         }
 
         ll ans = 0, max_ans = a[1];
-        for(int i = 2; i <= n; ++i) {
-            if(a[i] * max_ans > 0) { // 同号
+        for (int i = 2; i <= n; ++i) {
+            if (a[i] * max_ans > 0) { // 同号
                 max_ans = std::max(max_ans, a[i]);
             } else {
                 ans += max_ans;

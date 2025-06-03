@@ -53,7 +53,7 @@ auto find_maximum_subarray(const std::vector<int>& vec) -> std::tuple<int, int, 
 int main() {
     std::vector<int> arr = {1, -2, 4, 5, -2, 8, 3, -2, 6, 3, 7, -1};
     auto [max_low, max_high, max_sum] = find_maximum_subarray(arr);
-    for(int i = max_low; i < max_high; ++i) {
+    for (int i = max_low; i < max_high; ++i) {
         std::cout << arr[i] << ' ';
     }
     std::cout << std::endl;

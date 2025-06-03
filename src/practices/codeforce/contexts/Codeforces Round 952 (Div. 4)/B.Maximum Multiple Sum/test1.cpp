@@ -14,12 +14,12 @@ ll func(ll x) {
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         std::cin >> n;
         ll fmax = -1, ans;
-        for(int x = 2; x <= n; ++x) {
+        for (int x = 2; x <= n; ++x) {
             ll tmp = func(x);
-            if(tmp > fmax) {
+            if (tmp > fmax) {
                 fmax = tmp;
                 ans = x;
             }

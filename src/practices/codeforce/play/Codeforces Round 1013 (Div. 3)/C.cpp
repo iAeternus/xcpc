@@ -5,12 +5,12 @@ using i64 = long long;
 void solve() {
     int n;
     std::cin >> n;
-    if(n % 2 == 0) {
+    if (n % 2 == 0) {
         std::cout << -1 << std::endl;
         return;
     }
     std::cout << 1 << ' ';
-    for(int i = n; i >= 2; --i) {
+    for (int i = n; i >= 2; --i) {
         std::cout << i << ' ';
     }
     std::cout << std::endl;
@@ -24,7 +24,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

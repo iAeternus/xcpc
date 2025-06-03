@@ -26,9 +26,9 @@ void dfs1(int u, int fa) {
     dep[u] = dep[fa] + 1;
     sum[1] += dep[u]; // init
     siz[u] = 1;
-    for(int i = head[u]; i; i = edge[i].next) {
+    for (int i = head[u]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if(to == fa) continue;
+        if (to == fa) continue;
         dfs1(to, u);
         siz[u] += siz[to];
     }
@@ -41,9 +41,9 @@ void dfs1(int u, int fa) {
 状态转移 sum[v] = sum[u] - siz[v] + n - siz[v]
 */
 void dfs2(int u, int fa) {
-    for(int i = head[u]; i; i = edge[i].next) {
+    for (int i = head[u]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if(to == fa) continue;
+        if (to == fa) continue;
         sum[to] = sum[u] - siz[to] + n - siz[to];
         dfs2(to, u);
     }
@@ -51,7 +51,7 @@ void dfs2(int u, int fa) {
 
 int main() {
     std::cin >> n;
-    for(int i = 1; i < n; ++i) {
+    for (int i = 1; i < n; ++i) {
         int u, v;
         std::cin >> u >> v;
         addEdge(u, v);
@@ -60,8 +60,8 @@ int main() {
     dfs1(1, 0);
     dfs2(1, 0);
     int s = sum[1], ans = 1;
-    for(int i = 2; i <= n; ++i) {
-        if(s < sum[i]) {
+    for (int i = 2; i <= n; ++i) {
+        if (s < sum[i]) {
             s = sum[i];
             ans = i;
         }

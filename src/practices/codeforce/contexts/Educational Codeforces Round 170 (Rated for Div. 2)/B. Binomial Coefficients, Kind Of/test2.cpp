@@ -19,12 +19,12 @@ int main() {
     int t;
     std::cin >> t;
 
-    for(int i = 0; i < t; ++i) {
+    for (int i = 0; i < t; ++i) {
         int n;
         std::cin >> n;
     }
 
-    for(int i = 0; i < t; ++i) {
+    for (int i = 0; i < t; ++i) {
         int k;
         std::cin >> k;
         std::cout << qpow(2, k, MOD) << std::endl;

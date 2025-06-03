@@ -8,9 +8,9 @@ void solve() {
     std::string s;
     std::cin >> s;
     std::string res, tmp;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         tmp = s;
-        if(s[i] == '0') {
+        if (s[i] == '0') {
             tmp[i] = '1';
         } else {
             tmp[i] = '0';
@@ -18,8 +18,8 @@ void solve() {
         res += tmp;
     }
     int ans = 0;
-    for(int i = 0; i < res.length(); ++i) {
-        if(res[i] == '1') {
+    for (int i = 0; i < res.length(); ++i) {
+        if (res[i] == '1') {
             ++ans;
         }
     }
@@ -34,7 +34,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

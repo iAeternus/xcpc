@@ -12,16 +12,16 @@ void solve() {
     std::cin >> a >> b >> l;
     std::set<int> s;
     int ans = 0;
-    while(true) {
+    while (true) {
         int tmp = l;
-        while(true) {
+        while (true) {
             s.insert(tmp);
-            if(tmp % b != 0) {
+            if (tmp % b != 0) {
                 break;
             }
             tmp /= b;
         }
-        if(l % a != 0) {
+        if (l % a != 0) {
             break;
         }
         l /= a;
@@ -37,7 +37,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

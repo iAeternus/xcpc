@@ -34,10 +34,10 @@ int nums[N], diff[N];
 
 int main() {
     int n;
-    while(~scanf("%d", &n)) {
+    while (~scanf("%d", &n)) {
         memset(nums, 0, sizeof nums);
         memset(diff, 0, sizeof diff);
-        for(int i = 1; i <= n; ++i) {
+        for (int i = 1; i <= n; ++i) {
             int l, r;
             scanf("%d %d", &l, &r);
             // 区间修改
@@ -46,9 +46,9 @@ int main() {
         }
 
         // 求原数组
-        for(int i = 1; i <= n; ++i) {
+        for (int i = 1; i <= n; ++i) {
             nums[i] = nums[i - 1] + diff[i]; // 对差分求前缀和就是原数组
-            if(i != n) {
+            if (i != n) {
                 printf("%d ", nums[i]);
             } else {
                 printf("%d\n", nums[i]);

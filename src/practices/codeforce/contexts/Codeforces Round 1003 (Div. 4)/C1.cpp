@@ -8,20 +8,20 @@ void solve() {
     int b;
     std::deque<int> a;
     a.push_front(INT_MIN);
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int x;
         std::cin >> x;
         a.push_back(x);
     }
     std::cin >> b;
 
-    for(int i = 1; i < a.size(); ++i) {
-        if(a[i - 1] <= a[i]) {
-            if(a[i - 1] <= b - a[i]) {
+    for (int i = 1; i < a.size(); ++i) {
+        if (a[i - 1] <= a[i]) {
+            if (a[i - 1] <= b - a[i]) {
                 a[i] = std::min(a[i], b - a[i]);
             }
         } else {
-            if(a[i - 1] <= b - a[i]) {
+            if (a[i - 1] <= b - a[i]) {
                 a[i] = b - a[i];
             } else {
                 std::cout << "NO" << std::endl;
@@ -40,7 +40,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

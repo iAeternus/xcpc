@@ -5,9 +5,9 @@
  */
 int bin_search(int* a, int n, int target) {
     int left = 0, right = n;
-    while(left < right) {
+    while (left < right) {
         int mid = left + (right - left) / 2;
-        if(a[mid] >= target) {
+        if (a[mid] >= target) {
             right = mid;
         } else {
             left = mid + 1;
@@ -21,9 +21,9 @@ int bin_search(int* a, int n, int target) {
  */
 int bin_search2(int* a, int n, int target) {
     int left = 0, right = n;
-    while(left < right) {
+    while (left < right) {
         int mid = left + (right - left + 1) / 2;
-        if(a[mid] <= target) {
+        if (a[mid] <= target) {
             left = mid;
         } else {
             right = mid - 1;

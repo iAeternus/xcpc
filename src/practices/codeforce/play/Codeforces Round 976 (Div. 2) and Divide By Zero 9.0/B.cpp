@@ -11,20 +11,20 @@
 using ll = long long;
 
 ll check(ll x) {
-    return x - (ll) sqrtl(x);
+    return x - (ll)sqrtl(x);
 }
 
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         ll k;
         std::cin >> k;
 
         ll l = 1, r = 2e18;
-        while(l < r) {
+        while (l < r) {
             ll mid = l + r >> 1;
-            if(check(mid) >= k) {
+            if (check(mid) >= k) {
                 r = mid;
             } else {
                 l = mid + 1;

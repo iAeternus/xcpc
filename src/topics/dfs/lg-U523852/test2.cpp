@@ -20,16 +20,16 @@ int bfs() {
     std::queue<Node> q;
     q.push({0, 0, 1});
     vis[0][0] = true;
-    while(!q.empty()) {
+    while (!q.empty()) {
         auto cur = q.front();
         q.pop();
-        if(cur.x == r - 1 && cur.y == c - 1) {
+        if (cur.x == r - 1 && cur.y == c - 1) {
             return cur.len;
         }
-        for(int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; ++i) {
             int nx = cur.x + dx[i];
             int ny = cur.y + dy[i];
-            if(nx < 0 || nx >= r || ny < 0 || ny >= c || vis[nx][ny] || mp[nx][ny]) {
+            if (nx < 0 || nx >= r || ny < 0 || ny >= c || vis[nx][ny] || mp[nx][ny]) {
                 continue;
             }
             vis[nx][ny] = true;

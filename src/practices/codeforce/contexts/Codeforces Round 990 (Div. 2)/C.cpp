@@ -17,7 +17,7 @@ int main() {
                 std::cin >> a[i][j];
             }
         }
-        if(m == 1) {
+        if (m == 1) {
             std::cout << a[1][1] + a[2][1] << std::endl;
             continue;
         }
@@ -31,9 +31,9 @@ int main() {
         }
 
         int ls = 0, rs = 0;
-        for(int j = 1; j <= m; ++j) {
-            if(j == max_sum_j) continue;
-            if(a[1][j] > a[2][j]) {
+        for (int j = 1; j <= m; ++j) {
+            if (j == max_sum_j) continue;
+            if (a[1][j] > a[2][j]) {
                 ls += a[1][j];
             } else {
                 rs += a[2][j];

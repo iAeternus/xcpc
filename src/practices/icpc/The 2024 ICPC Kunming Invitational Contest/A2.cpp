@@ -95,7 +95,7 @@ void solve() {
 
     std::cout << "Yes\n";
     for (const auto& it : v) {
-        for(const auto& jt : it.p) {
+        for (const auto& jt : it.p) {
             std::cout << jt << ' ';
         }
         std::cout << std::endl;

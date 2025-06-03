@@ -7,17 +7,17 @@ void solve() {
     std::cin >> n >> m;
     std::vector<int> a(n);
     int zero = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
-        if(a[i] == 0) {
+        if (a[i] == 0) {
             ++zero;
         }
     }
 
-    if(m == n) {
+    if (m == n) {
         std::cout << "Richman\n";
         return;
-    } else if(zero > m) {
+    } else if (zero > m) {
         std::cout << "Impossible\n";
         return;
     }
@@ -25,14 +25,14 @@ void solve() {
     i64 sum = 0;
     m -= zero;
     int i;
-    for(i = 0; m > 0; ++i) {
-        if(a[i] == 0) continue;
+    for (i = 0; m > 0; ++i) {
+        if (a[i] == 0) continue;
         sum += a[i];
         m--;
     }
     int min_p = INT_MAX;
-    for(; i < n; ++i) {
-        if(a[i] > 0) {
+    for (; i < n; ++i) {
+        if (a[i] > 0) {
             min_p = std::min(min_p, a[i]);
         }
     }
@@ -47,7 +47,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

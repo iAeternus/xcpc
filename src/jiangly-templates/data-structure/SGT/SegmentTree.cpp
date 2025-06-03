@@ -8,8 +8,8 @@ struct SegmentTree {
     int n;
     std::vector<Info> info;
 
-    SegmentTree()
-        : n(0) {}
+    SegmentTree() :
+            n(0) {}
 
     SegmentTree(int n_, Info v_ = Info{}) {
         init(n_, v_);

@@ -72,25 +72,25 @@ int main() {
     int t;
     std::cin >> t;
 
-    for(int k = 1; k <= t; ++k) {
+    for (int k = 1; k <= t; ++k) {
         int n;
         std::cin >> n;
 
-        for(int i = 1; i <= n; ++i) {
+        for (int i = 1; i <= n; ++i) {
             std::cin >> dp[i];
         }
 
         int start = 1, end = 1, p = 1;
         int max_sum = dp[1];
 
-        for(int i = 2; i <= n; ++i) {
-            if(dp[i - 1] + dp[i] >= dp[i]) {
+        for (int i = 2; i <= n; ++i) {
+            if (dp[i - 1] + dp[i] >= dp[i]) {
                 dp[i] = dp[i - 1] + dp[i];
             } else {
                 p = i;
             }
 
-            if(dp[i] > max_sum) {
+            if (dp[i] > max_sum) {
                 max_sum = dp[i];
                 start = p;
                 end = i;
@@ -100,7 +100,7 @@ int main() {
         std::cout << "Case " << k << ':' << std::endl;
         std::cout << max_sum << ' ' << start << ' ' << end << std::endl;
 
-        if(k != t) {
+        if (k != t) {
             std::cout << std::endl;
         }
     }

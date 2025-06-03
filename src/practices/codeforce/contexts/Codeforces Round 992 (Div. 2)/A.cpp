@@ -9,13 +9,13 @@ void solve() {
     int n, k;
     std::cin >> n >> k;
     std::vector<int> a(n), cnt(k);
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
         a[i] %= k;
         cnt[a[i]]++;
     }
-    for(int i = 0; i < n; ++i) {
-        if(cnt[a[i]] == 1) {
+    for (int i = 0; i < n; ++i) {
+        if (cnt[a[i]] == 1) {
             std::cout << "YES" << std::endl;
             std::cout << i + 1 << std::endl;
             return;
@@ -32,7 +32,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

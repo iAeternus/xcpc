@@ -6,9 +6,9 @@
 const int N = 8e5 + 3;
 
 struct node {
-    int num;      // 这个前缀出现的次数
-    int son[26];  // 26个字母，26个儿子
-    bool repeat;  // 这个前缀是否重复
+    int num;     // 这个前缀出现的次数
+    int son[26]; // 26个字母，26个儿子
+    bool repeat; // 这个前缀是否重复
     node() {
         num = 0;
         memset(son, false, sizeof(son));

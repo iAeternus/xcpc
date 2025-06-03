@@ -10,20 +10,20 @@ void solve() {
     std::cin >> n;
     std::string s, t, d;
     std::cin >> s >> t;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         d.push_back(s[i] == t[i] ? '0' : '1'); // ^
     }
     int k = 0;
-    for(int i = 0; i < n; ++i) {
-        if(d[i] == '1' && d[i + 1] != '1') {
+    for (int i = 0; i < n; ++i) {
+        if (d[i] == '1' && d[i + 1] != '1') {
             ++k;
         }
     }
-    if(k == 0) {
+    if (k == 0) {
         std::cout << (n + 1) * n / 2 << std::endl;
-    } else if(k == 1) {
+    } else if (k == 1) {
         std::cout << 2 * (n - 1) << std::endl;
-    } else if(k == 2) {
+    } else if (k == 2) {
         std::cout << 6 << std::endl;
     } else {
         std::cout << 0 << std::endl;
@@ -38,7 +38,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

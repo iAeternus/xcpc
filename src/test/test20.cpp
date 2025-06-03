@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 
-template<typename T>
+template <typename T>
 T* binarySearch(T* arrBegin, T* arrEnd, const T& target) {
     T* left = arrBegin;
     T* right = arrEnd - 1;
-    while(left <= right) {
+    while (left <= right) {
         T* mid = left + ((right - left) >> 1L);
-        if(*mid < target) {
+        if (*mid < target) {
             left = mid + 1;
-        } else if(*mid > target) {
+        } else if (*mid > target) {
             right = mid - 1;
         } else {
             return mid;

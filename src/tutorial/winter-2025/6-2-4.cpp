@@ -21,13 +21,13 @@ int main() {
         std::queue<std::pair<int, int>> q;
         q.push({x, y});
         vis[x][y] = true;
-        while(!q.empty()) {
+        while (!q.empty()) {
             auto [rx, ry] = q.front();
             q.pop();
-            for(int i = 0; i < 4; ++i) {
+            for (int i = 0; i < 4; ++i) {
                 int nx = rx + dx[i];
                 int ny = ry + dy[i];
-                if(nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny] && mp[nx][ny] != 0) {
+                if (nx >= 0 && nx < n && ny >= 0 && ny < m && !vis[nx][ny] && mp[nx][ny] != 0) {
                     vis[nx][ny] = true;
                     q.push({nx, ny});
                 }

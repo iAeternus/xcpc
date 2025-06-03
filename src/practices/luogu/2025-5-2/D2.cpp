@@ -14,9 +14,9 @@ int main() {
     });
 
     i64 ans = 0;
-    auto[aa, bb] = v[0];
-    for(int i = 1; i < n; ++i) {
-        if(v[i].first > bb) {
+    auto [aa, bb] = v[0];
+    for (int i = 1; i < n; ++i) {
+        if (v[i].first > bb) {
             ans += bb - aa;
             aa = v[i].first;
             bb = v[i].second;

@@ -10,13 +10,13 @@ O(N)
 试除法
 */
 bool is_prime(int num) {
-    if(num == 1) {
+    if (num == 1) {
         return false;
     }
 
     int tmp = sqrt(num);
-    for(int i = 2; i <= tmp; ++i) {
-        if(num % i == 0) {
+    for (int i = 2; i <= tmp; ++i) {
+        if (num % i == 0) {
             return false;
         }
     }
@@ -24,8 +24,8 @@ bool is_prime(int num) {
 }
 
 void test() {
-    for(int i = 1; i <= 100; ++i) {
-        if(is_prime(i)) {
+    for (int i = 1; i <= 100; ++i) {
+        if (is_prime(i)) {
             std::cout << i << ' ';
         }
     }
@@ -46,10 +46,10 @@ bool is_prime(int num) {
 }
 
 void get_primes(int n) {
-    for(int i = 2; i <= n; ++i) {
-        if(is_prime(i)) {
+    for (int i = 2; i <= n; ++i) {
+        if (is_prime(i)) {
             primes[++cnt] = i;
-            for(int j = i; j * i <= n; ++j) {
+            for (int j = i; j * i <= n; ++j) {
                 check[j * i] = true;
             }
         }
@@ -59,7 +59,7 @@ void get_primes(int n) {
 void test() {
     get_primes(100);
 
-    for(int i = 1; i <= cnt; ++i) {
+    for (int i = 1; i <= cnt; ++i) {
         std::cout << primes[i] << ' ';
     }
     std::cout << std::endl;
@@ -80,14 +80,14 @@ bool is_prime(int num) {
 }
 
 void get_primes(int n) {
-    for(int i = 2; i <= n; ++i) {
-        if(is_prime(i)) {
+    for (int i = 2; i <= n; ++i) {
+        if (is_prime(i)) {
             primes[++cnt] = i;
         }
 
-        for(int j = 1; j <= cnt && i * primes[j] <= n; ++j) {
+        for (int j = 1; j <= cnt && i * primes[j] <= n; ++j) {
             check[i * primes[j]] = true;
-            if(i % primes[j] == 0) {
+            if (i % primes[j] == 0) {
                 break;
             }
         }
@@ -97,7 +97,7 @@ void get_primes(int n) {
 void test() {
     get_primes(100);
 
-    for(int i = 1; i <= cnt; ++i) {
+    for (int i = 1; i <= cnt; ++i) {
         std::cout << primes[i] << ' ';
     }
     std::cout << std::endl;

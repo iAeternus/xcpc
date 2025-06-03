@@ -18,7 +18,7 @@ int main() {
     1 2
     1 1
     */
-    for(const auto& it : ms) {
+    for (const auto& it : ms) {
         std::cout << it.a << ' ' << it.b << std::endl;
     }
 }

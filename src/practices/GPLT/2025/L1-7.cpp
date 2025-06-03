@@ -25,15 +25,15 @@ int main() {
     int n;
     std::cin >> n;
     bool ok = false;
-    for(int k = 32; k >= 1; --k) {
+    for (int k = 32; k >= 1; --k) {
         i64 sum = 0;
-        if(ok) break;
-        for(int m = 1; ; ++m) {
+        if (ok) break;
+        for (int m = 1;; ++m) {
             sum += qpow(m, k);
-            if(sum > n) {
+            if (sum > n) {
                 break;
             }
-            if(sum == n) {
+            if (sum == n) {
                 ok = true;
                 print(m, k);
                 break;
@@ -41,7 +41,7 @@ int main() {
         }
     }
 
-    if(!ok) {
+    if (!ok) {
         std::cout << "Impossible for " << n << ".";
     }
 }

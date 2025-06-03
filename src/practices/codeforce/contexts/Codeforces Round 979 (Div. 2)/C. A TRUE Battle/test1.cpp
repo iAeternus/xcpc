@@ -14,11 +14,11 @@ void solve() {
     }
 
     for (int i = 1; i < s.length() - 1; ++i) {
-        if(s[i] == '1' && (s[i - 1] == '1' || s[i + 1] == '1')) {
+        if (s[i] == '1' && (s[i - 1] == '1' || s[i + 1] == '1')) {
             std::cout << "YES" << std::endl;
             return;
         }
-    }   
+    }
     std::cout << "NO" << std::endl;
 }
 

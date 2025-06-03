@@ -153,10 +153,10 @@ int main() {
     int n, m;
     std::cin >> n >> m;
     LSGT<Info, Tag> sgt(n);
-    while(m--) {
+    while (m--) {
         int op, s, e;
         std::cin >> op >> s >> e;
-        if(op == 0) {
+        if (op == 0) {
             sgt.rangeApply(s - 1, e, {1});
         } else {
             std::cout << sgt.query(s - 1, e).x << std::endl;

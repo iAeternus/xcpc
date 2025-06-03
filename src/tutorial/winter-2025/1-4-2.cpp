@@ -3,7 +3,7 @@
 
 int main() {
     std::vector<int> nums;
-    for(int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 10; ++i) {
         nums.push_back(i);
     }
 
@@ -15,15 +15,15 @@ int main() {
     // }
     // std::cout << std::endl;
 
-    for(auto it = nums.begin(); it != nums.end(); ) {
-        if(*it > 3) {
+    for (auto it = nums.begin(); it != nums.end();) {
+        if (*it > 3) {
             it = nums.erase(it);
         } else {
             ++it;
         }
     }
-    
-    for(const auto& num : nums) {
+
+    for (const auto& num : nums) {
         std::cout << num << ' ';
     }
     std::cout << std::endl;

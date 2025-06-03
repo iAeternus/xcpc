@@ -8,15 +8,15 @@ int main() {
     std::sort(a, a + n, [](int& a, int& b) {
         return a > b;
     });
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cout << a[i] << ' ';
     }
     std::cout << std::endl;
 
-    std::sort(v.begin(), v.end(), [](int& a, int&b) {
+    std::sort(v.begin(), v.end(), [](int& a, int& b) {
         return a > b;
     });
-    for(const auto& it : v) {
+    for (const auto& it : v) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;

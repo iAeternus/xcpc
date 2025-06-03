@@ -36,7 +36,7 @@ int main() {
         int a_start = 0;
         for (int i = n - 1; i >= a_start; --i) {
             for (int j = m - 1; j >= 0; --j) {
-                if(k < m && a_start != n - 1) {
+                if (k < m && a_start != n - 1) {
                     type_1 = dp[i][j + 1];
                 }
 
@@ -45,7 +45,7 @@ int main() {
                 type_2 = dp[i + d][j] + m - k;
                 dp[i][j] = std::min(type_1, type_2);
 
-                if(type_2 < type_1) {
+                if (type_2 < type_1) {
                     dp[i][j] = type_2;
                     a_start = d;
                 } else {
@@ -55,7 +55,7 @@ int main() {
         }
 
         int ans = INT_MAX;
-        for(int j = 0; j < k; ++j) {
+        for (int j = 0; j < k; ++j) {
             ans = std::min(ans, dp[0][j]);
         }
 

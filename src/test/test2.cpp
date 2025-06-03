@@ -49,7 +49,7 @@ void func(bool p1, bool p2, bool p3, bool p4, bool p5, bool p6) {
                     accessToMarket();
                     done = true;
                 } else {
-                    if(!p6) {
+                    if (!p6) {
                         discard();
                         done = true;
                     }
@@ -58,7 +58,7 @@ void func(bool p1, bool p2, bool p3, bool p4, bool p5, bool p6) {
                 accessToMarket();
                 if (!p5) {
                     exchange();
-                    if(!p6) {
+                    if (!p6) {
                         discard();
                         done = true;
                     }

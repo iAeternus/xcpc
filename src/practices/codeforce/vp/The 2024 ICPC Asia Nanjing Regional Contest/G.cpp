@@ -29,8 +29,8 @@ void ret(int x) {
 // 子树siz
 void getSiz(int p, int fa) {
     siz[p] = 1;
-    for(const auto& it : g[p]) {
-        if(it != fa && bk[it]) {
+    for (const auto& it : g[p]) {
+        if (it != fa && bk[it]) {
             getSiz(it, p);
             siz[p] += siz[it];
         }
@@ -41,28 +41,28 @@ void getSiz(int p, int fa) {
 int dfs(int u, int p) {
     siz[u] = 1;
     std::vector<std::pair<int, int>> tmp;
-    for(const auto& v : g[u]) {
-        if(v != p && bk[v]) {
+    for (const auto& v : g[u]) {
+        if (v != p && bk[v]) {
             siz[u] += dfs(v, u);
             tmp.push_back({siz[v], v});
         }
     }
-    if(u != p && bk[p]) {
+    if (u != p && bk[p]) {
         tmp.push_back({res - siz[u], p});
     }
-    if(tmp.size() <= 1) {
+    if (tmp.size() <= 1) {
         return siz[u];
     }
     std::sort(tmp.begin(), tmp.end());
-    if(tmp.size() == 2) {
-        if(ans > tmp[1].first) {
+    if (tmp.size() == 2) {
+        if (ans > tmp[1].first) {
             ans = tmp[1].first;
             rt = tmp;
             root = u;
         }
     } else {
         int mx = std::max(tmp[0].first + 1, tmp[2].first);
-        if(ans > mx) {
+        if (ans > mx) {
             ans = mx;
             rt = tmp;
             root = u;
@@ -72,25 +72,25 @@ int dfs(int u, int p) {
 }
 
 void process(int cur) {
-    if(ok) return;
+    if (ok) return;
     ans = 1e9;
     getSiz(cur, cur);
     res = siz[cur];
-    if(res <= 2) {
+    if (res <= 2) {
         r = 0;
-        for(const auto& it : g[cur]) {
-            if(bk[it]) {
+        for (const auto& it : g[cur]) {
+            if (bk[it]) {
                 r = it;
             }
         }
-        if(!r) {
+        if (!r) {
             ret(cur);
         } else {
             ret(ask(cur, r) == 0 ? cur : r);
         }
     } else {
         dfs(cur, cur);
-        if(rt.size() == 3) {
+        if (rt.size() == 3) {
             l = rt[1].second;
             r = rt[2].second;
         } else {
@@ -98,10 +98,10 @@ void process(int cur) {
             r = rt[1].second;
         }
         ot = ask(l, r);
-        if(ot == 0) {
+        if (ot == 0) {
             bk[root] = false;
             process(l);
-        } else if(ot == 1) {
+        } else if (ot == 1) {
             bk[l] = bk[r] = false;
             process(root);
         } else {
@@ -114,15 +114,15 @@ void process(int cur) {
 void solve() {
     std::cin >> n;
     ok = false;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         g[i].clear();
         bk[i] = true;
     }
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int l, r;
         std::cin >> l >> r;
-        if(l) add(i, l);
-        if(r) add(i, r);
+        if (l) add(i, l);
+        if (r) add(i, r);
     }
     process(1);
 }
@@ -130,7 +130,7 @@ void solve() {
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         solve();
     }
 }

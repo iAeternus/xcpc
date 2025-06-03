@@ -2,7 +2,7 @@
  * https://www.luogu.com.cn/problem/P1824
  */
 #include <bits/stdc++.h>
-    
+
 const int N = 1e5 + 3;
 int n, c, a[N];
 
@@ -11,8 +11,8 @@ int n, c, a[N];
  */
 bool check(int dis) {
     int cnt = 1, place = 1;
-    for(int i = 2; i <= n; ++i) {
-        if(a[i] - a[place] >= dis) {
+    for (int i = 2; i <= n; ++i) {
+        if (a[i] - a[place] >= dis) {
             ++cnt;
             place = i;
         }
@@ -25,9 +25,9 @@ bool check(int dis) {
  */
 int bin_search(int left, int right) {
     int ans = 0;
-    while(left <= right) {
+    while (left <= right) {
         int mid = left + (right - left) / 2;
-        if(check(mid)) {
+        if (check(mid)) {
             ans = mid;
             left = mid + 1;
         } else {
@@ -40,7 +40,7 @@ int bin_search(int left, int right) {
 int main() {
     std::cin >> n >> c;
 
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cin >> a[i];
     }
 

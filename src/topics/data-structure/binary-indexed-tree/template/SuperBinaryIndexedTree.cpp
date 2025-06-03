@@ -6,18 +6,20 @@
 class SuperBinaryIndexedTree {
 private:
     using ELEM = long long;
+
 public:
-    SuperBinaryIndexedTree(int size) : m_size(size) {
+    SuperBinaryIndexedTree(int size) :
+            m_size(size) {
         m_old = 0;
         p_d1 = new ELEM[m_size + 1];
         p_d2 = new ELEM[m_size + 1];
-        for(int i = 1; i <= m_size; ++i) {
+        for (int i = 1; i <= m_size; ++i) {
             p_d1[i] = p_d2[i] = 0;
         }
     }
 
-    SuperBinaryIndexedTree(ELEM nums[], int size)
-        : SuperBinaryIndexedTree(size) {
+    SuperBinaryIndexedTree(ELEM nums[], int size) :
+            SuperBinaryIndexedTree(size) {
         for (int i = 1; i <= m_size; ++i) {
             add(p_d1, i, nums[i] - nums[i - 1]);
             add(p_d2, i, (i - 1) * (nums[i] - nums[i - 1]));
@@ -113,10 +115,10 @@ using ll = long long;
 void testSuperBinaryIndexedTree() {
     // Given
     int n = 10;
-    ll a[] = {0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};  // a[0] 不用
+    ll a[] = {0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13}; // a[0] 不用
 
     SuperBinaryIndexedTree bit(n);
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         bit.set(i, a[i]);
     }
 
@@ -137,7 +139,7 @@ void testSuperBinaryIndexedTree() {
     assert(sum4 == 22);
     assert(num == 208);
 
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cout << bit.get(i) << ' ';
     }
     std::cout << std::endl;

@@ -27,13 +27,13 @@ int main() {
         int n;
         std::cin >> n;
 
-        if(n <= 4) {
+        if (n <= 4) {
             std::cout << -1 << std::endl;
             continue;
         }
 
-        for (int i = n; i >= 1; ) {
-            if(isPrime(i + i - 1)) {
+        for (int i = n; i >= 1;) {
+            if (isPrime(i + i - 1)) {
                 nums.push_back(i - 1);
                 std::cout << i << ' ' << i - 2 << ' ';
                 i -= 3;
@@ -43,7 +43,7 @@ int main() {
             }
         }
 
-        for(const auto& num : nums) {
+        for (const auto& num : nums) {
             std::cout << num << ' ';
         }
         std::cout << std::endl;

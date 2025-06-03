@@ -13,15 +13,15 @@ int main() {
     int n;
     std::cin >> n;
 
-    while(n--) {
+    while (n--) {
         int op;
         std::cin >> op;
 
-        if(op == 1) {
+        if (op == 1) {
             int x;
             std::cin >> x;
             q.push(x);
-        } else if(op == 2) {
+        } else if (op == 2) {
             std::cout << q.top() << std::endl;
         } else {
             q.pop();

@@ -6,10 +6,10 @@ void solve() {
     int n;
     std::cin >> n;
     std::vector<int> a, b;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int x;
         std::cin >> x;
-        if(x & 1) {
+        if (x & 1) {
             a.push_back(x);
         } else {
             b.push_back(x);
@@ -19,20 +19,20 @@ void solve() {
     std::ranges::sort(a, std::greater<>());
     std::ranges::sort(b, std::greater<>());
 
-    if(a.empty()) {
+    if (a.empty()) {
         std::cout << b[0] << std::endl;
         return;
-    } else if(b.empty()) {
+    } else if (b.empty()) {
         std::cout << a[0] << std::endl;
         return;
     }
 
     i64 ans = std::accumulate(b.begin(), b.end(), 0LL) + a[0];
-    for(int i = 1; i < a.size(); ++i) {
+    for (int i = 1; i < a.size(); ++i) {
         ans += a[i] - 1;
     }
     std::cout << ans << std::endl;
-}   
+}
 
 int main() {
     std::ios::sync_with_stdio(false);

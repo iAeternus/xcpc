@@ -9,7 +9,7 @@ void solve() {
     int n;
     std::cin >> n;
     int k = 1, ans = 1;
-    while(k < n) {
+    while (k < n) {
         k = (k + 1) * 2;
         ans++;
     }
@@ -24,7 +24,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

@@ -3,29 +3,29 @@
 /**
  * 泛型参数只允许为可计算的数字类型
  */
-template<typename T>
+template <typename T>
 concept ArithmeticType = std::is_arithmetic_v<T>;
 
 /**
  * 矩阵
  * 实现了常用矩阵算法，矩阵存储可运算的数字类型
  */
-template<ArithmeticType T>
+template <ArithmeticType T>
 class Matrix {
 public:
     /**
      * 创建一个空的矩阵
      */
-    Matrix()
-            : rows(0), cols(0), data() {}
+    Matrix() :
+            rows(0), cols(0), data() {}
 
     /**
      * 创建方阵
      * @par n 行数=列数
      * @par unit 如果为true则创建单位阵，否则创建全为0的方阵
      */
-    explicit Matrix(size_t n, bool unit = false)
-            : rows(n), cols(n), data(this->rows, std::vector<T>(this->cols, 0)) {
+    explicit Matrix(size_t n, bool unit = false) :
+            rows(n), cols(n), data(this->rows, std::vector<T>(this->cols, 0)) {
         if (unit) {
             for (size_t i = 0; i < rows; ++i) {
                 data[i][i] = 1;
@@ -39,22 +39,22 @@ public:
      * @par cols 列数
      * @par val 初始化的值
      */
-    explicit Matrix(size_t rows, size_t cols, T val = 0)
-            : rows(rows), cols(cols), data(this->rows, std::vector<T>(this->cols, val)) {}
+    explicit Matrix(size_t rows, size_t cols, T val = 0) :
+            rows(rows), cols(cols), data(this->rows, std::vector<T>(this->cols, val)) {}
 
     /**
      * 使用初始化列表创建矩阵
      * @par init 初始化列表
      */
-    Matrix(const std::initializer_list<std::initializer_list<T>> &init)
-            : rows(init.size()), cols(init.begin()->size()), data(this->rows, std::vector<T>(this->cols)) {
+    Matrix(const std::initializer_list<std::initializer_list<T>>& init) :
+            rows(init.size()), cols(init.begin()->size()), data(this->rows, std::vector<T>(this->cols)) {
         size_t i = 0, j;
-        for (const auto &row: init) {
+        for (const auto& row : init) {
             j = 0;
             if (row.size() != this->cols) {
                 throw std::runtime_error("Each row of the matrix must have an equal number of elements.");
             }
-            for (const auto &val: row) {
+            for (const auto& val : row) {
                 data[i][j] = val;
                 ++j;
             }
@@ -62,8 +62,8 @@ public:
         }
     }
 
-    Matrix(const Matrix &other)
-            : rows(other.rows), cols(other.cols), data(this->rows, std::vector<T>(this->cols)) {
+    Matrix(const Matrix& other) :
+            rows(other.rows), cols(other.cols), data(this->rows, std::vector<T>(this->cols)) {
         for (size_t i = 0; i < rows; ++i) {
             for (size_t j = 0; j < cols; ++j) {
                 data[i][j] = other[i][j];
@@ -71,7 +71,7 @@ public:
         }
     }
 
-    Matrix &operator=(const Matrix &other) {
+    Matrix& operator=(const Matrix& other) {
         if (this != &other) {
             rows = other.rows;
             cols = other.cols;
@@ -120,7 +120,7 @@ public:
         return data[row];
     }
 
-    friend auto operator<<(std::ostream &out, const Matrix &m) -> std::ostream& {
+    friend auto operator<<(std::ostream& out, const Matrix& m) -> std::ostream& {
         for (size_t i = 0; i < m.rows; ++i) {
             for (size_t j = 0; j < m.cols; ++j) {
                 out << m[i][j];
@@ -151,7 +151,7 @@ public:
      * @par b 矩阵
      * @return 计算 a + b
      */
-    friend auto operator+(const Matrix &a, const Matrix &b) -> Matrix {
+    friend auto operator+(const Matrix& a, const Matrix& b) -> Matrix {
         if (!Matrix::can_linear(a, b)) {
             throw std::runtime_error("Dimension mismatch error: Matrix dimensions do not match for addition.");
         }
@@ -171,7 +171,7 @@ public:
      * @par other 矩阵
      * @return 计算 this += other
      */
-    auto operator+=(const Matrix &other) -> Matrix& {
+    auto operator+=(const Matrix& other) -> Matrix& {
         if (!Matrix::can_linear(*this, other)) {
             throw std::runtime_error("Dimension mismatch error: Matrix dimensions do not match for addition.");
         }
@@ -190,7 +190,7 @@ public:
      * @par b 矩阵
      * @return 计算 a - b
      */
-    friend auto operator-(const Matrix &a, const Matrix &b) -> Matrix {
+    friend auto operator-(const Matrix& a, const Matrix& b) -> Matrix {
         if (!Matrix::can_linear(a, b)) {
             throw std::runtime_error("Dimension mismatch error: Matrix dimensions do not match for subtraction.");
         }
@@ -210,7 +210,7 @@ public:
      * @par other 矩阵
      * @return 计算 this -= other
      */
-    auto operator-=(const Matrix &other) -> Matrix& {
+    auto operator-=(const Matrix& other) -> Matrix& {
         if (!Matrix::can_linear(*this, other)) {
             throw std::runtime_error("Dimension mismatch error: Matrix dimensions do not match for subtraction.");
         }
@@ -229,7 +229,7 @@ public:
      * @par m 矩阵
      * @return 计算 a * n
      */
-    friend auto operator*(size_t n, const Matrix &m) -> Matrix {
+    friend auto operator*(size_t n, const Matrix& m) -> Matrix {
         Matrix c(m);
         for (size_t i = 0; i < c.rows; ++i) {
             for (size_t j = 0; j < c.cols; ++j) {
@@ -245,7 +245,7 @@ public:
      * @par n 数
      * @return 计算 a * n
      */
-    friend auto operator*(const Matrix &m, T n) -> Matrix {
+    friend auto operator*(const Matrix& m, T n) -> Matrix {
         Matrix c(m);
         for (size_t i = 0; i < c.rows; ++i) {
             for (size_t j = 0; j < c.cols; ++j) {
@@ -276,7 +276,7 @@ public:
      * @par b 矩阵
      * @return 计算 a * b
      */
-    friend auto operator*(const Matrix &a, const Matrix &b) -> Matrix {
+    friend auto operator*(const Matrix& a, const Matrix& b) -> Matrix {
         if (a.cols != b.rows) {
             throw std::runtime_error("Dimension mismatch error: The number of columns in the first matrix must equal the number of rows in the second matrix for multiplication.");
         }
@@ -301,7 +301,7 @@ public:
      * @par n 指数
      * @return 计算 a^n
      */
-    friend auto operator^(Matrix &a, T n) -> Matrix {
+    friend auto operator^(Matrix& a, T n) -> Matrix {
         if (!a.is_square()) {
             throw std::runtime_error("Matrix exponentiation must be square.");
         }
@@ -328,8 +328,8 @@ public:
      * @par m 线性方程组矩阵，函数将其变换为简化阶梯矩阵
      * @return true=方程有唯一解 false=方程没有唯一解
      */
-    static auto solve_linear_systems(Matrix<T> &m) -> bool {
-        const T EPS = 1e-8;  // 定义一个非常小的数，用于判断是否为0
+    static auto solve_linear_systems(Matrix<T>& m) -> bool {
+        const T EPS = 1e-8; // 定义一个非常小的数，用于判断是否为0
 
         if (m.cols - m.rows != 1) {
             throw std::runtime_error("Incorrect linear equations.");
@@ -352,7 +352,7 @@ public:
 
             // 检查主元是否为0
             if (fabs(m.data[i][i]) < EPS) {
-                return false;  // 没有唯一解
+                return false; // 没有唯一解
             }
 
             // 将主元归一化
@@ -389,15 +389,15 @@ public:
     }
 
 private:
-    size_t rows;  // 行数
-    size_t cols;  // 列数
+    size_t rows; // 行数
+    size_t cols; // 列数
     std::vector<std::vector<T>> data;
 
     /**
      * 能否线性运算
      * @return true=能 false=不能
      */
-    static auto can_linear(const Matrix &a, const Matrix &b) -> bool {
+    static auto can_linear(const Matrix& a, const Matrix& b) -> bool {
         return a.rows == b.rows && a.cols == b.cols;
     }
 
@@ -430,15 +430,15 @@ int main() {
 
     Matrix<double> m(n, n + 1);
 
-    for(size_t i = 0; i < m.get_rows(); ++i) {
-        for(size_t j = 0; j < m.get_cols(); ++j) {
+    for (size_t i = 0; i < m.get_rows(); ++i) {
+        for (size_t j = 0; j < m.get_cols(); ++j) {
             scanf("%lf", &m[i][j]);
         }
     }
 
-    if(Matrix<double>::solve_linear_systems(m)) {
+    if (Matrix<double>::solve_linear_systems(m)) {
         std::vector<double> sol = m.get_solution();
-        for(const auto& val : sol) {
+        for (const auto& val : sol) {
             printf("%.2f\n", val);
         }
     } else {

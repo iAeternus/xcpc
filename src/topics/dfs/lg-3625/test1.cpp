@@ -14,19 +14,19 @@ int dy[] = {0, 0, 1, -1};
 bool can = false;
 
 void dfs(int x, int y) {
-    if(can) return;
-    if(x < 0 || x >= n || y < 0 || y > m) {
+    if (can) return;
+    if (x < 0 || x >= n || y < 0 || y > m) {
         return;
     }
-    if(a[x][y] == '#' || vis[x][y]) {
+    if (a[x][y] == '#' || vis[x][y]) {
         return;
     }
-    if(x == n - 1 && y == m - 1) {
+    if (x == n - 1 && y == m - 1) {
         can = true;
         return;
     }
 
-    for(int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i) {
         vis[x][y] = true;
         dfs(x + dx[i], y + dy[i]);
         // vis[x][y] = false;
@@ -51,7 +51,7 @@ void dfs(int x, int y) {
 
 int main() {
     std::cin >> n >> m;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
     }
     dfs(0, 0);

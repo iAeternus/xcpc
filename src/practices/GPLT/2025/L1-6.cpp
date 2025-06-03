@@ -2,7 +2,7 @@
 
 std::string read(int n) {
     std::string s;
-    while(n--) {
+    while (n--) {
         int x;
         std::cin >> x;
         s += x + 'a' - 1;
@@ -16,10 +16,10 @@ int main() {
 
     std::string s = read(n);
 
-    while(m--) {
+    while (m--) {
         int op;
         std::cin >> op;
-        if(op == 1) {
+        if (op == 1) {
             int l1;
             std::cin >> l1;
             std::string b = read(l1);
@@ -28,14 +28,14 @@ int main() {
             std::string c = read(l2);
 
             int find = s.find(b);
-            if(find != s.npos) {
+            if (find != s.npos) {
                 s.replace(s.begin() + find, s.begin() + find + l1, c);
             }
-        } else if(op == 2) {
+        } else if (op == 2) {
             std::string t;
             t += s[0];
-            for(int i = 1; i < s.length(); ++i) {
-                if((s[i - 1] - 'a') + (s[i] - 'a') & 1 ^ 1) {
+            for (int i = 1; i < s.length(); ++i) {
+                if ((s[i - 1] - 'a') + (s[i] - 'a') & 1 ^ 1) {
                     t += s[i - 1] + s[i] >> 1;
                 }
                 t += s[i];
@@ -49,7 +49,7 @@ int main() {
         }
     }
 
-    for(int i = 0; i < s.length(); ++i) {
+    for (int i = 0; i < s.length(); ++i) {
         std::cout << s[i] - 'a' + 1 << " \n"[i == s.length() - 1];
     }
 }

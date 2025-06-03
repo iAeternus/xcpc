@@ -19,10 +19,10 @@ int ans[N], sum[N];
  * 初始化图
  */
 void init() {
-    for(auto& h : head) {
+    for (auto& h : head) {
         h = -1;
     }
-    for(auto& e : edge) {
+    for (auto& e : edge) {
         e.next = -1;
     }
     cnt = 0;
@@ -47,7 +47,7 @@ void add_edge(int from, int to, int weight = 0) {
  * @par func 对邻接结点的操作逻辑
  */
 void for_each(int cur, const std::function<void(int)>& func) {
-    for(int i = head[cur]; ~i; i = edge[i].next) {
+    for (int i = head[cur]; ~i; i = edge[i].next) {
         func(i);
     }
 }
@@ -56,11 +56,11 @@ void dfs(int cur, int parent) {
     size[cur] = 1;
     for_each(cur, [&](int i) {
         int neighbor = edge[i].to;
-        if(neighbor == parent) {
+        if (neighbor == parent) {
             return; // continue
         }
         dfs(neighbor, cur);
-        
+
         size[cur] += size[neighbor];
         sum[cur] += size[neighbor] * size[neighbor];
     });
@@ -72,7 +72,7 @@ int main() {
     int n, r, m;
     std::cin >> n >> r >> m;
 
-    for(int i = 1, a, b; i <= n - 1; ++i) {
+    for (int i = 1, a, b; i <= n - 1; ++i) {
         std::cin >> a >> b;
         add_edge(a, b);
         add_edge(b, a);
@@ -80,7 +80,7 @@ int main() {
 
     dfs(r, -1);
 
-    while(m--) {
+    while (m--) {
         int p;
         std::cin >> p;
         std::cout << ans[p] << std::endl;

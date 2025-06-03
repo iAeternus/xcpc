@@ -8,7 +8,7 @@ int n, m;
 void set_up() {
     init();
     n = 6, m = 11;
-    
+
     add_edge(1, 2, 24);
     add_edge(2, 1, 54);
     add_edge(5, 2, 34);

@@ -14,19 +14,20 @@
 */
 #include <bits/stdc++.h>
 
-template<typename T>
+template <typename T>
 class SegTree {
 protected:
     T mergeFunc(T e1, T e2) {
         return e1 + e2;
     }
-public:
-    #define LEFT_SON(p) ((p) << 1 | 1) // p / 2 + 1
-    #define RIGHT_SON(p) (((p) + 1) << 1) // p / 2 + 2
-    #define GET_MID(pLeft, pRight) ((pLeft) + (((pRight) - (pLeft)) >> 1)) // (pLeft + pRight) / 2
 
-    SegTree(const std::vector<T>& nums)
-        : size(nums.size()), tree(size << 2, 0), tag(size << 2) {
+public:
+#define LEFT_SON(p) ((p) << 1 | 1) // p / 2 + 1
+#define RIGHT_SON(p) (((p) + 1) << 1) // p / 2 + 2
+#define GET_MID(pLeft, pRight) ((pLeft) + (((pRight) - (pLeft)) >> 1)) // (pLeft + pRight) / 2
+
+    SegTree(const std::vector<T>& nums) :
+            size(nums.size()), tree(size << 2, 0), tag(size << 2) {
         build(nums, 0, 0, size - 1);
     }
 

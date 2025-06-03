@@ -15,20 +15,20 @@ struct HLD {
     };
 
     // 树链剖分相关数据
-    int n;                               // 节点个数
-    std::vector<T> w;                    // 节点权值
-    std::vector<std::vector<int>> edge;  // 树边
-    std::vector<int> fa;                 // fa[u]: 存u的父节点
-    std::vector<int> dep;                // dep[u]: 存u的深度
-    std::vector<int> son;                // son[u]: 存u的重儿子
-    std::vector<int> siz;                // siz[u]: 存以u为根的子树的结点数
-    std::vector<int> top;                // top[u]: 存u所在重链的顶点
+    int n;                              // 节点个数
+    std::vector<T> w;                   // 节点权值
+    std::vector<std::vector<int>> edge; // 树边
+    std::vector<int> fa;                // fa[u]: 存u的父节点
+    std::vector<int> dep;               // dep[u]: 存u的深度
+    std::vector<int> son;               // son[u]: 存u的重儿子
+    std::vector<int> siz;               // siz[u]: 存以u为根的子树的结点数
+    std::vector<int> top;               // top[u]: 存u所在重链的顶点
 
     // 树上修改相关数据
-    int cnt;                 // 新编号计数
-    std::vector<int> id;     // id[u]: 存u剖分后的新编号
-    std::vector<T> nw;       // 存新编号在树中所对应节点的权值
-    std::vector<Node> tree;  // 线段树
+    int cnt;                // 新编号计数
+    std::vector<int> id;    // id[u]: 存u剖分后的新编号
+    std::vector<T> nw;      // 存新编号在树中所对应节点的权值
+    std::vector<Node> tree; // 线段树
 
     HLD(int n, const std::vector<T>& w) {
         this->n = n;
@@ -43,7 +43,7 @@ struct HLD {
         this->cnt = 0;
         id.resize(n + 1);
         nw.resize(n + 1);
-        tree.resize(n << 2);  // 4n
+        tree.resize(n << 2); // 4n
     }
 
     /**
@@ -93,13 +93,13 @@ struct HLD {
         dep[u] = dep[fa[u]] + 1;
         siz[u] = 1;
         for (const auto& neighbor : edge[u]) {
-            if (neighbor == father) {  // 只准往下走
+            if (neighbor == father) { // 只准往下走
                 continue;
             }
 
             dfs1(neighbor, u);
-            siz[u] += siz[neighbor];            // 更新当前节点的子树大小
-            if (siz[son[u]] < siz[neighbor]) {  // 寻找重儿子
+            siz[u] += siz[neighbor];           // 更新当前节点的子树大小
+            if (siz[son[u]] < siz[neighbor]) { // 寻找重儿子
                 son[u] = neighbor;
             }
         }
@@ -118,7 +118,7 @@ struct HLD {
         }
         dfs2(son[u], t);
         for (const auto& neighbor : edge[u]) {
-            if (neighbor == fa[u] || neighbor == son[u]) {  // 只准往下走 && 不能选刚才走的重儿子
+            if (neighbor == fa[u] || neighbor == son[u]) { // 只准往下走 && 不能选刚才走的重儿子
                 continue;
             }
             dfs2(neighbor, neighbor);
@@ -192,7 +192,7 @@ struct HLD {
         if (dep[u] < dep[v]) {
             std::swap(u, v);
         }
-        update(1, id[v], id[u], k);  // 最后一段
+        update(1, id[v], id[u], k); // 最后一段
     }
 
     /**
@@ -236,7 +236,7 @@ struct HLD {
         if (dep[u] < dep[v]) {
             std::swap(u, v);
         }
-        ans += query(1, id[v], id[u]);  // 最后一段
+        ans += query(1, id[v], id[u]); // 最后一段
         return ans;
     }
 

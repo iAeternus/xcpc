@@ -36,7 +36,7 @@ inline void push_down(int p) {
 
 inline void build(int p, int s, int t) {
     tr[p] = {s, t, 0, 0};
-    if(s == t) {
+    if (s == t) {
         tr[p].val = a[s];
         return;
     }
@@ -48,7 +48,7 @@ inline void build(int p, int s, int t) {
 }
 
 inline void update(int p, int l, int r, ll k) {
-    if(l <= tr[p].l && tr[p].r <= r) {
+    if (l <= tr[p].l && tr[p].r <= r) {
         tr[p].val += k * (tr[p].r - tr[p].l + 1);
         tr[p].sum += k;
         return;
@@ -56,27 +56,27 @@ inline void update(int p, int l, int r, ll k) {
 
     push_down(p);
     int mid = (tr[p].l + tr[p].r) >> 1;
-    if(l <= mid) {
+    if (l <= mid) {
         update(left_child(p), l, r, k);
     }
-    if(mid < r) {
+    if (mid < r) {
         update(right_child(p), l, r, k);
     }
     push_up(p);
 }
 
 inline ll query(int p, int l, int r) {
-    if(l <= tr[p].l && tr[p].r <= r) {
+    if (l <= tr[p].l && tr[p].r <= r) {
         return tr[p].val;
     }
 
     push_down(p);
     int mid = (tr[p].l + tr[p].r) >> 1;
     ll ans = 0;
-    if(l <= mid) {
+    if (l <= mid) {
         ans += query(left_child(p), l, r);
     }
-    if(mid < r) {
+    if (mid < r) {
         ans += query(right_child(p), l, r);
     }
     return ans;

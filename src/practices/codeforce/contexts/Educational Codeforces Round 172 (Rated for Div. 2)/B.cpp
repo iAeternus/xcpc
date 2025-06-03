@@ -18,13 +18,13 @@ int main() {
             mp[c]++;
         }
         int cnt_one = 0, cnt_other = 0;
-        for(const auto&[num, cnt] : mp) {
-            if(cnt == 1) {
+        for (const auto& [num, cnt] : mp) {
+            if (cnt == 1) {
                 cnt_one++;
             } else {
                 cnt_other++;
             }
         }
         std::cout << ((cnt_one + 1) >> 1) * 2 + cnt_other << std::endl;
-    }   
+    }
 }

@@ -135,8 +135,8 @@ int n, q, m;
 struct Tag {
     ll mul, add;
 
-    Tag(ll mul = 1, ll add = 0)
-        : mul(mul), add(add) {}  // 乘法默认 1，加默认 0
+    Tag(ll mul = 1, ll add = 0) :
+            mul(mul), add(add) {} // 乘法默认 1，加默认 0
 
     void apply(Tag t) {
         mul = 1LL * mul * t.mul % m;

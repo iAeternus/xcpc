@@ -20,7 +20,7 @@ void getSG(int numF, int n) {
         // 每一次都要将上一状态 的 后继集合 重置
         memset(s, 0, sizeof(s));
         for (int j = 0; f[j] <= i && j < numF; ++j) {
-            s[sg[i - f[j]]] = 1;  // 将后继状态的SG函数值进行标记
+            s[sg[i - f[j]]] = 1; // 将后继状态的SG函数值进行标记
         }
 
         for (int j = 0;; ++j) {
@@ -50,7 +50,7 @@ int main() {
     getSG(numF, n);
 
     // Then
-    for(int i = 0; i <= n; ++i) {
+    for (int i = 0; i <= n; ++i) {
         std::cout << "sg(" << i << ") = " << sg[i] << std::endl;
     }
 }

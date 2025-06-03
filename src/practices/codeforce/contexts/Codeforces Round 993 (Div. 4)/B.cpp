@@ -8,10 +8,10 @@ using i64 = long long;
 void solve() {
     std::string s;
     std::cin >> s;
-    for(int i = s.size() - 1; i >= 0; --i) {
-        if(s[i] == 'p') {
+    for (int i = s.size() - 1; i >= 0; --i) {
+        if (s[i] == 'p') {
             std::cout << 'q';
-        } else if(s[i] == 'q') {
+        } else if (s[i] == 'q') {
             std::cout << 'p';
         } else {
             std::cout << s[i];
@@ -28,7 +28,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

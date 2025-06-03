@@ -9,15 +9,15 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         mp.clear();
         int n, k;
         std::cin >> n >> k;
 
-        for(int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             int num;
             std::cin >> num;
-            if(mp.count(num) == 0) {
+            if (mp.count(num) == 0) {
                 mp.insert({num, 1});
             } else {
                 mp[num]++;
@@ -30,8 +30,8 @@ int main() {
         });
 
         int ans = 0;
-        for(int i = 0; i < k; ++i) {
-            auto[num, cnt] = vec[i];
+        for (int i = 0; i < k; ++i) {
+            auto [num, cnt] = vec[i];
             ans += cnt;
         }
 

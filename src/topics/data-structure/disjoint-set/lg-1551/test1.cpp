@@ -7,13 +7,13 @@ const int N = 5e4 + 3;
 int fa[N];
 
 void init(int n) {
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         fa[i] = i;
     }
 }
 
 int query(int x) {
-    if(x == fa[x]) {
+    if (x == fa[x]) {
         return x;
     }
     return fa[x] = query(fa[x]);
@@ -31,12 +31,12 @@ int main() {
     int n, m, p;
     std::cin >> n >> m >> p;
     init(n);
-    while(m--) {
+    while (m--) {
         int mi, mj;
         std::cin >> mi >> mj;
         merge(mi, mj);
     }
-    while(p--) {
+    while (p--) {
         int pi, pj;
         std::cin >> pi >> pj;
         std::cout << (same(pi, pj) ? "Yes" : "No") << std::endl;

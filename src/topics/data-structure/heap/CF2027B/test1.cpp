@@ -9,7 +9,7 @@ void solve() {
     int n;
     std::cin >> n;
     std::vector<int> a(n);
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
     }
 
@@ -17,12 +17,12 @@ void solve() {
     std::priority_queue<int> le;
     std::priority_queue<int, std::vector<int>, std::greater<>> ge;
 
-    for(int i = n - 1; i >= 0; --i) {
-        while(!ge.empty() && ge.top() <= a[i]) {
+    for (int i = n - 1; i >= 0; --i) {
+        while (!ge.empty() && ge.top() <= a[i]) {
             le.push(ge.top());
             ge.pop();
         }
-        while(!le.empty() && le.top() > a[i]) {
+        while (!le.empty() && le.top() > a[i]) {
             ge.push(le.top());
             le.pop();
         }
@@ -40,7 +40,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

@@ -58,7 +58,7 @@ void solve() {
                     std::cout << -1 << std::endl;
                     return;
                 }
-                for (const auto &it : f) {
+                for (const auto& it : f) {
                     ans.push_back(it);
                 }
             }
@@ -66,7 +66,7 @@ void solve() {
         }
     }
     std::cout << ans.size() << std::endl;
-    for (const auto &it : ans) {
+    for (const auto& it : ans) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;

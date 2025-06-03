@@ -59,8 +59,8 @@ void play(std::vector<int>& nums) {
 
 void play2(std::vector<int>& nums) {
     int s = xorSum(nums);
-    for(auto& num : nums) {
-        if((num ^ s) < num) {
+    for (auto& num : nums) {
+        if ((num ^ s) < num) {
             num ^= s;
             break;
         }

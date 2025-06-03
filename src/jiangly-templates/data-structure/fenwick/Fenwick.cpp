@@ -166,7 +166,7 @@ void should_find_kth() {
     // 求权值数组
     std::vector<int> b(maxNum);
     for (const auto& num : nums) {
-        b[num - 1]++;  // 索引从 0 开始
+        b[num - 1]++; // 索引从 0 开始
     }
 
     // 使用权值数组构造树状数组
@@ -186,7 +186,7 @@ void should_find_kth() {
 /**
  * @brief 求逆序对数量
  */
-template<typename T>
+template <typename T>
 int reversePairCnt(const std::vector<T>& nums) {
     T ans{};
     Fenwick<T> f(*std::max_element(nums.begin(), nums.end()));

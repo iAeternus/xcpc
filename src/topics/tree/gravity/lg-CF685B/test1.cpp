@@ -20,15 +20,15 @@ int wei[N]; // 节点重量
 void dfs(int u) {
     siz[u] = 1;
     ans[u] = u;
-    for(int v : son[u]) {
+    for (int v : son[u]) {
         dfs(v);
         siz[u] += siz[v];
         wei[u] = std::max(wei[u], siz[v]);
     }
-    for(int v : son[u]) {
+    for (int v : son[u]) {
         int p = ans[v];
-        while(p != u) {
-            if(std::max(wei[p], siz[u] - siz[p]) <= siz[u] / 2) {
+        while (p != u) {
+            if (std::max(wei[p], siz[u] - siz[p]) <= siz[u] / 2) {
                 ans[u] = p;
                 break;
             } else {
@@ -40,12 +40,12 @@ void dfs(int u) {
 
 int main() {
     std::cin >> n >> q;
-    for(int i = 2; i <= n; ++i) {
+    for (int i = 2; i <= n; ++i) {
         std::cin >> fa[i];
         son[fa[i]].push_back(i);
     }
     dfs(1);
-    while(q--) {
+    while (q--) {
         int u;
         std::cin >> u;
         std::cout << ans[u] << std::endl;

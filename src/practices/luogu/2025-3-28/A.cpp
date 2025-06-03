@@ -5,13 +5,13 @@ int main() {
     std::cin >> s;
     std::stringstream ss;
     char last;
-    for(char c : s) {
-        if(isalpha(c)) {
+    for (char c : s) {
+        if (isalpha(c)) {
             last = c;
             ss << c;
         } else {
             int cnt = c - '1';
-            for(int i = 0; i < cnt; ++i) {
+            for (int i = 0; i < cnt; ++i) {
                 ss << last;
             }
         }

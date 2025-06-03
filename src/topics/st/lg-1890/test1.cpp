@@ -25,11 +25,11 @@ int gcd(int a, int b) {
 }
 
 void init(int n) {
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         Gcd[0][i] = a[i];
     }
-    for(int i = 1; i <= std::__lg(n); ++i) {
-        for(int j = 1; j + (1 << i) - 1 <= n; ++j) {
+    for (int i = 1; i <= std::__lg(n); ++i) {
+        for (int j = 1; j + (1 << i) - 1 <= n; ++j) {
             Gcd[i][j] = gcd(Gcd[i - 1][j], Gcd[i - 1][j + (1 << (i - 1))]);
         }
     }
@@ -42,13 +42,13 @@ int query(int l, int r) {
 
 int main() {
     int n = read(), m = read();
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         a[i] = read();
     }
 
     init(n);
 
-    while(m--) {
+    while (m--) {
         int l = read(), r = read();
         std::cout << query(l, r) << std::endl;
     }

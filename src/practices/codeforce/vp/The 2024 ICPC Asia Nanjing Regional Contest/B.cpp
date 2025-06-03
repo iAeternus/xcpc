@@ -14,7 +14,7 @@ const int N = 2e5 + 3;
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         // int n;
         // std::cin >> n;
         std::string str;
@@ -25,8 +25,8 @@ int main() {
 
         int cnt = 0;
         int i = 0, j = i + 1;
-        while(j < str.size()) {
-            if(str[i] != str[j]) {
+        while (j < str.size()) {
+            if (str[i] != str[j]) {
                 i = j;
                 ++j;
                 cnt++;
@@ -34,10 +34,10 @@ int main() {
             }
 
             int tmp = 0;
-            while(str[i] == str[j++] || str[j] == '2') {
+            while (str[i] == str[j++] || str[j] == '2') {
                 ++tmp;
             }
-            if(tmp & 1) {
+            if (tmp & 1) {
                 cnt++;
             }
             i = j;

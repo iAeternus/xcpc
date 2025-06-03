@@ -17,16 +17,16 @@ int main() {
         }
     }
 
-    for (int i = 0; i < n; i++) { // 遍历a每一行
-        for (int j = 0; j < k; j++) { // 遍历b每一列
+    for (int i = 0; i < n; i++) {            // 遍历a每一行
+        for (int j = 0; j < k; j++) {        // 遍历b每一列
             for (int kk = 0; kk < m; kk++) { // 相乘再相加
                 c[i][j] += a[i][kk] * b[kk][j];
             }
         }
     }
 
-    for(int i = 0; i < n; ++i) {
-        for(int j = 0; j < k; ++j) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < k; ++j) {
             std::cout << c[i][j] << ' ';
         }
         std::cout << std::endl;

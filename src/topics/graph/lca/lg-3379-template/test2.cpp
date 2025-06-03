@@ -33,7 +33,7 @@ void dfs1(int u, int father) {
     siz[u] = 1;
     for (int i = head[u]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if (to == father) {  // 只准往下走
+        if (to == father) { // 只准往下走
             continue;
         }
         // fa[to] = u;
@@ -51,20 +51,20 @@ void dfs2(int u, int t) {
     if (!son[u]) {
         return;
     }
-    dfs2(son[u], t);  // 搜重儿子
+    dfs2(son[u], t); // 搜重儿子
     for (int i = head[u]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if (to == fa[u] || to == son[u]) {  // 只准往下走 && 不能选刚才走的重儿子
+        if (to == fa[u] || to == son[u]) { // 只准往下走 && 不能选刚才走的重儿子
             continue;
         }
-        dfs2(to, to);  // 搜轻儿子
+        dfs2(to, to); // 搜轻儿子
     }
 }
 
 // 维护两个游标，当两个游标在一条重链上时，深度小的就是lca
 int lca(int u, int v) {
     while (top[u] != top[v]) {
-        if(dep[top[u]] < dep[top[v]]) {
+        if (dep[top[u]] < dep[top[v]]) {
             std::swap(u, v);
         }
         u = fa[top[u]];

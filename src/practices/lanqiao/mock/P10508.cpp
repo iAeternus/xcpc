@@ -1,7 +1,7 @@
 /**
  * @see https://www.luogu.com.cn/problem/P10508
  */
-#include <iostream>
+#include <bits/stdc++.h>
 #include <fstream>
 #include <string>
 using namespace std;

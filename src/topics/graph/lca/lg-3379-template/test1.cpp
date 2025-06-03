@@ -5,13 +5,13 @@
 #include <bits/stdc++.h>
 
 struct HLD {
-    int n;                               // 节点个数
-    std::vector<std::vector<int>> edge;  // 邻接矩阵
-    std::vector<int> siz;                // siz[u]: 存以u为根的子树的结点数
-    std::vector<int> dep;                // dep[u]: 存u的深度
-    std::vector<int> top;                // top[u]: 存u所在重链的顶点
-    std::vector<int> son;                // son[u]: 存u的重儿子
-    std::vector<int> fa;                 // fa[u]: 存u的父节点
+    int n;                              // 节点个数
+    std::vector<std::vector<int>> edge; // 邻接矩阵
+    std::vector<int> siz;               // siz[u]: 存以u为根的子树的结点数
+    std::vector<int> dep;               // dep[u]: 存u的深度
+    std::vector<int> top;               // top[u]: 存u所在重链的顶点
+    std::vector<int> son;               // son[u]: 存u的重儿子
+    std::vector<int> fa;                // fa[u]: 存u的父节点
 
     HLD(int n) {
         this->n = n;
@@ -100,7 +100,7 @@ struct HLD {
             return;
         }
         dfs2(son[u], t);
-        for(const auto& neighbor : edge[u]) {
+        for (const auto& neighbor : edge[u]) {
             if (neighbor == fa[u] || neighbor == son[u]) {
                 continue;
             }

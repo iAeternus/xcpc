@@ -11,14 +11,14 @@ const int dy[] = {1, -1, 0, 0};
 int ans = 0;
 
 void dfs(int x, int y) {
-    if(x == fx && y == fy) {
+    if (x == fx && y == fy) {
         ++ans;
         return;
     }
-    for(int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; ++i) {
         int nx = x + dx[i];
         int ny = y + dy[i];
-        if(nx >= 1 && nx <= n && ny >= 1 && ny <= m && !vis[nx][ny] && mp[nx][ny] != 1) {
+        if (nx >= 1 && nx <= n && ny >= 1 && ny <= m && !vis[nx][ny] && mp[nx][ny] != 1) {
             vis[x][y] = true;
             dfs(nx, ny);
             vis[x][y] = false;
@@ -28,7 +28,7 @@ void dfs(int x, int y) {
 
 int main() {
     std::cin >> n >> m >> t >> sx >> sy >> fx >> fy;
-    while(t--) {
+    while (t--) {
         int x, y;
         std::cin >> x >> y;
         mp[x][y] = 1;

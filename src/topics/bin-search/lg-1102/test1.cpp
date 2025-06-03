@@ -11,13 +11,13 @@ int main() {
     std::cin >> n >> c;
     std::vector<int> a(n);
     std::map<int, int> mp;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
         ++mp[a[i]];
         a[i] -= c; // b
     }
     i64 ans = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         ans += mp[a[i]];
     }
     std::cout << ans << std::endl;

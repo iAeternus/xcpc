@@ -16,16 +16,16 @@ void solve() {
     R[l]前缀和: 小于d区间的左端点l的右端点个数，也即从第一天到第l天的右端点有多少个
     */
     std::vector<int> L(n + 1), R(n + 1);
-    for(int i = 0; i < k; ++i) {
+    for (int i = 0; i < k; ++i) {
         int l, r;
         std::cin >> l >> r;
         L[l - 1]++;
         R[r]++;
     }
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         R[i] += R[i - 1];
     }
-    for(int i = n - 1; i >= 0; --i) {
+    for (int i = n - 1; i >= 0; --i) {
         L[i] += L[i + 1];
     }
 
@@ -34,14 +34,14 @@ void solve() {
     int mn = INT_MAX;
     int imn = -1;
 
-    for(int i = 0; i <= n - d; ++i) {
+    for (int i = 0; i <= n - d; ++i) {
         // d区间外的工作数量 = 右端点小于l的区间数 + 左端点大于r的区间数
-        int v = R[i] + L[i + d]; 
-        if(v > mx) {
+        int v = R[i] + L[i + d];
+        if (v > mx) {
             mx = v;
             imx = i + 1;
         }
-        if(v < mn) {
+        if (v < mn) {
             mn = v;
             imn = i + 1;
         }
@@ -58,7 +58,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

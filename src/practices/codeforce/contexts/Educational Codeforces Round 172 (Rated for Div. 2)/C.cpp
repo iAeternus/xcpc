@@ -19,13 +19,12 @@ int main() {
         std::string str;
         std::cin >> n >> k >> str;
         removeAll(str, "10");
-        if(str.empty()) {
+        if (str.empty()) {
             std::cout << -1 << std::endl;
             continue;
         }
-        
-        for(int i = 0; i < str.length(); ++i) {
-            
+
+        for (int i = 0; i < str.length(); ++i) {
         }
     }
 }

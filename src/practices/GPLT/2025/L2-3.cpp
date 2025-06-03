@@ -20,7 +20,7 @@ int main() {
     }
 
     int ans = 0;
-    for(int i = 1; i <= 86400; ++i) {
+    for (int i = 1; i <= 86400; ++i) {
         a[i] = a[i - 1] + d[i];
         ans = std::max(ans, a[i]);
     }

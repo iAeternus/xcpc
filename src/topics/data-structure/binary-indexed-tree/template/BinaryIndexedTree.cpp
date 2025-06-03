@@ -10,11 +10,11 @@ public:
     int size;
     int tree[N] = {0};
 
-    BinaryIndexedTree(int n) 
-        : size(n) {}
+    BinaryIndexedTree(int n) :
+            size(n) {}
 
-    BinaryIndexedTree(int nums[], int n)
-        : size(n) {
+    BinaryIndexedTree(int nums[], int n) :
+            size(n) {
         for (int i = 1; i <= this->size; ++i) {
             add(i, nums[i]);
         }
@@ -39,7 +39,7 @@ public:
      * 注意，调用此函数后只能调用sum(i)来获取原数组a[i]
      */
     void add(int l, int r, int val) {
-        if(l < r) {
+        if (l < r) {
             add(l, val);
             add(r, -val);
         }
@@ -95,7 +95,7 @@ void testBinaryIndexedTree2() {
     bit.add(l, r, -10);
 
     // Then
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cout << bit.sum(i) << ' ';
     }
     std::cout << std::endl;

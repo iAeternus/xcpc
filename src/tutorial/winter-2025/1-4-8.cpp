@@ -12,7 +12,7 @@ int main() {
     pq.push(2);
     pq.push(3);
 
-    while(!pq.empty()) {
+    while (!pq.empty()) {
         std::cout << pq.top() << std::endl;
         pq.pop();
     }
@@ -22,7 +22,7 @@ int main() {
     pq2.push(2);
     pq2.push(3);
 
-    while(!pq2.empty()) {
+    while (!pq2.empty()) {
         std::cout << pq2.top() << std::endl;
         pq2.pop();
     }

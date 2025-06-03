@@ -6,7 +6,7 @@ https://codeforces.com/contest/1985/problem/A
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         std::string a, b;
         std::cin >> a >> b;
         std::swap(a[0], b[0]);

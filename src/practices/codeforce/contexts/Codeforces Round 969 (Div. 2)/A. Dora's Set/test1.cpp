@@ -6,13 +6,13 @@
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         int l, r;
         std::cin >> l >> r;
 
         int cnt = 0;
-        for(int i = l; i <= r; ++i) {
-            if(i & 1) {
+        for (int i = l; i <= r; ++i) {
+            if (i & 1) {
                 ++cnt;
             }
         }

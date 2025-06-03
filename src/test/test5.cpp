@@ -14,7 +14,7 @@ int main() {
     int N;
     std::cin >> N;
 
-    std::unordered_map<int, std::pair<int, int>> mp;  // 钱 -> (前端数量, 后端数量)
+    std::unordered_map<int, std::pair<int, int>> mp; // 钱 -> (前端数量, 后端数量)
 
     for (int i = 0; i < N; ++i) {
         int s;

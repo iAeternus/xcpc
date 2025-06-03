@@ -6,14 +6,14 @@ void solve() {
     int n;
     std::cin >> n;
     std::vector<int> a(n);
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
     }
 
     std::map<int, int> mp;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         mp[a[i]]++;
-        if(mp[0] >= 3 && mp[1] >= 1 && mp[2] >= 2 && mp[3] >= 1 && mp[5] >= 1) {
+        if (mp[0] >= 3 && mp[1] >= 1 && mp[2] >= 2 && mp[3] >= 1 && mp[5] >= 1) {
             std::cout << i + 1 << std::endl;
             return;
         }
@@ -29,7 +29,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

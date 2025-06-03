@@ -12,8 +12,7 @@ void split(double a, double& b, double& c, double& d) {
 
 int main() {
     double a = 1;
-    for(int i = 0; i < 100; ++i) {
-
+    for (int i = 0; i < 100; ++i) {
         double b, c, d;
         split(a, b, c, d);
 

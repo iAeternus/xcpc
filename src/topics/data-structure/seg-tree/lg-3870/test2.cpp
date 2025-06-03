@@ -69,10 +69,10 @@ int main() {
     int n, m;
     std::cin >> n >> m;
     build(1, 1, n);
-    while(m--) {
+    while (m--) {
         int op, l, r;
         std::cin >> op >> l >> r;
-        if(op == 0) {
+        if (op == 0) {
             modify(1, l, r);
         } else {
             std::cout << query(1, l, r) << std::endl;

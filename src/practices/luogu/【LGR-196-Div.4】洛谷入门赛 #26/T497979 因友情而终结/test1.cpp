@@ -11,7 +11,7 @@
 std::vector<int> get_next(const std::string& t) {
     int m = t.size();
     std::vector<int> next(m, 0);
-    int j = 0;  // j为模式串中已匹配的前缀长度
+    int j = 0; // j为模式串中已匹配的前缀长度
     for (int i = 1; i < m; ++i) {
         while (j > 0 && t[i] != t[j]) {
             j = next[j - 1];
@@ -34,7 +34,7 @@ std::vector<int> kmp(const std::string& s, const std::string& t) {
     std::vector<int> res;
     std::vector<int> next = get_next(t);
     int n = s.size(), m = t.size();
-    int j = 0;  // j为模式串中已匹配的前缀长度
+    int j = 0; // j为模式串中已匹配的前缀长度
     for (int i = 0; i < n; ++i) {
         while (j > 0 && s[i] != t[j]) {
             j = next[j - 1];
@@ -58,14 +58,14 @@ int main() {
     std::vector<int> res = kmp(s, "friend");
 
     int cnt = 0;
-    if(res.size() == 1) {
+    if (res.size() == 1) {
         std::cout << 1 << std::endl;
         return 0;
     }
 
     int i = 0;
-    while(i < res.size()) {
-        if(res[i + 1] - res[i] >= 9) {
+    while (i < res.size()) {
+        if (res[i + 1] - res[i] >= 9) {
             i++;
         } else {
             i += 2;

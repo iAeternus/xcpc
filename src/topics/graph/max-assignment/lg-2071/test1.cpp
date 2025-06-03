@@ -17,7 +17,7 @@ void addEdge(int u, int v) {
 }
 
 bool vis[N];
-int match[N][2];  // i-哪一排 j-哪个座位
+int match[N][2]; // i-哪一排 j-哪个座位
 
 bool dfs(int x) {
     for (int i = head[x]; i; i = edge[i].next) {

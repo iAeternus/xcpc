@@ -7,14 +7,14 @@ void solve() {
     std::cin >> n;
     std::vector<int> a(n);
     std::set<int> st;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> a[i];
     }
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         st.insert(i);
     }
-    for(int i = 0; i < n; ++i) {
-        if(st.find(a[i]) == st.end()) {
+    for (int i = 0; i < n; ++i) {
+        if (st.find(a[i]) == st.end()) {
             std::cout << *st.begin() << ' ';
             st.erase(st.begin());
         } else {
@@ -33,7 +33,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

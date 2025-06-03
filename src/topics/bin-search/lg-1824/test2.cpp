@@ -5,8 +5,8 @@ int n, c, a[N];
 
 bool check(int mid) {
     int cnt = 1, cur = 1;
-    for(int i = 2; i <= n; ++i) {
-        if(a[i] - a[cur] >= mid) {
+    for (int i = 2; i <= n; ++i) {
+        if (a[i] - a[cur] >= mid) {
             ++cnt;
             cur = i;
         }
@@ -16,13 +16,13 @@ bool check(int mid) {
 
 int main() {
     std::cin >> n >> c;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cin >> a[i];
     }
 
     std::sort(a + 1, a + n + 1);
     int l = 1, r = a[n] - a[1], ans;
-    while(l <= r) {
+    while (l <= r) {
         int mid = l + ((r - l) >> 1);
         if (check(mid)) {
             ans = mid;

@@ -20,15 +20,15 @@ i64 dp[N][N];
 void solve() {
     int n, m, k;
     std::cin >> n >> m >> k;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         std::cin >> a[i];
         prefix[i] = prefix[i - 1] + a[i];
     }
 
     // i64 ans = 0;
-    for(int i = m; i <= n; ++i) {
+    for (int i = m; i <= n; ++i) {
         i64 sum = prefix[i] - prefix[i - m];
-        for(int j = 1; j <= k; ++j) {
+        for (int j = 1; j <= k; ++j) {
             dp[i][j] = std::max(dp[i - 1][j], dp[i - m][j - 1] + sum);
         }
         // ans = std::max(ans, dp[i][k]);
@@ -45,7 +45,7 @@ int main() {
     // std::cin >> t;
 
     // while(t--) {
-        solve();
+    solve();
     // }
 
     return 0;

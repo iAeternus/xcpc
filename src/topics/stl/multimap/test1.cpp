@@ -4,7 +4,7 @@ int main() {
     std::multimap<int, int> mp = {{1, 1}, {1, 2}, {1, 3}};
     assert(mp.size() == 3);
     // 1:1 1:2 1:3
-    for (const auto &[k, v] : mp) {
+    for (const auto& [k, v] : mp) {
         std::cout << k << ':' << v << ' ';
     }
     std::cout << std::endl;
@@ -15,7 +15,7 @@ int main() {
     mp.insert({2, 1});
     assert(mp.size() == 5);
     // 1:1 1:2 1:3 1:4 2:1
-    for (const auto &[k, v] : mp) {
+    for (const auto& [k, v] : mp) {
         std::cout << k << ':' << v << ' ';
     }
     std::cout << std::endl;
@@ -24,7 +24,7 @@ int main() {
     mp.erase(1);
     assert(mp.size() == 1);
     // 2:1
-    for (const auto &[k, v] : mp) {
+    for (const auto& [k, v] : mp) {
         std::cout << k << ':' << v << ' ';
     }
     std::cout << std::endl;

@@ -15,13 +15,13 @@ int main() {
         v[i].idx = i;
     }
     std::sort(v.begin(), v.end(), [](const auto& o1, const auto& o2) {
-        if(o1.y != o2.y) return o1.y < o2.y;
-        if(o1.m != o2.m) return o1.m < o2.m;
-        if(o1.d != o2.d) return o1.d < o2.d;
+        if (o1.y != o2.y) return o1.y < o2.y;
+        if (o1.m != o2.m) return o1.m < o2.m;
+        if (o1.d != o2.d) return o1.d < o2.d;
         return o1.idx > o2.idx;
     });
 
-    for(const auto& it : v) {
+    for (const auto& it : v) {
         std::cout << it.s << std::endl;
     }
 }

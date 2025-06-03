@@ -1,7 +1,7 @@
 /**
  * @see http://poj.org/problem?id=1141
  */
-#include <iostream>
+#include <bits/stdc++.h>
 #include <string>
 #include <cstring>
 #include <climits>

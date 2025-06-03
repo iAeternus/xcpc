@@ -18,10 +18,10 @@ void solve() {
     ll n;
     std::cin >> n;
 
-    for(ll k = n - 1; k >= 1; --k) {
+    for (ll k = n - 1; k >= 1; --k) {
         ll x = n - k;
         ll y = n - (n * (n / k));
-        if(x >= 1 && x <= 1e18 && y >= 1 && y <= 1e18) {
+        if (x >= 1 && x <= 1e18 && y >= 1 && y <= 1e18) {
             std::cout << x << ' ' << y << std::endl;
             return;
         }
@@ -32,7 +32,7 @@ void solve() {
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         solve();
     }
 }

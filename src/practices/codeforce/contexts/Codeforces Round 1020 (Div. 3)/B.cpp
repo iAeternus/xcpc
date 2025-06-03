@@ -5,8 +5,8 @@ using i64 = long long;
 void solve() {
     int n, x;
     std::cin >> n >> x;
-    if(n == x) {
-        for(int i = 0; i < n; ++i) {
+    if (n == x) {
+        for (int i = 0; i < n; ++i) {
             std::cout << i << ' ';
         }
         std::cout << std::endl;
@@ -16,15 +16,15 @@ void solve() {
     std::vector<int> a(n);
     a[a.size() - 1] = x;
     std::vector<int> tmp;
-    for(int i = 0; i < n; ++i) {
-        if(i != x) {
+    for (int i = 0; i < n; ++i) {
+        if (i != x) {
             tmp.push_back(i);
         }
     }
-    for(int i = 0; i < tmp.size(); ++i) {
+    for (int i = 0; i < tmp.size(); ++i) {
         a[i] = tmp[i];
     }
-    for(int it : a) {
+    for (int it : a) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;
@@ -38,7 +38,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

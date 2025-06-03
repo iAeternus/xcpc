@@ -32,13 +32,13 @@ int main() {
     std::cout << std::endl;
 
     // 找最大值
-    for(int i = 1; i <= n; ++i) {
-        while(!dq.empty() && a[dq.front()] < a[i]) {
+    for (int i = 1; i <= n; ++i) {
+        while (!dq.empty() && a[dq.front()] < a[i]) {
             dq.pop_back();
         }
         dq.push_back(i);
-        if(i >= k) {
-            while(!dq.empty() && dq.front() <= i - k) {
+        if (i >= k) {
+            while (!dq.empty() && dq.front() <= i - k) {
                 dq.pop_front();
             }
             std::cout << a[dq.front()] << ' ';

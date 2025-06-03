@@ -16,7 +16,7 @@ int main() {
     std::string s;
     std::cin >> s;
     int hash[27] = {0};
-    for(int i = 0; i < s.size(); ++i) {
+    for (int i = 0; i < s.size(); ++i) {
         s[i] = toupper(s[i]);
         ++hash[s[i] - 'A'];
     }
@@ -25,23 +25,23 @@ int main() {
     int cnt_l = hash['L' - 'A'];
     int cnt_t = hash['T' - 'A'];
     int cnt = min4(cnt_g, cnt_p, cnt_l, cnt_t);
-    while(cnt--) {
+    while (cnt--) {
         std::cout << "GPLT";
     }
-    while(cnt_g || cnt_p || cnt_l || cnt_t) {
-        if(cnt_g) {
+    while (cnt_g || cnt_p || cnt_l || cnt_t) {
+        if (cnt_g) {
             std::cout << "G";
             cnt_g--;
         }
-        if(cnt_p) {
+        if (cnt_p) {
             std::cout << "P";
             cnt_p--;
         }
-        if(cnt_l) {
+        if (cnt_l) {
             std::cout << "L";
             cnt_l--;
         }
-        if(cnt_t) {
+        if (cnt_t) {
             std::cout << "T";
             cnt_t--;
         }

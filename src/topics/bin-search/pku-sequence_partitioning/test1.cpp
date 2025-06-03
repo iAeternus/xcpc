@@ -37,8 +37,8 @@ int n, m;
  */
 int check(int x) {
     int res = 0, cnt = 1;
-    for(int i = 1; i <= n; ++i) {
-        if(res + a[i] > x) {
+    for (int i = 1; i <= n; ++i) {
+        if (res + a[i] > x) {
             ++cnt;
             res = 0;
         } else {
@@ -54,7 +54,7 @@ int bin_search(int left, int right) {
         int mid = left + (right - left) / 2;
 
         // 段数满足要求，上限缩小继续查找更小的解
-        if(check(mid) <= m) {
+        if (check(mid) <= m) {
             ans = mid;
             right = mid - 1;
         } else {

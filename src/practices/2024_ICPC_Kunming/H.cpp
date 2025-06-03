@@ -17,27 +17,27 @@ std::vector<double> durations;
 int main() {
     int t;
     std::cin >> t;
-    while(t--) {
+    while (t--) {
         int n, k;
         std::cin >> n >> k;
-        for(int i = 1; i <= n; ++i) {
+        for (int i = 1; i <= n; ++i) {
             int x, y;
             std::cin >> x >> y;
             islands.insert({x, y, atan2(y, x)});
         }
-        for(auto it = std::next(islands.begin()); it != islands.end(); ++it) {
+        for (auto it = std::next(islands.begin()); it != islands.end(); ++it) {
             durations.push_back(it->alpha - std::prev(it)->alpha);
         }
 
-        if(durations.empty()) {
+        if (durations.empty()) {
             std::cout << "6.2831853072\n";
             continue;
         }
 
         int cnt = 0;
         double ans = 0, max_ans = 0;
-        for(const auto& it : durations) {
-            if(cnt < k) {
+        for (const auto& it : durations) {
+            if (cnt < k) {
                 ans += it;
                 cnt++;
             } else {

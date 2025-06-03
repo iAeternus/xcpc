@@ -3,7 +3,7 @@
 int main() {
     std::multiset<int> ms = {1, 2, 2, 3, 3};
     assert(ms.size() == 5);
-    for(const auto& it : ms) {
+    for (const auto& it : ms) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;
@@ -11,7 +11,7 @@ int main() {
     // insert
     ms.insert(2);
     assert(ms.size() == 6);
-    for(const auto& it : ms) {
+    for (const auto& it : ms) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;
@@ -20,12 +20,12 @@ int main() {
     std::multiset<int> ms2 = {2, 2, 3, 3, 4};
     ms.merge(ms2);
     assert(ms.size() == 11);
-    for(const auto& it : ms) {
+    for (const auto& it : ms) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;
 
-    // count 
+    // count
     // ms: 1 2 2 2 2 2 3 3 3 3 4
     assert(ms.count(2) == 5);
     assert(ms.count(3) == 4);
@@ -50,7 +50,7 @@ int main() {
     ms.erase(2);
     assert(ms.size() == 6);
     // ms: 1 3 3 3 3 4
-    for(const auto& it : ms) {
+    for (const auto& it : ms) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;
@@ -58,7 +58,7 @@ int main() {
     ms.erase(std::next(ms.begin()));
     assert(ms.size() == 5);
     // ms: 1 3 3 3 4
-    for(const auto& it : ms) {
+    for (const auto& it : ms) {
         std::cout << it << ' ';
     }
     std::cout << std::endl;

@@ -79,10 +79,10 @@ int main() {
     int n, m;
     std::cin >> n >> m;
     build(0, 0, n);
-    while(m--) {
+    while (m--) {
         int op, l, r;
         std::cin >> op >> l >> r;
-        if(op == 0) {
+        if (op == 0) {
             update(1, l, r);
         } else {
             std::cout << query(1, l, r) << std::endl;

@@ -35,15 +35,15 @@ int main() {
     scanf("%d", &n);
     std::vector<Frac> fs;
     Frac f{0, 1};
-    while(n--) {
+    while (n--) {
         i64 x, y;
         scanf("%lld/%lld", &x, &y);
         norm(x, y);
         add(f, Frac{x, y});
     }
-    if(f.x % f.y == 0) {
+    if (f.x % f.y == 0) {
         printf("%lld", f.x / f.y);
-    } else if(f.x < f.y) {
+    } else if (f.x < f.y) {
         printf("%lld/%lld", f.x, f.y);
     } else {
         printf("%lld %lld/%lld", f.x / f.y, f.x % f.y, f.y);

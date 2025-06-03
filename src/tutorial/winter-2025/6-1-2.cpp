@@ -47,7 +47,7 @@ void sort(std::vector<T>& vec, C compare) {
 int main() {
     std::vector<int> nums = {6, 5, 7, 4, 8, 3, 9, 2, 0, 1};
     sort(nums, std::less<int>{});
-    for(const auto& num : nums) {
+    for (const auto& num : nums) {
         std::cout << num << ' ';
     }
     std::cout << std::endl;
@@ -55,7 +55,7 @@ int main() {
     sort(nums, [](int a, int b) {
         return a > b;
     });
-    for(const auto& num : nums) {
+    for (const auto& num : nums) {
         std::cout << num << ' ';
     }
     std::cout << std::endl;

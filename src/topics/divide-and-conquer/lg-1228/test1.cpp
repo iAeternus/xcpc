@@ -4,11 +4,11 @@ const int N = 1e3 + 5;
 int mp[N][N];
 int n;
 
-#define RED_COLOR_CODE "\033[1;31m"     // 设置文本颜色为红色
-#define GREEN_COLOR_CODE "\033[1;32m"   // 设置文本颜色为绿色
-#define YELLOW_COLOR_CODE "\033[1;33m"  // 设置文本颜色为黄色
-#define BLUE_COLOR_CODE "\033[1;34m"    // 设置文本颜色为蓝色
-#define DEFAULT_COLOR_CODE "\033[0m"    // 恢复默认文本颜色
+#define RED_COLOR_CODE "\033[1;31m" // 设置文本颜色为红色
+#define GREEN_COLOR_CODE "\033[1;32m" // 设置文本颜色为绿色
+#define YELLOW_COLOR_CODE "\033[1;33m" // 设置文本颜色为黄色
+#define BLUE_COLOR_CODE "\033[1;34m" // 设置文本颜色为蓝色
+#define DEFAULT_COLOR_CODE "\033[0m" // 恢复默认文本颜色
 
 void init(int x, int y) {
     mp[x][y] = 0;
@@ -113,7 +113,7 @@ void dfs(int begin_x, int begin_y, int end_x, int end_y, int x, int y) {
 }
 
 void dfs_facade(int k, int x, int y) {
-    n = (1 << k);  // 2^k
+    n = (1 << k); // 2^k
     dfs(1, 1, n, n, x, y);
 }
 
@@ -122,6 +122,6 @@ int main() {
     std::cin >> k >> x >> y;
     init(x, y);
     dfs_facade(k, x, y);
-    
+
     print_mp();
 }

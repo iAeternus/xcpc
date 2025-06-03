@@ -28,7 +28,7 @@ int main() {
             next = nums.begin();
         }
 
-        nums.erase(--it);  // 这里--是为了消除上面++的影响
+        nums.erase(--it); // 这里--是为了消除上面++的影响
         it = next;
     }
     std::cout << *it;

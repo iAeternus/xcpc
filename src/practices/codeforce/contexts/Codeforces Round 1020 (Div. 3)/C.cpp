@@ -19,12 +19,12 @@ void solve() {
     i64 sum = 0;
     bool fst = true;
     for (int i = 0; i < n; ++i) {
-        if(b[i] != -1) {
-            if(fst) {
+        if (b[i] != -1) {
+            if (fst) {
                 sum = a[i] + b[i];
                 fst = false;
             } else {
-                if(sum != a[i] + b[i]) {
+                if (sum != a[i] + b[i]) {
                     std::cout << 0 << std::endl;
                     return;
                 }

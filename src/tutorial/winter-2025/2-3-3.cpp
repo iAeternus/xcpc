@@ -6,7 +6,7 @@ void solve() {
     int n;
     std::cin >> n;
     int max_elem = -1, min_elem = INT_MAX;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int a;
         std::cin >> a;
         max_elem = std::max(max_elem, a);
@@ -23,7 +23,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

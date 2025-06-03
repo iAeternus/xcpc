@@ -11,7 +11,7 @@
 #include <bits/stdc++.h>
 
 const int N = 1e6 + 3;
-int a[N], dp[2][N];  // 0-选1个 1-选2个
+int a[N], dp[2][N]; // 0-选1个 1-选2个
 
 int num[19];
 
@@ -22,14 +22,14 @@ int main() {
         std::cin >> a[i];
     }
 
-    if(n == 1) {
+    if (n == 1) {
         std::cout << 1 << std::endl;
         return 0;
     }
 
     dp[0][0] = 1;
 
-    bool flag = true;  // 连续
+    bool flag = true; // 连续
     num[a[0]]++;
     for (int i = 1; i < n; ++i) {
         if (num[a[i]] == 0 && flag) {
@@ -41,21 +41,21 @@ int main() {
         num[a[i]]++;
     }
 
-    if(n == dp[0][n - 1]) {
+    if (n == dp[0][n - 1]) {
         std::cout << dp[0][n - 1] << std::endl;
         return 0;
     }
 
     memset(num, 0, sizeof(num));
 
-    for(int i = 0; i < dp[0][n - 1]; ++i) {
+    for (int i = 0; i < dp[0][n - 1]; ++i) {
         num[a[i]]++;
     }
 
     for (int i = dp[0][n - 1]; i < n; ++i) {
         if (num[a[i]] == 0) {
             dp[1][i] = std::max(dp[1][i - 1], dp[0][i - 1] + 1);
-            if(num[a[i - 1]] == 1) {
+            if (num[a[i - 1]] == 1) {
                 dp[1][i]++;
             }
         } else {

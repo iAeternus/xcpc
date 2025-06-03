@@ -7,12 +7,12 @@ void solve() {
     std::cin >> n >> k;
     int max = 28 - k;
     int cnt = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int x;
         std::cin >> x;
-        if(x <= max) {
+        if (x <= max) {
             ++cnt;
-        } 
+        }
     }
     std::cout << cnt << std::endl;
 }
@@ -25,7 +25,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

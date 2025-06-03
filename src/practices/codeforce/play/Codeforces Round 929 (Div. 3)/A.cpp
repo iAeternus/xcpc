@@ -9,7 +9,7 @@ void solve() {
     int n;
     std::cin >> n;
     i64 ans = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
         ans += abs(a);
@@ -25,7 +25,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

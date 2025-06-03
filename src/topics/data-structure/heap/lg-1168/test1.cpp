@@ -16,27 +16,27 @@ int main() {
     int n;
     std::cin >> n;
     std::vector<int> ans;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int a;
         std::cin >> a;
 
-        if(i == 1) {
+        if (i == 1) {
             smallHeap.push(a);
-        } else if(a > smallHeap.top()) {
+        } else if (a > smallHeap.top()) {
             smallHeap.push(a);
         } else {
             bigHeap.push(a);
         }
 
         // 奇数，求中位数
-        if(i & 1) {
-            if(smallHeap.size() > bigHeap.size()) {
-                while(smallHeap.size() != bigHeap.size() + 1) {
+        if (i & 1) {
+            if (smallHeap.size() > bigHeap.size()) {
+                while (smallHeap.size() != bigHeap.size() + 1) {
                     bigHeap.push(smallHeap.top());
                     smallHeap.pop();
                 }
             } else {
-                while(smallHeap.size() != bigHeap.size() + 1) {
+                while (smallHeap.size() != bigHeap.size() + 1) {
                     smallHeap.push(bigHeap.top());
                     bigHeap.pop();
                 }
@@ -45,7 +45,7 @@ int main() {
         }
     }
 
-    for(const auto& num : ans) {
+    for (const auto& num : ans) {
         std::cout << num << std::endl;
     }
 }

@@ -13,7 +13,7 @@ using ll = long long;
  * @return 计算 (a * b) % m
  */
 ll mul(ll a, ll b, ll m) {
-    a %= m;  // 防止溢出
+    a %= m; // 防止溢出
     b %= m;
     ll res = 0;
     while (b > 0) {
@@ -32,5 +32,5 @@ int main() {
     ll m = 0x998776655443322;
 
     std::cout << (a % m) * (b % m) << std::endl; // 4985444552033402426 wrong
-    std::cout << mul(a, b, m) << std::endl; // 411509877096934416 right
+    std::cout << mul(a, b, m) << std::endl;      // 411509877096934416 right
 }

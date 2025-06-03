@@ -23,7 +23,7 @@ int main() {
         for (int i = 0; i < n; i++) {
             ans[i + 1] = ans[i] + a[i];
         }
-        
+
         dp[0] = 0;
         for (int k = 1; k <= m; k++) {
             long long bns = b[k - 1];

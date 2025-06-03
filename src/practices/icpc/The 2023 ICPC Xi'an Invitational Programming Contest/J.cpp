@@ -6,9 +6,9 @@ bool eq(double a, double b) {
 
 std::string f2s(double x) {
     std::string ans;
-    for(int b = 0; b < 14; ++b) {
+    for (int b = 0; b < 14; ++b) {
         x *= 2;
-        if(x >= 1) {
+        if (x >= 1) {
             ans += '1';
             x -= 1;
         } else {
@@ -23,8 +23,8 @@ int main() {
     std::cin >> a >> b;
     auto bb = f2s(b);
     std::string ans = "1111111111111";
-    for(int i = bb.length() - 1; i >= 0; --i) {
-        if(bb[i] == '0') {
+    for (int i = bb.length() - 1; i >= 0; --i) {
+        if (bb[i] == '0') {
             ans += '1';
         } else {
             ans += '2';

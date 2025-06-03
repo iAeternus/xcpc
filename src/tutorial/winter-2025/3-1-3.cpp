@@ -5,10 +5,10 @@ public:
     std::vector<int> sortedSquares(std::vector<int>& nums) {
         int l = 0, r = nums.size() - 1, pos = r;
         std::vector<int> ans(nums.size());
-        while(l <= r) {
+        while (l <= r) {
             int ll = nums[l] * nums[l];
             int rr = nums[r] * nums[r];
-            if(ll <= rr) {
+            if (ll <= rr) {
                 ans[pos--] = rr;
                 --r;
             } else {
@@ -21,5 +21,4 @@ public:
 };
 
 int main() {
-    
 }

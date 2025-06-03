@@ -10,7 +10,7 @@ int k, n;
  * 高位是rk[i]，低位是rk[i + k]
  */
 auto comp_sa = [&](int i, int j) -> bool {
-    if(rk[i] != rk[j]) {
+    if (rk[i] != rk[j]) {
         return rk[i] < rk[j];
     } else {
         int ri = i + k <= n ? rk[i + k] : -1;
@@ -27,17 +27,17 @@ auto comp_sa = [&](int i, int j) -> bool {
  */
 void calc_sa(const std::string& s, int* sa) {
     n = s.length();
-    for(int i = 0; i <= n; ++i) {
+    for (int i = 0; i <= n; ++i) {
         rk[i] = s[i];
         sa[i] = i;
     }
-    for(k = 1; k <= n; k <<= 1) {
+    for (k = 1; k <= n; k <<= 1) {
         std::sort(sa, sa + n, comp_sa);
         tmp[sa[0]] = 0;
-        for(int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             tmp[sa[i + 1]] = tmp[sa[i]] + (comp_sa(sa[i], sa[i + 1]) ? 1 : 0);
         }
-        for(int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; ++i) {
             rk[i] = tmp[i];
         }
     }
@@ -49,7 +49,7 @@ int main() {
 
     calc_sa(s, sa);
 
-    for(int i = 0; i < s.length(); ++i) {
+    for (int i = 0; i < s.length(); ++i) {
         std::cout << sa[i] << ' ';
     }
 }

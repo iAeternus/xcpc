@@ -18,13 +18,13 @@ int main() {
     while (t--) {
         int n, k;
         cin >> n >> k;
-        k = min(k,n);
+        k = min(k, n);
         string a;
         cin >> a;
         int i;
         string s;
         int aa = a.find("nanjing");
-        if (aa > k||aa == std::string::npos) {
+        if (aa > k || aa == std::string::npos) {
             string s1 = a.substr(0, k);
             string s2 = a.substr(k, a.size() - k);
             s = s2 + s1;

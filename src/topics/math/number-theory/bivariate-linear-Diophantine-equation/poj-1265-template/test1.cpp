@@ -33,7 +33,7 @@ int main() {
             // 新点坐标
             dx = x + tx;
             dy = y + ty;
-            ans2 += gcd(abs(tx), abs(ty)); // 求出边上点的数量
+            ans2 += gcd(abs(tx), abs(ty));   // 求出边上点的数量
             area += cross_mul(x, y, dx, dy); // 旧点坐标和新点坐标，也是原点到这两点的向量
 
             x = dx;

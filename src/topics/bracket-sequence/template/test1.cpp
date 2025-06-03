@@ -5,8 +5,8 @@
  */
 bool isValid(const std::string& sequence) {
     std::stack<char> st;
-    for(char c : sequence) {
-        if(c == ')' && !st.empty() && st.top() == '(') {
+    for (char c : sequence) {
+        if (c == ')' && !st.empty() && st.top() == '(') {
             st.pop();
         } else {
             st.push(c);

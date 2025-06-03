@@ -37,7 +37,7 @@
 //     {
 //         int aa,bb,cc;
 //         aa=mp[chushi[i].x]-1;
-//         bb=mp[chushi[i].y]-1;      
+//         bb=mp[chushi[i].y]-1;
 //         cc=mp[chushi[i].z]-1;
 //         f[i]=max(aa,max(bb,cc));
 //     }
@@ -51,7 +51,7 @@
 //         else
 //         {
 //             if(f[ans] < i)
-//             {   
+//             {
 //                 mp1[f[ans].index]--;
 //                 mp2[f[ans].index]--;
 //                 mp3[f[ans].index]--;

@@ -17,14 +17,16 @@ private:
         }
         int partition = nums[l], i = l - 1, j = r + 1;
         while (i < j) {
-            do ++i; while (nums[i] < partition);
-            do --j; while(nums[j] > partition);
-            if(i < j) {
+            do ++i;
+            while (nums[i] < partition);
+            do --j;
+            while (nums[j] > partition);
+            if (i < j) {
                 std::swap(nums[i], nums[j]);
             }
         }
 
-        if(k <= j) {
+        if (k <= j) {
             return quickSelect(nums, l, j, k);
         } else {
             return quickSelect(nums, j + 1, r, k);

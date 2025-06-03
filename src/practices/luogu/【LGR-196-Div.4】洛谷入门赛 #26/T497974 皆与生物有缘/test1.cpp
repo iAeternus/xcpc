@@ -8,13 +8,13 @@ int main() {
     std::cin >> n;
 
     int sum1 = 0, sum2 = 0;
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
         sum1 += a;
     }
 
-    for(int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; ++i) {
         int a;
         std::cin >> a;
         sum2 += a;

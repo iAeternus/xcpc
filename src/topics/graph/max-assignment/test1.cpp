@@ -3,7 +3,7 @@
 #include <queue>
 #include <utility>
 #include <vector>
-#include <iostream>
+#include <bits/stdc++.h>
 
 constexpr int INF = 1E7;
 
@@ -31,31 +31,31 @@ struct MaxAssignment {
         };
 
         // 初始化变量
-        costs.resize(nx + 1);  // 存储每一步的最大匹配权重
+        costs.resize(nx + 1); // 存储每一步的最大匹配权重
         costs[0] = 0;
-        lx.assign(nx, std::numeric_limits<T>::max());         // 初始化 lx 为极大值
-        ly.assign(ny, 0);                                     // 初始化 ly 为 0
-        xy.assign(nx, -1);                                    // xy[x] 表示与 x 匹配的 y，初始化为 -1 表示未匹配
-        yx.assign(ny, -1);                                    // yx[y] 表示与 y 匹配的 x，初始化为 -1 表示未匹配
-        slackx.resize(ny);                                    // 存储每个 y 的最小 slack 对应的 x
-        for (int cur = 0; cur < nx; ++cur) {                  // 对每一个 x 进行匹配
-            std::queue<int> que;                              // 用于 BFS 的队列
-            visx.assign(nx, false);                           // 记录 x 是否在 BFS 队列中
-            visy.assign(ny, false);                           // 记录 y 是否在 BFS 队列中
-            slack.assign(ny, std::numeric_limits<T>::max());  // 初始化 slack 为极大值
-            p.assign(nx, -1);                                 // 记录路径，p[x] 表示在增广路径中 x 的前一个顶点
+        lx.assign(nx, std::numeric_limits<T>::max());        // 初始化 lx 为极大值
+        ly.assign(ny, 0);                                    // 初始化 ly 为 0
+        xy.assign(nx, -1);                                   // xy[x] 表示与 x 匹配的 y，初始化为 -1 表示未匹配
+        yx.assign(ny, -1);                                   // yx[y] 表示与 y 匹配的 x，初始化为 -1 表示未匹配
+        slackx.resize(ny);                                   // 存储每个 y 的最小 slack 对应的 x
+        for (int cur = 0; cur < nx; ++cur) {                 // 对每一个 x 进行匹配
+            std::queue<int> que;                             // 用于 BFS 的队列
+            visx.assign(nx, false);                          // 记录 x 是否在 BFS 队列中
+            visy.assign(ny, false);                          // 记录 y 是否在 BFS 队列中
+            slack.assign(ny, std::numeric_limits<T>::max()); // 初始化 slack 为极大值
+            p.assign(nx, -1);                                // 记录路径，p[x] 表示在增广路径中 x 的前一个顶点
 
             // 将所有未匹配的 x 加入队列
             for (int x = 0; x < nx; ++x) {
                 if (xy[x] == -1) {
                     que.push(x);
                     visx[x] = true;
-                    update(x);  // 更新 slack
+                    update(x); // 更新 slack
                 }
             }
 
-            int ex, ey;          // 记录找到的增广路径的起点和终点
-            bool found = false;  // 标记是否找到增广路径
+            int ex, ey;         // 记录找到的增广路径的起点和终点
+            bool found = false; // 标记是否找到增广路径
             while (!found) {
                 while (!que.empty() && !found) {
                     auto x = que.front();
@@ -63,7 +63,7 @@ struct MaxAssignment {
                     for (int y = 0; y < ny; ++y) {
                         // 检查是否存在可行边 (x, y) 并且 y 未被访问
                         if (a[x][y] == lx[x] + ly[y] && !visy[y]) {
-                            if (yx[y] == -1) {  // 如果 y 未匹配，则找到增广路径
+                            if (yx[y] == -1) { // 如果 y 未匹配，则找到增广路径
                                 ex = x;
                                 ey = y;
                                 found = true;
@@ -115,15 +115,15 @@ struct MaxAssignment {
             // 更新最大匹配权重
             costs[cur + 1] = costs[cur];
             for (int x = ex, y = ey, ty; x != -1; x = p[x], y = ty) {
-                costs[cur + 1] += a[x][y];  // 加入新匹配的权重
+                costs[cur + 1] += a[x][y]; // 加入新匹配的权重
                 if (xy[x] != -1)
-                    costs[cur + 1] -= a[x][xy[x]];  // 减去之前匹配的权重
+                    costs[cur + 1] -= a[x][xy[x]]; // 减去之前匹配的权重
                 ty = xy[x];
-                xy[x] = y;  // 更新匹配
+                xy[x] = y; // 更新匹配
                 yx[y] = x;
             }
         }
-        return costs[nx];  // 返回最大匹配权重
+        return costs[nx]; // 返回最大匹配权重
     }
 
     // 获取最终的匹配结果
@@ -141,15 +141,15 @@ struct MaxAssignment {
         return costs;
     }
 
-    std::vector<T> lx, ly, slack, costs;  // 分别存储 x 顶点、y 顶点的标号，slack 值和每一步的最大匹配权重
-    std::vector<int> xy, yx, p, slackx;   // 分别存储匹配结果，路径记录和最小 slack 对应的 x
-    std::vector<bool> visx, visy;         // 记录 BFS 过程中的访问状态
+    std::vector<T> lx, ly, slack, costs; // 分别存储 x 顶点、y 顶点的标号，slack 值和每一步的最大匹配权重
+    std::vector<int> xy, yx, p, slackx;  // 分别存储匹配结果，路径记录和最小 slack 对应的 x
+    std::vector<bool> visx, visy;        // 记录 BFS 过程中的访问状态
 };
 
-template<typename T>
+template <typename T>
 void assertEquals(const std::vector<T>& v1, const std::vector<T>& v2) {
     assert(v1.size() == v2.size());
-    for(int i = 0; i < v1.size(); ++i) {
+    for (int i = 0; i < v1.size(); ++i) {
         assert(v1[i] == v2[i]);
     }
 }
@@ -173,8 +173,8 @@ void should_assign() {
     auto xy = ma.assignment();
     assert(int(xy.size()) == 3);
     assertEquals(xy, {2, 1, 0});
-    
-    auto[lx, ly] = ma.labels();
+
+    auto [lx, ly] = ma.labels();
     assert(int(lx.size()) == 3);
     assert(int(ly.size()) == 3);
     assertEquals(lx, {0, 5, 7});

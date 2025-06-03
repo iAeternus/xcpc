@@ -3,7 +3,6 @@
 using i64 = long long;
 
 void solve() {
-
 }
 
 int main() {
@@ -14,7 +13,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    while(t--) {
+    while (t--) {
         solve();
     }
 

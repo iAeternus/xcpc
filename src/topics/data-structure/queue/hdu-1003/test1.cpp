@@ -24,7 +24,7 @@ int main() {
     int t;
     std::cin >> t;
 
-    for(int i = 1; i <= t; ++i) {
+    for (int i = 1; i <= t; ++i) {
         int n;
         std::cin >> n;
 
@@ -32,20 +32,20 @@ int main() {
         int start = 1, end = 1, p = 1; // 起点，终点，扫描位置
         int sum = 0;
 
-        for(int j = 1; j <= n; ++j) {
+        for (int j = 1; j <= n; ++j) {
             int a;
             std::cin >> a;
 
             sum += a;
 
-            if(sum > max_sum) {
+            if (sum > max_sum) {
                 max_sum = sum;
                 start = p;
                 end = j;
             }
 
             // 如果sum为负，从下一位置开始求和
-            if(sum < 0) {
+            if (sum < 0) {
                 sum = 0;
                 p = j + 1;
             }
@@ -54,7 +54,7 @@ int main() {
         std::cout << "Case " << i << ':' << std::endl;
         std::cout << max_sum << ' ' << start << ' ' << end << std::endl;
 
-        if(i != t) {
+        if (i != t) {
             std::cout << std::endl;
         }
     }

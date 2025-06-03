@@ -21,11 +21,11 @@ int cur;
 int vis[N], match[N];
 
 bool dfs(int x) {
-    for(int i = head[x]; i; i = edge[i].next) {
+    for (int i = head[x]; i; i = edge[i].next) {
         int to = edge[i].to;
-        if(vis[to] != cur) {
+        if (vis[to] != cur) {
             vis[to] = cur;
-            if(!match[to] || dfs(match[to])) {
+            if (!match[to] || dfs(match[to])) {
                 match[to] = x;
                 return true;
             }
@@ -37,7 +37,7 @@ bool dfs(int x) {
 int main() {
     int n;
     std::cin >> n;
-    for(int i = 1; i <= n; ++i) {
+    for (int i = 1; i <= n; ++i) {
         int x, y;
         std::cin >> x >> y;
         addEdge(x, i);
@@ -45,9 +45,9 @@ int main() {
     }
 
     int ans = 0;
-    for(int i = 1; i < N; ++i) {
+    for (int i = 1; i < N; ++i) {
         cur++;
-        if(!dfs(i)) {
+        if (!dfs(i)) {
             ans = i - 1;
             break;
         }

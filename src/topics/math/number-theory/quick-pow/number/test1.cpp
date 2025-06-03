@@ -32,8 +32,8 @@ int fast_pow(int a, int n) {
  */
 ll fast_pow(ll a, ll n, ll m) {
     ll ans = 1;
-    while(n) {
-        if(n & 1) {
+    while (n) {
+        if (n & 1) {
             ans = (ans * a) % m;
         }
         a = (a * a) % m;
@@ -43,6 +43,6 @@ ll fast_pow(ll a, ll n, ll m) {
 }
 
 int main() {
-    std::cout << fast_pow(2, 10) << std::endl; // 1024
+    std::cout << fast_pow(2, 10) << std::endl;     // 1024
     std::cout << fast_pow(2, 10, 10) << std::endl; // 4
 }
