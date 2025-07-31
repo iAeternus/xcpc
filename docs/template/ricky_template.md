@@ -94,7 +94,7 @@ int query(int l, int r) {
 
 ## 线段树
 
-[线段树详解、常见应用与拓展_线段树的实际应用-CSDN博客](https://blog.csdn.net/qq_41765114/article/details/90179818)
+[线段树详解、常见应用与拓展_线段树的实际应用-CSDN 博客](https://blog.csdn.net/qq_41765114/article/details/90179818)
 
 ```cpp
 const int N = 2e5 + 5;
@@ -161,6 +161,150 @@ i64 query(int root, int L, int R) {
     if (L <= mid) max_val = std::max(max_val, query(left_son(root), L, R));
     if (R > mid) max_val = std::max(max_val, query(right_son(root), L, R));
     return max_val;
+}
+```
+
+### 区间修改+区间查询
+
+```cpp
+/**
+ * @see https://www.luogu.com.cn/problem/P3373
+ */
+#include <bits/stdc++.h>
+
+using ll = long long;
+const int N = 1e5 + 7;
+ll a[N];
+int n, q, m;
+
+struct node {
+    ll val, mul, add;
+} t[N << 2];
+
+inline int left_child(int p) {
+    return p << 1;
+}
+
+inline int right_child(int p) {
+    return p << 1 | 1;
+}
+
+void push_up(int p) {
+    t[p].val = (t[left_child(p)].val + t[right_child(p)].val) % m;
+}
+
+void push_down(int p, int l, int r) {
+    int mid = (l + r) >> 1;
+    t[left_child(p)].val = (t[left_child(p)].val * t[p].mul + t[p].add * (mid - l + 1)) % m;
+    t[right_child(p)].val = (t[right_child(p)].val * t[p].mul + t[p].add * (r - mid)) % m;
+    t[left_child(p)].add = (t[left_child(p)].add * t[p].mul + t[p].add) % m;
+    t[right_child(p)].add = (t[right_child(p)].add * t[p].mul + t[p].add) % m;
+    t[left_child(p)].mul = (t[left_child(p)].mul * t[p].mul) % m;
+    t[right_child(p)].mul = (t[right_child(p)].mul * t[p].mul) % m;
+    t[p].mul = 1;
+    t[p].add = 0;
+}
+
+void build(int p, int l, int r) {
+    t[p] = {0, 1, 0};
+    if (l == r) {
+        t[p].val = a[l] % m;
+        return;
+    }
+
+    int mid = (l + r) >> 1;
+    build(left_child(p), l, mid);
+    build(right_child(p), mid + 1, r);
+    push_up(p);
+}
+
+void update1(int p, int std_l, int std_r, int l, int r, ll k) {
+    if (r < std_l || std_r < l) {
+        return;
+    }
+    if (l <= std_l && std_r <= r) {
+        t[p].val = (t[p].val * k) % m;
+        t[p].add = (t[p].add * k) % m;
+        t[p].mul = (t[p].mul * k) % m;
+        return;
+    }
+
+    push_down(p, std_l, std_r);
+    int mid = (std_l + std_r) >> 1;
+    update1(left_child(p), std_l, mid, l, r, k);
+    update1(right_child(p), mid + 1, std_r, l, r, k);
+    push_up(p);
+}
+
+/**
+ * [l, r] 区间乘以 k
+ */
+void update1(int l, int r, ll k) {
+    update1(1, 1, n, l, r, k);
+}
+
+void update2(int p, int std_l, int std_r, int l, int r, ll k) {
+    if (r < std_l || std_r < l) {
+        return;
+    }
+    if (l <= std_l && std_r <= r) {
+        t[p].val = (t[p].val + k * (std_r - std_l + 1)) % m;
+        t[p].add = (t[p].add + k) % m;
+        return;
+    }
+
+    push_down(p, std_l, std_r);
+    int mid = (std_l + std_r) >> 1;
+    update2(left_child(p), std_l, mid, l, r, k);
+    update2(right_child(p), mid + 1, std_r, l, r, k);
+    push_up(p);
+}
+
+/**
+ * [l, r] 区间加上 k
+ */
+void update2(int l, int r, ll k) {
+    update2(1, 1, n, l, r, k);
+}
+
+ll rangeSum(int p, int std_l, int std_r, int l, int r) {
+    if (r < std_l || std_r < l) {
+        return 0;
+    }
+    if (l <= std_l && std_r <= r) {
+        return t[p].val;
+    }
+
+    push_down(p, std_l, std_r);
+    int mid = (std_l + std_r) >> 1;
+    return (rangeSum(left_child(p), std_l, mid, l, r) + rangeSum(right_child(p), mid + 1, std_r, l, r)) % m;
+}
+
+ll rangeSum(int l, int r) {
+    return rangeSum(1, 1, n, l, r);
+}
+
+int main() {
+    std::cin >> n >> q >> m;
+    for (int i = 1; i <= n; ++i) {
+        std::cin >> a[i];
+    }
+    build(1, 1, n);
+    while (q--) {
+        int op, x, y;
+        ll k;
+        std::cin >> op;
+        if (op == 1) {
+            std::cin >> x >> y >> k;
+            update1(x, y, k);
+        } else if (op == 2) {
+            std::cin >> x >> y >> k;
+            update2(x, y, k);
+        } else {
+            std::cin >> x >> y;
+            std::cout << rangeSum(x, y) << std::endl;
+        }
+    }
 }
 ```
 
@@ -276,7 +420,7 @@ int main() {
 
 珂朵莉树的适用范围是有 **区间赋值** 操作且 **数据随机** 的题目，时间复杂度比线段树低
 
-
+TODO
 
 ## ST 表
 
@@ -440,9 +584,9 @@ int main() {
 3. **流式数据的分位数统计**：
    - 通过调整两个堆的比例，快速查询任意分位数（如 90% 分位）。
 
-###  实时获取第K大的元素
+###  实时获取第 K 大的元素
 
-允许`b`中存在与当前第K大元素相等的值
+允许 `b` 中存在与当前第 K 大元素相等的值
 
 ```cpp
 #include <bits/stdc++.h>
@@ -475,11 +619,11 @@ int main() {
 }
 ```
 
-###  实时获取前K大的元素之和
+###  实时获取前 K 大的元素之和
 
-`le`中的元素严格大于`ge`的所有元素
+`le` 中的元素严格大于 `ge` 的所有元素
 
-使用multiset实现可以随机修改的对顶堆
+使用 multiset 实现可以随机修改的对顶堆
 
 ```cpp
 #include <bits/stdc++.h>
@@ -634,6 +778,8 @@ for(int i = 1; i <= n; ++i) {
 
 ## 并查集
 
+### 普通并查集
+
 ```cpp
 /**
  * @see https://codeforces.com/edu/course/2/lesson/7/1/practice/contest/289390/problem/B
@@ -696,6 +842,77 @@ int main() {
         } else {
             std::cin >> u >> v;
             merge(u, v);
+        }
+    }
+}
+```
+
+### 路径压缩 + 按秩合并
+
+```cpp
+/**
+ * @see https://www.luogu.com.cn/problem/P3367
+ */
+#include <bits/stdc++.h>
+
+const int N = 2e5 + 3;
+int n, m;
+int fa[N], rk[N];
+
+void init(int sz) {
+    std::fill(rk, rk + sz, 0);
+    for(int i = 0; i < sz; ++i) {
+        fa[i] = i;
+    }
+}
+
+/**
+ * @brief 查询x的组长 
+ */
+int query(int x) {
+    while(x != fa[x]) {
+        x = fa[x] = fa[fa[x]];
+    }
+    return x;
+}
+
+/**
+ * @brief 合并x和y为一组
+ * @return true=合并成功 false=合并失败，x和y已在同一组内
+ */
+bool merge(int x, int y) {
+    auto fx = query(x), fy = query(y);
+    if(fx == fy) return false;
+
+    if(rk[fx] > rk[fy]) {
+        fa[fy] = fx;
+    } else {
+        fa[fx] = fy;
+        if(rk[fx] == rk[fy]) {
+            ++rk[fy];
+        }
+    }
+
+    return true;
+}
+
+/**
+ * @brief 查询x和y是否在一组
+ */
+bool is_same(int x, int y) {
+    return query(x) == query(y);
+}
+
+int main() {
+    std::cin >> n >> m;
+    init(n);
+    while(m--) {
+        int z, x, y;
+        std::cin >> z >> x >> y;
+        if(z == 1) {
+            merge(x, y);
+        } else {
+            std::cout << (is_same(x, y) ? 'Y' : 'N') << '\n';
         }
     }
 }
@@ -774,12 +991,14 @@ for(int i = head[u]; i; i = edge[u].next) {
 
 O(n^3)
 
-利用 Floyd 算法很容易判断负圈，因为 `graph[i][i]` 是 i 到外面绕一圈回来的最小路径，若小于 0，说明存在负圈。可以置 `graph[i][i]=0`，并在 `floyd()` 中判断是否存在某个 `graph[i][i]<0`，若存在则说明该图中有负圈。
+利用 Floyd 算法很容易判断负圈，因为 `graph[i][i]` 是 i 到外面绕一圈回来的最小路径，若小于 0，说明存在负圈。可以置 `graph[i][i]=0`，并在 `floyd()` 中判断是否存在某个 `graph[i][i] < 0`，若存在则说明该图中有负圈。
+
+可以直接在带权邻接矩阵上跑这个算法
 
 ```cpp
 constexpr int INF = 0x3f3f3f3f;
 
-std::vector dis(n, std::vector<Node>(n, {INF, 0})); // 一般存int即权重，根据题意换成结构体
+std::vector dis(n, std::vector<Node>(n, {INF, 0})); // 一般存int为权重，根据题意换成结构体
 for (int i = 0; i < n; ++i) {
     dis[i][i] = {0, 0};
 }
@@ -914,7 +1133,7 @@ int query(const std::string& s) {
 
 ### 01 字典树
 
-
+TODO
 
 ## KMP 算法
 

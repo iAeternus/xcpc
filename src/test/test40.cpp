@@ -1,14 +1,33 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
-using usize = unsigned long long;
+class Test {
+    friend int main();
+    int i;
+    Test(int);
 
-using u8 = unsigned char;
-using i8 = char;
+    void g();
+    friend Test& f(Test);
+};
+
+Test& f(Test);
 
 int main() {
-    for(usize i = 10; i >= 0; --i) {
-        std::cout << i << std::endl;
-    }
+    Test& a = f(0);
+    int n = a.i;
+    // std::cout << ++a.i << std::endl;
+    std::cout << "n = " << ++n << std::endl;
+    return 0;
+}
 
-    const i8* str = "aaabbb";
+Test& f(Test obj) {
+    obj.g();
+    return obj;
+}
+
+Test::Test(int x) {
+    ++i = x;
+}
+
+void Test::g() {
+    std::cout << "Hello\n";
 }
