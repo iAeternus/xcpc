@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "F:\\application\\develop\\gcc\\x86_64-13.2.0-release-win32-seh-msvcrt-rt_v11-rev0\\mingw64\\x86_64-w64-mingw32\\include\\*"
+                "F:\\Software\\Develop\\mingw\\mingw64\\x86_64-w64-mingw32\\include\\*"
             ],
             "defines": [
                 "_DEBUG",
@@ -12,7 +12,7 @@
                 "_UNICODE"
             ],
             "intelliSenseMode": "windows-gcc-x64",
-            "compilerPath": "F:/application/develop/gcc/x86_64-13.2.0-release-win32-seh-msvcrt-rt_v11-rev0/mingw64/bin/g++.exe",
+            "compilerPath": "F:\\Software\\Develop\\mingw\\mingw64\\bin\\g++.exe",
             "cStandard": "c23",
             "cppStandard": "c++23"
         }
